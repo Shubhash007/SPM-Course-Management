@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\ashup\Desktop\SPM LJPS\venv"
+VIRTUAL_ENV="C:\Users\ashup\Desktop\SPM LJPS\LMS_spm_G7T1\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
