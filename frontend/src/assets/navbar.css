@@ -1,0 +1,43 @@
+nav{
+    background-color: #2F2FFA;
+}
+
+.navbar-brand{
+color: #F64C72;
+}
+
+.nav-link{
+color: white;
+}
+
+.navbar-button{
+margin:10px;
+}
+
+#navbar-login{
+border-color: #F64C72;
+color:#F64C72;
+background-color: #2F2FFA;
+}
+
+#navbar-login:hover{
+background-color: white;
+}
+
+#navbar-signup{
+color:white;
+background-color: #F64C72;
+border-color: #F64C72;
+}
+
+#navbar-signup:hover{
+color: black;
+}
+
+/* footer */
+footer{
+    background-color: #2F2FFA;
+    color: white;
+    padding: 10px;
+    margin-top:auto;
+}
