@@ -89,10 +89,8 @@
                     </div>
                 </div>
             </p>
-            
-            
-            
-            <button href="#" class="btn next-button" @click.prevent="Create()">Create</button>
+
+            <router-link to="/HRHome" class="btn next-button">Create</router-link>
         </div>
     </div>
 </template>
@@ -117,9 +115,6 @@
             },
             RemoveNewSkill:function(){
                 this.newSkillCounter -= 1;
-            },
-            Create(){
-                this.$router.push('/HRHome')
             }
         }
     }
