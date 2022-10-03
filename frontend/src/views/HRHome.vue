@@ -1,4 +1,5 @@
 <template>
+    <!-- Create Role / Skill -->
     <div class="row p-5" id="row">
         <div class="col-sm-6">
             <div class="card">
@@ -14,9 +15,21 @@
             <div class="card-body">
                 <h5 class="card-title">Create a New Skill</h5>
                 <p class="card-text">Input a new skill into the system. You will not be able to create an existing skill.</p>
-                <a href="#" class="btn" id="card-button">Create Skill</a>
+                <router-link class="btn" id="card-button" to="#">Create Skill</router-link>
+            </div>
+            </div>
+        </div>
+
+        <!-- View Roles / Skills -->
+        <div class="col-sm-6">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">View Roles</h5>
+                <p class="card-text">View all roles to keep track of unfilled roles in the company</p>
+                <router-link class="btn" id="card-button" to="/ViewRoles">View Roles</router-link>
             </div>
             </div>
         </div>
     </div>
+    
 </template>
