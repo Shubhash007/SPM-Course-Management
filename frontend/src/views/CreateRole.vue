@@ -115,6 +115,9 @@
             },
             RemoveNewSkill:function(){
                 this.newSkillCounter -= 1;
+                if (this.newSkillCounter == 0){
+                    this.hasNewSkill = false;
+                }
             }
         }
     }
