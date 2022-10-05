@@ -1,85 +1,85 @@
 <template>
     <div class="card w-75">
         <div class="card-body">
-            <!-- Create a Job Role -->
-            <h5 class="card-title">CREATE A JOB ROLE</h5>
+            <!-- Create a Skill -->
+            <h5 class="card-title">CREATE A SKILL</h5>
             <p class="card-text">
                 <div class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
-                        <label for="jobRole" class="col-form-label" id="spacing">Job Role Name</label>
+                        <label for="newSkill" class="col-form-label" id="spacing">Skill Name</label>
                     </div>
                     <div class="col-auto">
-                        <input type="text" v-bind:id="jobRole" class="form-control" aria-describedby="roleNameLimit" maxlength="20">
+                        <input type="text" v-bind:id="newSkill" class="form-control" aria-describedby="roleNameLimit" maxlength="20">
                     </div>
                     <div class="col-auto">
-                        <span id="roleNameLimit" class="form-text" style="color:white;">
+                        <span id="skillNameLimit" class="form-text" style="color:white;">
                         Must be 3-20 characters long.
                         </span>
                     </div>
                 </div>
                 <div class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
-                        <label for="jobDescription" class="col-form-label">Job Role Description</label>
+                        <label for="skillDescription" class="col-form-label">Skill Description</label>
                     </div>
                     <div class="col-auto">
-                        <textarea v-bind:id="jobDescription" class="form-control" aria-describedby="roleDescLimit"></textarea>
+                        <textarea v-bind:id="skillDescription" class="form-control" aria-describedby="skillDescLimit"></textarea>
                     </div>
                     <div class="col-auto">
-                        <span id="roleDescLimit" class="form-text" style="color:white;">
+                        <span id="skillDescLimit" class="form-text" style="color:white;">
                         Must be 8-100 characters long.
                         </span>
                     </div>
                 </div>
             </p>
             
-            <!-- Attach Skills to Role -->
-            <h5 class="card-title">ATTACH SKILL(S)</h5>
+            <!-- Attach Role to Skills -->
+            <h5 class="card-title">ATTACH TO ROLE(S)</h5>
             <p class="card-text">
-                <div v-for="n in existingSkillCounter" class="row g-3 py-3 align-items-center">
+                <div v-for="n in existingRoleCounter" class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
-                        <label for="Skill{{n}}" class="col-form-label" id="spacing2">Skill #{{n}}</label>
+                        <label for="Role{{n}}" class="col-form-label" id="spacing2">Role #{{n}}</label>
                     </div>
                     <div class="col-auto">
                         <select class="form-select select-skill" style="background-color: #2F2FFA; color:white;">
-                            <option selected>Select an existing skill...</option>
+                            <option selected>Select an existing role...</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
                     </div>
                     <div class="col-auto">
-                        <button type="button" class="btn" style="color:white;" @click="AddExistingSkill()">+</button>
-                        <button type="button" class="btn" style="color:white;" @click="RemoveExistingSkill()">-</button>
+                        <button type="button" class="btn" style="color:white;" @click="AddExistingRole()">+</button>
+                        <button type="button" class="btn" style="color:white;" @click="RemoveExistingRole()">-</button>
                     </div>
                 </div>
 
                 <div class="col-auto">
-                    <button v-if="!hasNewSkill" href="#" class="btn skill-button" @click="AddNewSkill()">Add New Skill</button>
-                    <h5 v-if="hasNewSkill" class="card-title" style="display: inline">ADD NEW SKILL(S)</h5>
-                    <button type="button" class="btn" style="color:white; margin-left:65%" @click="AddNewSkill()">+</button>
-                    <button type="button" class="btn" style="color:white;" @click="RemoveNewSkill()">-</button>
+                    <button v-if="!hasNewRole" href="#" class="btn role-button" @click="AddNewRole()">Add New Role</button>
+                    <h5 v-if="hasNewRole" class="card-title" style="display: inline">ADD NEW ROLE(S)</h5>
+                    <button type="button" class="btn" style="color:white; margin-left:65%" @click="AddNewRole()">+</button>
+                    <button type="button" class="btn" style="color:white;" @click="RemoveNewRole()">-</button>
                 </div>
 
                 <div v-for="i in newSkillCounter">
                     <div class="row g-3 py-3 align-items-center">
                         <div class="col-auto">
-                            <label for="skillName" class="col-form-label" id="spacing">Skill #{{i}} Name</label>
+                            <label for="roleName" class="col-form-label" id="spacing">Role #{{i}} Name</label>
                         </div>
                         <div class="col-auto">
-                            <input type="text" v-bind:id="skillName" class="form-control" aria-describedby="skillNameLimit" maxlength="20">
+                            <input type="text" v-bind:id="roleName" class="form-control" aria-describedby="roleNameLimit" maxlength="20">
                         </div>
                         <div class="col-auto">
-                            <span id="skillNameLimit" class="form-text" style="color:white;">
+                            <span id="roleNameLimit" class="form-text" style="color:white;">
                             Must be 3-20 characters long.
                             </span>
                         </div>
                     </div>
                     <div class="row g-3 py-3 align-items-center">
                         <div class="col-auto">
-                            <label for="jobDescription" class="col-form-label">Skill #{{i}} Description</label>
+                            <label for="roleDescription" class="col-form-label">Role #{{i}} Description</label>
                         </div>
                         <div class="col-auto">
-                            <textarea v-bind:id="jobDescription" class="form-control" aria-describedby="roleDescLimit"></textarea>
+                            <textarea v-bind:id="roleDescription" class="form-control" aria-describedby="roleDescLimit"></textarea>
                         </div>
                         <div class="col-auto">
                             <span id="roleDescLimit" class="form-text" style="color:white;">
@@ -98,27 +98,27 @@
     export default{
         data(){
             return{
-                existingSkillCounter: 1,
+                existingRoleCounter: 1,
                 newSkillCounter: 0,
-                hasNewSkill: false
+                hasNewRole: false
             }
         }, methods:{
-            AddExistingSkill:function(){
-                this.existingSkillCounter += 1;
+            AddExistingRole:function(){
+                this.existingRoleCounter += 1;
             },
-            RemoveExistingSkill:function(){
+            RemoveExistingRole:function(){
                 if (this.existingRoleCounter != 1){
-                    this.existingSkillCounter -= 1;
+                    this.existingRoleCounter -= 1;
                 }
             },
-            AddNewSkill:function(){
+            AddNewRole:function(){
                 this.newSkillCounter += 1;
-                this.hasNewSkill = true;
+                this.hasNewRole = true;
             },
-            RemoveNewSkill:function(){
+            RemoveNewRole:function(){
                 this.newSkillCounter -= 1;
                 if (this.newSkillCounter == 0){
-                    this.hasNewSkill = false;
+                    this.hasNewRole = false;
                 }
             }
         }
@@ -174,12 +174,12 @@
     }
 
     /* Attach Skill to Role */
-    .skill-button{
+    .role-button{
         border-color: white;
         color: white;
     }
 
-    .skill-button:hover{
+    .role-button:hover{
         border-color: #F64C72;
         color: #F64C72;
     }
