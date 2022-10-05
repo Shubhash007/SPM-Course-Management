@@ -19,11 +19,11 @@
 </template>
 
 
-<script>
-    name: AddSkillToLJ
-    export default {
-        props : ['num','role','skills']
-    }
-
+<script setup>
+const props = defineProps({
+    num: Number,
+    role:String,
+    skills:Object
+})
 
 </script>
