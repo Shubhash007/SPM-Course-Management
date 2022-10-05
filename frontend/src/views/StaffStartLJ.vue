@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="row text-white fs-1 fw-bold p-2 text-center">
+        <div class="row text-dark fs-1 fw-bold p-2 text-center">
             <p>Start Learning Jorney</p>
             <div class="text-muted fs-4">Click on role to see information</div>
         </div>
