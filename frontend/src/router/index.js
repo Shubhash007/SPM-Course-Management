@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import CreateRole from "../views/CreateRole.vue";
 import HRHome from "../views/HRHome.vue";
 import ViewRoles from "../views/ViewRoles.vue";
+import StaffStartLJ from "../views/StaffStartLJ.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,7 +24,12 @@ const router = createRouter({
     {
       path: "/ViewRoles",
       component: ViewRoles,
-    }
+    },
+    {
+      path: "/StartLJ",
+      component: StaffStartLJ,
+      name: 'StartLJ'
+    },
 
   ],
 });
