@@ -15,7 +15,7 @@
             <div class="card-body">
                 <h5 class="card-title">Create a New Skill</h5>
                 <p class="card-text">Input a new skill into the system. You will not be able to create an existing skill.</p>
-                <router-link class="btn" id="card-button" to="#">Create Skill</router-link>
+                <router-link class="btn" id="card-button" to="/CreateSkill">Create Skill</router-link>
             </div>
             </div>
         </div>
