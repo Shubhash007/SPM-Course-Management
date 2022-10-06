@@ -11,10 +11,10 @@
             <router-link to="HRHome" class="nav-link" aria-current="page">HOME</router-link>
           </li>
           <li class="nav-item ms-5">
-            <a class="nav-link" href="#">COURSES</a>
+            <router-link to="StaffHome" class="nav-link" aria-current="page">HOME(STAFF)</router-link>
           </li>
           <li class="nav-item ms-5">
-            <a class="nav-link" href="#">ACCOUNT</a>
+            <router-link to="StaffProfile" class="nav-link" aria-current="page">ACCOUNT</router-link>
           </li>
         </ul>
         <button type="button" class="btn btn-primary navbar-button" id="navbar-login">Login</button>

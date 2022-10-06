@@ -102,7 +102,10 @@
                 newSkillCounter: 0,
                 hasNewSkill: false
             }
-        }, methods:{
+        }, 
+        
+        
+        methods:{
             AddExistingSkill:function(){
                 this.existingSkillCounter += 1;
             },
