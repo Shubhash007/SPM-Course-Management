@@ -5,11 +5,20 @@
             <div class="text-muted fs-4">Click on role to see information</div>
         </div>
 
+        <div class="row" style="margin: 20px 50px;">
+            <div class="col-3">
+                <label for="search" class="visually-hidden">Search</label>
+                <input @change="update_filter" @keyup="update_filter"  v-model="search_term"  type="text" class="form-control search-textbox" id="search" placeholder="Search for Job Role...">
+            </div>
+            <div class="col-3">
+                <button type="submit" class="btn search-button mb-3">Search</button>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-6 mx-auto">
-                <p class="fs-3 text-white">Select Role</p>
                 <div class="accordion" id="accordionExample">
-                    <AddRoleToLJ v-for="(item,index) in skills_data" :num="index" :role="item.role" :skills="item.skills"  />
+                    <AddRoleToLJ v-for="(item,index) in filtered_data" :num="index" :role="item.role" :skills="item.skills"  />
                 </div>
             </div>
         </div>           
@@ -20,6 +29,7 @@
 import AddRoleToLJ from '@/components/AddRoleToLJ.vue'
 import { ref,reactive } from 'vue';
 
+const search_term = ref('')
 const skills_data =reactive([
     {    
         role: "Developer",
@@ -35,6 +45,42 @@ const skills_data =reactive([
     }
 ])
 
+var filtered_data = ref(skills_data)
+console.log(filtered_data)
+const update_filter = function(){
+    let search = search_term.value.toLowerCase()
+    if( search && search.length > 0){
+        filtered_data = skills_data.filter(info => info.role.toLowerCase().startsWith(search) )
+        console.log(filtered_data)
+    }
+    else{
+        filtered_data.value = skills_data.value
+    }
+}
 
 
 </script>
+
+<style scoped>
+    #search{
+        border-color: #2F2FFA;
+    }
+    
+    #search::placeholder{
+        color: #2F2FFA;
+    }
+
+    .search-textbox:focus{
+        box-shadow: #F64C72;
+    }
+    
+    .search-button{
+        background-color: #F64C72;
+        color: white;
+    }
+
+    .search-button:hover{
+        background-color: #F64C72;
+        color: black;
+    }
+</style>
