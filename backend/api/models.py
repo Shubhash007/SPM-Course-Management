@@ -66,3 +66,31 @@ class Registration(models.Model):
         """Unicode representation of Registration."""
         pass
 
+class Job_Role(models.Model):
+    """Model definition for Registration."""
+    # TODO: Define fields here
+    Job_Role_ID = models.IntegerField(primary_key=True, null=False)
+    Job_Role_Desc = models.ForeignKey(max_length=255)
+
+
+    class Meta:
+        """Meta definition for Registration."""
+        verbose_name = 'Registration'
+
+    def __str__(self):
+        """Unicode representation of Registration."""
+        pass
+
+class User_Role(models.Model):
+    """Model definition for Registration."""
+    # TODO: Define fields here
+    UserRole = models.IntegerField(primary_key=True, null=False)
+    UserRole_Name = models.ForeignKey(max_length=50)
+
+    class Meta:
+        """Meta definition for Registration."""
+        verbose_name = 'Registration'
+
+    def __str__(self):
+        """Unicode representation of Registration."""
+        pass
