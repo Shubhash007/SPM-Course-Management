@@ -62,5 +62,28 @@ class Migration(migrations.Migration):
             options={
                 'verbose_name': 'Registration',
             },
+        ), 
+        migrations.CreateModel(
+            name='Job_Role',
+            fields=[
+                ('Job_Role_ID', models.IntegerField(primary_key=True, serialize=False)),
+                ('Job_Role_Desc', models.CharField(max_length=255)),
+
+            ],
+            options={
+                'verbose_name': 'Job_Role',
+            },
         ),
+        migrations.CreateModel(
+            name='User_Role',
+            fields=[
+                ('UserRole', models.IntegerField(primary_key=True, serialize=False)),
+                ('UserRole_Name', models.CharField(max_length=255)),
+
+            ],
+            options={
+                'verbose_name': 'User_Role',
+            },
+        ),
+
     ]
