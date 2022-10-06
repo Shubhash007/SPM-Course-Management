@@ -64,25 +64,25 @@ class Migration(migrations.Migration):
             },
         ), 
         migrations.CreateModel(
-            name='Job_Role',
+            name='JobRole',
             fields=[
                 ('Job_Role_ID', models.IntegerField(primary_key=True, serialize=False)),
                 ('Job_Role_Desc', models.CharField(max_length=255)),
 
             ],
             options={
-                'verbose_name': 'Job_Role',
+                'verbose_name': 'JobRole',
             },
         ),
         migrations.CreateModel(
-            name='User_Role',
+            name='UserRole',
             fields=[
                 ('UserRole', models.IntegerField(primary_key=True, serialize=False)),
                 ('UserRole_Name', models.CharField(max_length=255)),
 
             ],
             options={
-                'verbose_name': 'User_Role',
+                'verbose_name': 'UserRole',
             },
         ),
 

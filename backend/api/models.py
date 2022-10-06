@@ -66,11 +66,11 @@ class Registration(models.Model):
         """Unicode representation of Registration."""
         pass
 
-class Job_Role(models.Model):
+class JobRole(models.Model):
     """Model definition for Job_Role."""
     # TODO: Define fields here
     Job_Role_ID = models.IntegerField(primary_key=True, null=False)
-    Job_Role_Desc = models.ForeignKey(max_length=255)
+    Job_Role_Desc = models.CharField(max_length=255)
 
 
     class Meta:
@@ -78,18 +78,18 @@ class Job_Role(models.Model):
         verbose_name = 'Job_Role'
 
     def __str__(self):
-        """Unicode representation of Job_Role."""
+        """Unicode representation of JobRole."""
         pass
 
-class User_Role(models.Model):
+class UserRole(models.Model):
     """Model definition for User_Role."""
     # TODO: Define fields here
     UserRole = models.IntegerField(primary_key=True, null=False)
-    UserRole_Name = models.ForeignKey(max_length=50)
+    UserRole_Name = models.CharField(max_length=50)
 
     class Meta:
         """Meta definition for User_Role."""
-        verbose_name = 'User_Role'
+        verbose_name = 'UserRole'
 
     def __str__(self):
         """Unicode representation of User_Role."""
