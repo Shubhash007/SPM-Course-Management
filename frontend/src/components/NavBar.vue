@@ -16,6 +16,9 @@
           <li class="nav-item ms-5">
             <a class="nav-link" href="#">ACCOUNT</a>
           </li>
+          <li class="nav-item ms-5">
+            <router-link :to="{name:'StartLJ'}" class="nav-link" aria-current="page">START LJ</router-link>
+          </li>
         </ul>
         <button type="button" class="btn btn-primary navbar-button" id="navbar-login">Login</button>
         <button type="button" class="btn btn-outline-primary navbar-button" id="navbar-signup">Sign Up</button>
