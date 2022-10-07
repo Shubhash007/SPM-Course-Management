@@ -1,4 +1,4 @@
-import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/css/bootstrap.min.css";
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 
@@ -6,8 +6,8 @@ import App from "./App.vue";
 import router from "./router";
 
 import "./assets/main.css";
-import './assets/navbar.css';
-import './assets/hrhome.css';
+import "./assets/navbar.css";
+import "./assets/hrhome.css";
 
 const app = createApp(App);
 
@@ -16,4 +16,4 @@ app.use(router);
 
 app.mount("#app");
 
-import 'bootstrap/dist/js/bootstrap.js'
+import "bootstrap/dist/js/bootstrap.js";

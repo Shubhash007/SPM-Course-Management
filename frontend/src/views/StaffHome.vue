@@ -4,13 +4,10 @@
     <div class="col-sm-6">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Create a New Role</h5>
-          <p class="card-text">
-            Input a new role into the system. You will not be able to create an
-            existing role.
-          </p>
-          <router-link class="btn" id="card-button" to="/CreateRole"
-            >Create Role</router-link
+          <h5 class="card-title">Edit Learning Journey(s)</h5>
+          <p class="card-text">Edit your existing Learning Journey(s).</p>
+          <router-link class="btn" id="card-button" to="/EditLearningJourneys"
+            >Edit</router-link
           >
         </div>
       </div>
@@ -40,6 +37,18 @@
           </p>
           <router-link class="btn" id="card-button" to="/ViewRoles"
             >View Roles</router-link
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">View Staff</h5>
+          <p class="card-text">View staffs' skills and completed courses</p>
+          <router-link class="btn" id="card-button" to="/ViewStaff"
+            >View Staff</router-link
           >
         </div>
       </div>
