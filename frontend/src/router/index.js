@@ -5,6 +5,11 @@ import HRHome from "../views/HRHome.vue";
 import ViewRoles from "../views/ViewRoles.vue";
 import CreateSkill from "../views/CreateSkill.vue";
 import StaffProfile from "../views/StaffProfile.vue";
+import StaffStartLJ from "../views/StaffStartLJ.vue"
+import StaffProfile from "../views/StaffProfile.vue";
+import StaffHome from "../views/StaffHome.vue";
+import EditLearningJourneys from "../views/EditLearningJourneys.vue";
+import ViewStaff from "../views/ViewStaff.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,7 +39,26 @@ const router = createRouter({
       path: "/StaffProfile",
       component: StaffProfile,
     }
-
+      path: "/StartLJ",
+      component: StaffStartLJ,
+      name: 'StartLJ'
+    },
+    {
+      path: "/StaffProfile",
+      component: StaffProfile,
+    },
+    {
+      path: "/StaffHome",
+      component: StaffHome,
+    },
+    {
+      path: "/EditLearningJourneys",
+      component: EditLearningJourneys,
+    },
+    {
+      path: "/ViewStaff",
+      component: ViewStaff,
+    },
   ],
 });
 
