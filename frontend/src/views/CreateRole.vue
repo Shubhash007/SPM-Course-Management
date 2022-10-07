@@ -110,7 +110,7 @@
                 this.existingSkillCounter += 1;
             },
             RemoveExistingSkill:function(){
-                if (this.existingRoleCounter != 1){
+                if (this.existingSkillCounter != 1){
                     this.existingSkillCounter -= 1;
                 }
             },
@@ -131,12 +131,14 @@
     /* Create Job Role */
     .card{
         margin: 10px auto;
+        border-color: white;
     }
 
     .card-body{
         background-color: #2F2FFA;
         color: white;
         padding: 20px 35px;
+        border-radius: 10px;
     }
 
     .card-title{

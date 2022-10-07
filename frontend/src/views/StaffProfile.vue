@@ -1,4 +1,4 @@
-<template>
+<template style="min-height: 100vh;">
     <div class="card w-75">
         <div class="card-body">
 
@@ -39,7 +39,6 @@
     </div>
 </template>
 
-
 <script>
     export default{
         data(){
@@ -57,23 +56,34 @@
     }
 </script>
 
-
 <style scoped>
     /* Create Job Role */
     .card{
         margin: 10px auto;
+        border-color: white;
     }
 
     .card-body{
         background-color: #2F2FFA;
         color: white;
         padding: 20px 35px;
+        border-radius: 10px;
     }
 
     .card-title{
         padding: 10px 0px;
     }
+    
+    .col-auto{
+        display: inline-block;
+        margin-right: 15%;
+    }
 
+    .title-header{
+        font-size: 1rem;
+        color: #F64C72;
+    }
+    
     h5{
         color: #F64C72;
     }
@@ -81,5 +91,4 @@
     #spacing{
         padding-right: 42px;
     }
-
 </style>
