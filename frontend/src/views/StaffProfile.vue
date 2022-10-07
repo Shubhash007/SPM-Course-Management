@@ -7,32 +7,32 @@
 
             <div class="row">
                 <div class="col-sm">
-                <h5 class="card-title">Staff Particulars</h5>
-                <p class="card-text">
-                    <ul>
-                        <li>Staff ID: {{profile.StaffID}}</li>
-                        <li>Department: {{profile.Department}}</li>
-                        <li>Email: {{profile.Email}}</li>
-                    </ul>
-                </p>
+                    <h5 class="card-title">Staff Particulars</h5>
+                    <p class="card-text">
+                        <ul>
+                            <li>Staff ID: {{profile.StaffID}}</li>
+                            <li>Department: {{profile.Department}}</li>
+                            <li>Email: {{profile.Email}}</li>
+                        </ul>
+                    </p>
                 </div>
                 
                 <div class="col-sm">
-                <h5 class="card-title">Skills Attained</h5>
-                <p class="card-text">
-                    <ul>
-                        <li v-for="skill in profile.Skills">{{skill}}
-                        </li>
-                    </ul>
-                </p>
+                    <h5 class="card-title">Skills Attained</h5>
+                    <p class="card-text">
+                        <ul>
+                            <li v-for="skill in profile.Skills">{{skill}}
+                            </li>
+                        </ul>
+                    </p>
                 </div>
                 <div class="col-sm">
-                <h5 class="card-title">Current Roles</h5>
-                <p class="card-text">
-                    <ul>
-                        <li v-for="role in profile.Roles">{{role}}</li>
-                    </ul>
-                </p>
+                    <h5 class="card-title">Current Roles</h5>
+                    <p class="card-text">
+                        <ul>
+                            <li v-for="role in profile.Roles">{{role}}</li>
+                        </ul>
+                    </p>
                 </div>
             </div>
         </div>
