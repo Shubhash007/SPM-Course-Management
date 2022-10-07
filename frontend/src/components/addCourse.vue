@@ -13,13 +13,12 @@
                             <ol>
                                 <li v-for="skill in value">
                                     {{skill}}
-                                    <button type="submit" class="btn btn-sm delete-button" @click="deleteCourse">Delete</button>
+                                    <button type="submit" class="btn btn-sm delete-button" @click="addCourse">Add</button>
                                 </li>
                             </ol>
                             <br>
                     </li>
                 </ul>
-                <button type="button" class="btn btn-outline-danger btn-md">Delete Learning Journey</button>
             </div>
         </div>
     </div> 

@@ -37,27 +37,19 @@ const data =reactive({
   {    
       role: "Software Engineer",
       skills: {'Python': 
-                  {
-                    "Selected course(s)": ["Intro to Python", "Flask Techniques"]
-                  },
-
+                  ["Intro to Python", "Flask Techniques"]
+                  ,
                 'PHP':
-                  {
-                    "Selected course(s)": ["Intro to PHP"]
-                  }
+                  ["Intro to PHP"]
               }
   },
   {
       role: "Developer",
       skills: {'Python': 
-                  {
-                    "Selected course(s)": ["Intro to Python", "Flask Techniques"]
-                  },
+                  ["Intro to Python", "Flask Techniques"],
 
                 'PHP':
-                  {
-                    "Selected course(s)": ["Intro to PHP"]
-                  }
+                  ["Intro to PHP"]
               }
   }
 ],
