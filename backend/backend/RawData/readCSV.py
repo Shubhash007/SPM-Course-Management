@@ -1,5 +1,6 @@
 import pandas as pd
 import sqlite3
+
 conn = sqlite3.connect('backend\db.sqlite3')
 c = conn.cursor()
 
@@ -14,6 +15,7 @@ print(reg)
 
 staff = pd.read_csv('backend\\backend\\RawData\\staff.csv',error_bad_lines=False)
 print(staff)
+
 
 
 role.to_sql('api_user_role', conn, if_exists='replace', index = False)
