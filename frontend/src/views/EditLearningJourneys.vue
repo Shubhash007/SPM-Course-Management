@@ -1,71 +1,106 @@
 <template>
-  <div style="min-height: 80vh">
-    <div class="row g-3" style="margin: 20px 50px"></div>
-    <table
-      class="table fold-table"
-      style="width: 75%; border-color: #2f2ffa; margin: 20px 60px"
-      border="#2F2FFA"
-    >
-      <thead>
-        <tr>
-          <th scope="col">S/N</th>
-          <th scope="col">Job Roles</th>
-          <th scope="col">Staff Name(s)</th>
-          <!-- <th></th> -->
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(role, index) in roles">
-          <th scope="row" style="color: #2f2ffa">1</th>
-          <td>{{ role.RoleName }}</td>
-          <td>{{ role.StaffNames.toString() }}</td>
-          <!-- <td width="150px"><button href="#" class="btn filter-button" style="transform: scale(0.7); margin: -10px;">Assign Role</button></td> -->
-        </tr>
-      </tbody>
-    </table>
+  <div class="container">
+      <div class="row text-dark fs-1 fw-bold p-2 text-center">
+          <p>Learning Journeys</p>
+      </div>
+
+      <div class="row" style="margin: 20px 50px;">
+          <div class="col-3"></div>
+          <div class="col-3">
+              <label for="search" class="visually-hidden">Search</label>
+              <input @change="update_filter" @keyup="update_filter"  v-model="search_term"  type="text" class="form-control search-textbox" id="search" placeholder="Search for Job Role...">
+          </div>
+          <div class="col-3" >
+              <button type="submit" class="btn search-button mb-3">Search</button>
+          </div>
+          <div class="col-3"></div>
+      </div>
+
+      <div class="row">
+          <div class="col-6 mx-auto">
+              <div class="accordion" id="accordionExample">
+                  <DeleteLJ v-for="(item,index) in data.filtered_data" :num="index" :role="item.role" :skills="item.skills"  />
+              </div>
+          </div>
+      </div>           
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      roles: [
-        {
-          RoleName: "Software Enginner",
-          StaffNames: ["Mary Lamb", "Mary Cow"],
-        },
-        {
-          RoleName: "Consultant",
-          StaffNames: ["Bob Tan", "Benjamin Toh"],
-        },
-      ],
-    };
+
+<script setup>
+import AddRoleToLJ from '@/components/AddRoleToLJ.vue'
+import { ref,reactive } from 'vue';
+import DeleteLJ from '../components/DeleteLJ.vue';
+
+const search_term = ref('')
+const data =reactive({
+  skills_data:[
+  {    
+      role: "Software Engineer",
+      skills: {'Python': 
+                  {
+                    "Selected course(s)": ["Intro to Python", "Flask Techniques"]
+                  },
+
+                'PHP':
+                  {
+                    "Selected course(s)": ["Intro to PHP"]
+                  }
+              }
   },
-};
+  {
+      role: "Developer",
+      skills: {'Python': 
+                  {
+                    "Selected course(s)": ["Intro to Python", "Flask Techniques"]
+                  },
+
+                'PHP':
+                  {
+                    "Selected course(s)": ["Intro to PHP"]
+                  }
+              }
+  }
+],
+  filtered_data:[]
+})
+data.filtered_data = data.skills_data
+
+const update_filter = function(){
+  let search = search_term.value.toLowerCase()
+  if( search && search.length > 0){
+      let res = data.skills_data.filter(info => info.role.toLowerCase().startsWith(search) )
+      console.log(res)
+      data.filtered_data = res
+      console.log(data.filtered_data)
+  }
+  else{
+      data.filtered_data = data.skills_data
+  }
+}
+
+
 </script>
+
 <style scoped>
-#filter {
-  border-color: #2f2ffa;
-}
+  #search{
+      border-color: #2F2FFA;
+  }
+  
+  #search::placeholder{
+      color: #2F2FFA;
+  }
 
-#filter::placeholder {
-  color: #2f2ffa;
-}
+  .search-textbox:focus{
+      box-shadow: #F64C72;
+  }
+  
+  .search-button{
+      background-color: #F64C72;
+      color: white;
+  }
 
-.filter-textbox:focus {
-  box-shadow: #f64c72;
-}
-
-.filter-button {
-  background-color: #f64c72;
-  color: white;
-}
-
-.filter-button:hover {
-  background-color: #f64c72;
-  color: black;
-}
-td {
-  color: #2f2ffa;
-}
+  .search-button:hover{
+      background-color: #F64C72;
+      color: black;
+  }
 </style>
