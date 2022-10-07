@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-6 mx-auto">
                 <div class="accordion" id="accordionExample">
-                    <AddRoleToLJ v-for="(item,index) in filtered_data" :num="index" :role="item.role" :skills="item.skills"  />
+                    <AddRoleToLJ v-for="(item,index) in data.filtered_data" :num="index" :role="item.role" :skills="item.skills"  />
                 </div>
             </div>
         </div>           
@@ -30,7 +30,8 @@ import AddRoleToLJ from '@/components/AddRoleToLJ.vue'
 import { ref,reactive } from 'vue';
 
 const search_term = ref('')
-const skills_data =reactive([
+const data =reactive({
+    skills_data:[
     {    
         role: "Developer",
         skills: ['A','B']
@@ -42,19 +43,21 @@ const skills_data =reactive([
     {
         role: "Ops",
         skills: ['E','F']
-    }
-])
+    }],
+    filtered_data:[]
+})
+data.filtered_data = data.skills_data
 
-var filtered_data = ref(skills_data)
-console.log(filtered_data)
 const update_filter = function(){
     let search = search_term.value.toLowerCase()
     if( search && search.length > 0){
-        filtered_data = skills_data.filter(info => info.role.toLowerCase().startsWith(search) )
-        console.log(filtered_data)
+        let res = data.skills_data.filter(info => info.role.toLowerCase().startsWith(search) )
+        console.log(res)
+        data.filtered_data = res
+        console.log(data.filtered_data)
     }
     else{
-        filtered_data.value = skills_data.value
+        data.filtered_data = data.skills_data
     }
 }
 
