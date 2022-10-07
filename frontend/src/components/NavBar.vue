@@ -31,7 +31,7 @@
             >
           </li>
           <li class="nav-item ms-5">
-            <router-link :to="{name:'StartLJ'}" class="nav-link" aria-current="page">START LJ</router-link>
+            <router-link to="StartLJ" class="nav-link" aria-current="page">START LJ</router-link>
           </li>
         </ul>
         <button

@@ -55,3 +55,33 @@
     </div>
   </div>
 </template>
+
+
+
+<style scoped>
+    #row{
+        min-height: 80vh;
+    }
+
+    .card{
+        border-color: #2F2FFA;
+        color:black;
+    }
+
+    .card:hover{
+        background-color: #ababb7;
+        color:white;
+    }
+
+    #card-button{
+        background-color: #F64C72;
+        border-color: #F64C72;
+        color: white;
+    }
+
+    #card-button:hover{
+        background-color: #F64C72;
+        color:black;
+    }
+</style>
+
