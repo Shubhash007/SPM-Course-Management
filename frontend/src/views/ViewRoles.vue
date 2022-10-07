@@ -1,19 +1,11 @@
 <template>
-  <div style="min-height: 80vh">
-    <div class="row g-3" style="margin: 20px 50px">
-      <div class="col-auto">
-        <label for="filter" class="visually-hidden">Filter</label>
-        <input
-          type="text"
-          class="form-control filter-textbox"
-          id="filter"
-          placeholder="Filter by Job Role..."
-        />
-      </div>
-      <div class="col-auto">
-        <button type="submit" class="btn filter-button mb-3">Filter</button>
-      </div>
-    </div>
+    <div style="min-height: 80vh;">
+        <div class="row g-3" style="margin: 20px 50px;">
+            <div class="col-auto">
+                <label for="search" class="visually-hidden">Search</label>
+                <input type="text" @keyup="searchFunction" v-model="keyword" class="form-control search-textbox" id="search" placeholder="Search by...">
+            </div>
+        </div>
         <table class="table table-responsive" style="width: 75%; border-color: #2F2FFA; margin: 20px 60px;" border="#2F2FFA">
             <thead>
                 <tr>
@@ -41,7 +33,6 @@
             </tbody>
         </table>
     </div>
-  </div>
 </template>
 <script>
     export default{
