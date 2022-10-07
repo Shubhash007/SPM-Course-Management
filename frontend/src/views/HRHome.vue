@@ -42,7 +42,9 @@
             >View Roles</router-link
           >
         </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <style scoped>
