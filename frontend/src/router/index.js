@@ -44,10 +44,6 @@ const router = createRouter({
       component: StaffStartLJ,
     },
     {
-      path: "/StaffProfile",
-      component: StaffProfile,
-    },
-    {
       path: "/StaffHome",
       component: StaffHome,
     },
@@ -62,7 +58,7 @@ const router = createRouter({
     {
       path: "/RemoveCourse",
       component: RemoveCourse,
-    },
+    }
   ],
 });
 
