@@ -10,6 +10,7 @@ import StaffProfile from "../views/StaffProfile.vue";
 import StaffHome from "../views/StaffHome.vue";
 import EditLearningJourneys from "../views/EditLearningJourneys.vue";
 import ViewStaff from "../views/ViewStaff.vue";
+import RemoveCourse from "../views/RemoveCourse.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,6 +59,10 @@ const router = createRouter({
     {
       path: "/ViewStaff",
       component: ViewStaff,
+    },
+    {
+      path: "/RemoveCourse",
+      component: RemoveCourse,
     },
   ],
 });
