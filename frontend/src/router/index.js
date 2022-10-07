@@ -4,6 +4,7 @@ import CreateRole from "../views/CreateRole.vue";
 import HRHome from "../views/HRHome.vue";
 import ViewRoles from "../views/ViewRoles.vue";
 import CreateSkill from "../views/CreateSkill.vue";
+import StaffProfile from "../views/StaffProfile.vue";
 import StaffStartLJ from "../views/StaffStartLJ.vue"
 import StaffProfile from "../views/StaffProfile.vue";
 import StaffHome from "../views/StaffHome.vue";
@@ -35,12 +36,14 @@ const router = createRouter({
       component: CreateSkill,
     },
     {
+      path: "/StaffProfile",
+      component: StaffProfile,
+    }
       path: "/StartLJ",
       component: StaffStartLJ,
       name: 'StartLJ'
     },
     {
-
       path: "/StaffProfile",
       component: StaffProfile,
     },
