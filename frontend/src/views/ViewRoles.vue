@@ -3,7 +3,7 @@
         <div class="row g-3" style="margin: 20px 50px;">
             <div class="col-auto">
                 <label for="search" class="visually-hidden">Search</label>
-                <input type="text" v-model="keyword" class="form-control search-textbox" id="search" placeholder="Search by...">
+                <input type="text" @keyup="searchFunction" v-model="keyword" class="form-control search-textbox" id="search" placeholder="Search by...">
             </div>
             <div class="col-auto">
                 <select v-model="category" class="form-select category-dropdown">
@@ -25,15 +25,15 @@
                 <!-- <th></th> -->
                 </tr>
             </thead>
-            <tbody v-if="hasSearch">
+            <!-- <tbody v-if="hasSearch">
                 <tr v-for="(employee, index) in returnData">
                     <th scope="row" style="color: #2F2FFA">{{index+1}}</th>
                     <td>{{ employee.Staff }}</td>
-                    <td>{{ employee.Role }}</td>
+                    <td>{{ employee.Role }}</td> -->
                     <!-- <td width="150px"><button href="#" class="btn search-button" style="transform: scale(0.7); margin: -10px;">Assign Role</button></td> -->
-                </tr>
-            </tbody>
-            <tbody v-else>
+                <!-- </tr>
+            </tbody> -->
+            <tbody id="tbody">
                 <tr v-for="(employee, index) in employees">
                     <th scope="row" style="color: #2F2FFA">{{index+1}}</th>
                     <td>{{ employee.Staff }}</td> <!--link to staff profile page-->
@@ -93,7 +93,31 @@
                 }
                 this.hasSearch = false;
                 return this.returnData;
-            }
+            },
+
+            searchFunction: function () {
+                var input, filter, table, tbody, tr, tdName, tdRoles, i, txtValue;
+                input = document.getElementById("search");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("roles");
+                tbody = document.getElementById("tbody");
+                tr = tbody.getElementsByTagName("tr");
+
+                for (i = 0; i < tr.length; i++) {
+                    tdName = tr[i].getElementsByTagName("td")[0];
+                    tdRoles = tr[i].getElementsByTagName("td")[1];
+                    if (tdName && tdRoles) {
+                    txtValue = [tdName.textContent, tdRoles.textContent];
+                    console.log(txtValue)
+                    if ((txtValue[0].toUpperCase().indexOf(filter) > -1) || (txtValue[1].toUpperCase().indexOf(filter) > -1)) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                    }
+                }
+                }
+
         }
     }
 </script>
