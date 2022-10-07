@@ -2,28 +2,43 @@
     <div style="min-height: 80vh;">
         <div class="row g-3" style="margin: 20px 50px;">
             <div class="col-auto">
-                <label for="filter" class="visually-hidden">Filter</label>
-                <input type="text" class="form-control filter-textbox" id="filter" placeholder="Filter by Job Role...">
+                <label for="search" class="visually-hidden">Search</label>
+                <input type="text" v-model="keyword" class="form-control search-textbox" id="search" placeholder="Search by...">
             </div>
             <div class="col-auto">
-                <button type="submit" class="btn filter-button mb-3">Filter</button>
+                <select v-model="category" class="form-select category-dropdown">
+                    <option selected>Category</option>
+                    <option value="staff">Staff Name</option>
+                    <option value="role">Role</option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn search-button mb-3" @click="searchButton()">Search</button>
             </div>
         </div>
         <table class="table table-responsive" style="width: 75%; border-color: #2F2FFA; margin: 20px 60px;" border="#2F2FFA">
             <thead>
                 <tr>
                 <th scope="col">S/N</th>
-                <th scope="col">Job Roles</th>
-                <th scope="col">Staff Name(s)</th>
+                <th scope="col">Staff Name</th>
+                <th scope="col">Job Role</th>
                 <!-- <th></th> -->
                 </tr>
             </thead>
-            <tbody>
-                <tr v-for="(role, index) in roles">
-                    <th scope="row" style="color: #2F2FFA">1</th>
-                    <td>{{ role.RoleName }}</td>
-                    <td>{{ role.StaffNames.toString() }}</td>
-                    <!-- <td width="150px"><button href="#" class="btn filter-button" style="transform: scale(0.7); margin: -10px;">Assign Role</button></td> -->
+            <tbody v-if="hasSearch">
+                <tr v-for="(employee, index) in returnData">
+                    <th scope="row" style="color: #2F2FFA">{{index+1}}</th>
+                    <td>{{ employee.Staff }}</td>
+                    <td>{{ employee.Role }}</td>
+                    <!-- <td width="150px"><button href="#" class="btn search-button" style="transform: scale(0.7); margin: -10px;">Assign Role</button></td> -->
+                </tr>
+            </tbody>
+            <tbody v-else>
+                <tr v-for="(employee, index) in employees">
+                    <th scope="row" style="color: #2F2FFA">{{index+1}}</th>
+                    <td>{{ employee.Staff }}</td> <!--link to staff profile page-->
+                    <td>{{ employee.Role }}</td> 
+                    <!-- <td width="150px"><button href="#" class="btn search-button" style="transform: scale(0.7); margin: -10px;">Assign Role</button></td> -->
                 </tr>
             </tbody>
         </table>
@@ -33,39 +48,90 @@
     export default{
         data(){
             return{
-                roles: [
+                employees: [
                     {
-                        RoleName: "Software Enginner",
-                        StaffNames: ["Mary Lamb", "Mary Cow"]
+                        Role: "Software Engineer",
+                        Staff: "Mary Lamb"
                     },
                     {
-                        RoleName: "Consultant",
-                        StaffNames: ["Bob Tan", "Benjamin Toh"]
+                        Role: "Software Engineer",
+                        Staff: "Mary Cow"
+                    },
+                    {
+                        Role: "Consultant",
+                        Staff: "Bob Tan"
+                    },
+                    {
+                        Role: "Consultant",
+                        Staff: "Benjamin Toh"
                     }
                 ],
+                category: "Category",
+                keyword: "",
+                hasSearch: false,
+                returnData: []
+            }
+        }, methods:{
+            searchButton:function(){
+                let text = this.keyword;
+                let category = this.category;
+
+                if (text != "" && category != "Category"){
+                    this.hasSearch = true;
+                }
+                this.returnData = [];
+                for (var employee in this.employees){
+                    if(category == "staff"){
+                        if(employee.Staff == text || text.includes(employee.Staff)){
+                            this.returnData.push(employee);
+                        }
+                    }else if(category == "role"){
+                        if(employee.Role == text || text.includes(employee.Role)){
+                            this.returnData.push(employee);
+                        }
+                    }
+                }
+                this.hasSearch = false;
+                return this.returnData;
             }
         }
     }
 </script>
 <style scoped>
-    #filter{
+    #search{
         border-color: #2F2FFA;
     }
     
-    #filter::placeholder{
+    #search::placeholder{
         color: #2F2FFA;
     }
 
-    .filter-textbox:focus{
+    .search-textbox:focus{
         box-shadow: #F64C72;
     }
+
+    .category-dropdown{
+        border-color: #F64C72;
+        color: #F64C72;
+    }
+
+    .category-dropdown:hover{
+        border-color: #F64C72;
+        color: black
+    }
+
+    .category-dropdown:focus{
+        border-color: #F64C72;
+        color: black;
+        box-shadow: none;
+    }
     
-    .filter-button{
+    .search-button{
         background-color: #F64C72;
         color: white;
     }
 
-    .filter-button:hover{
+    .search-button:hover{
         background-color: #F64C72;
         color: black;
     }
