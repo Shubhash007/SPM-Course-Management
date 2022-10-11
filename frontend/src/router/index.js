@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import Login from "../views/Login.vue";
 import CreateRole from "../views/CreateRole.vue";
 import HRHome from "../views/HRHome.vue";
 import ViewRoles from "../views/ViewRoles.vue";
@@ -17,12 +17,13 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "home",
-      component: HomeView,
+      component: Login,
+      meta: { role: "" }
     },
     {
       path: "/HRHome",
       component: HRHome,
+      meta: { role: "admin" }
     },
     {
       path: "/CreateRole",
