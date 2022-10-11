@@ -20,6 +20,7 @@
           <div class="col-6 mx-auto">
               <div class="accordion" id="accordionExample">
                   <DeleteLJ v-for="(item,index) in data.filtered_data" :num="index" :role="item.role" :skills="item.skills"  />
+                  {{getSkill}}
               </div>
           </div>
       </div>           
@@ -30,9 +31,14 @@
 import AddRoleToLJ from '@/components/AddRoleToLJ.vue'
 import { ref,reactive } from 'vue';
 import DeleteLJ from '../components/DeleteLJ.vue';
+import axios from 'axios'
+
+
+
 
 const search_term = ref('')
 const data =reactive({
+
   skills_data:[
   {    
       role: "Software Engineer",
@@ -70,6 +76,33 @@ const update_filter = function(){
   }
 }
 
+
+
+</script>
+
+<script>
+
+export default {
+  data() {
+    return {
+      skill: ''
+  }
+},
+  computed: {
+    
+    // a computed getter
+    getSkill() {
+        axios.get('skill/')
+        .then(response => {
+            this.skill = response.data.data;
+            console.log(response)
+        })
+        .catch(error => alert(error))
+        
+    }
+    
+  }
+}
 
 </script>
 
