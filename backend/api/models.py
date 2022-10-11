@@ -9,14 +9,14 @@ class User_Role(models.Model):
     
     class Meta:
         """Meta definition for User_Role."""
-        verbose_name = 'User_Role'
+        verbose_name_plural = 'User_Roles'
 
     def __str__(self):
         return f'{self.User_Role_ID} : {self.User_Role_Name}'
 ###############################################################################
 class Staff(models.Model):
     """Model definition for Staff."""
-    Staff_ID = models.IntegerField(primary_key=True)
+    Staff_ID = models.BigIntegerField(primary_key=True)
     Staff_FName = models.CharField(null=False,max_length=50)
     Staff_LName = models.CharField(null=False,max_length=50)
     Dept = models.CharField(null=False,max_length=50)
@@ -25,7 +25,7 @@ class Staff(models.Model):
 
     class Meta:
         """Meta definition for Staff."""
-        verbose_name =  'Staff'
+        verbose_name_plural =  'Staffs'
 
     def __str__(self):
         return f"{self.Staff_ID}"
@@ -38,7 +38,7 @@ class Skill(models.Model):
 
     class Meta:
         """Meta definition for Skill."""
-        verbose_name = 'Skill'
+        verbose_name_plural = 'Skills'
 
     def __str__(self):
         return f'{self.Skill_ID},{self.Skill_Name},{self.Skill_Desc}'
@@ -57,7 +57,7 @@ class Course(models.Model):
 
     class Meta:
         """Meta definition for Courses."""
-        verbose_name = 'Course'
+        verbose_name_plural = 'Courses'
 
 
     def __str__(self):
@@ -66,46 +66,50 @@ class Course(models.Model):
 class Registration(models.Model):
     """Model definition for Registration."""
     # TODO: Define fields here
-    Registration_ID = models.IntegerField(primary_key=True)
-    Course_ID = models.ForeignKey(Course,on_delete=models.CASCADE)
-    Staff_ID = models.ForeignKey(Staff,on_delete=models.CASCADE)
-    Reg_Status = models.CharField(max_length=20)
-    Completion_Status = models.CharField(max_length=20)
+    Reg_ID = models.IntegerField(primary_key=True)
+    Course = models.ForeignKey(Course,on_delete=models.CASCADE)
+    Staff = models.ForeignKey(Staff,on_delete=models.CASCADE)
+    Reg_Status = models.CharField(max_length=20,null=True,default="")
+    Completion_Status = models.CharField(max_length=20,null=True,default="")
 
     class Meta:
         """Meta definition for Registration."""
-        verbose_name = 'Registration'
+        verbose_name_plural = 'Registrations'
+        unique_together = [['Reg_ID', 'Course', 'Staff']]
 
     def __str__(self):
-        return f'{self.Registration_ID},{self.Course_ID},{self.Staff_ID},{self.Completion_Status}'
+        return f'{self.Reg_ID},{self.Course},{self.Staff},{self.Completion_Status}'
 ###################################################################################
-class JobRole(models.Model):
+class Job_Role(models.Model):
     """Model definition for Job_Role."""
     # TODO: Define fields here
     Job_Role_ID = models.IntegerField(primary_key=True)
+    Job_Role_Name = models.CharField(max_length=20,default="")
     Job_Role_Desc = models.CharField(max_length=255)
-    Staff = models.ForeignKey(Staff,on_delete=models.CASCADE,null=True)
+    #Staff = models.ForeignKey(Staff, to_field = 'Staff_ID',on_delete=models.CASCADE,null=True)
 
     class Meta:
         """Meta definition for Job_Role."""
-        verbose_name = 'Job_Role'
+        verbose_name_plural = 'Job_Roles'
 
     def __str__(self):
         return f'{self.Job_Role_ID}:{self.Job_Role_Desc}'
 ###################################################################################
 class Requirements(models.Model):
     """Model definition for Requirements."""
-    Skill_ID = models.OneToOneField(Skill,on_delete=models.CASCADE)
-    Job_Role_ID = models.OneToOneField(JobRole,on_delete=models.CASCADE)
-    Staff_ID = models.OneToOneField(Staff,on_delete=models.CASCADE)
-    Reg_Status = models.IntegerField(default=1,null=False)
-    Completion_Status = models.CharField(max_length=15)
+    Skill = models.ForeignKey(Skill,on_delete=models.CASCADE)
+    Job_Role= models.ForeignKey(Job_Role,on_delete=models.CASCADE)
+    Staff = models.ForeignKey(Staff,on_delete=models.CASCADE)
+    # Registration = models.OneToOneField(Registration,on_delete=models.CASCADE,null=True)
+    # Reg_Status = models.IntegerField(default=1,null=False)
+    # Completion_Status = models.CharField(max_length=15)
 
 
     class Meta:
         """Meta definition for Requirements."""
-        unique_together = ['Skill_ID','Job_Role_ID', 'Staff_ID']
-        verbose_name = 'Requirements'
+        unique_together = [['Skill', 'Job_Role', 'Staff']]
+        verbose_name_plural = 'Requirements'
+        managed = True
 
     def __str__(self):
-        pass
+        return f'{self.Skill},{self.Job_Role},{self.Staff}'
