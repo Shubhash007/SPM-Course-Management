@@ -35,7 +35,6 @@ import axios from 'axios'
 
 
 
-
 const search_term = ref('')
 const data =reactive({
 
@@ -78,29 +77,35 @@ const update_filter = function(){
 
 
 
+
+
+
+
 </script>
 
 <script>
 
+
 export default {
   data() {
     return {
-      skill: ''
+      skill: [],
+      search : 130001
   }
 },
   computed: {
     
     // a computed getter
     getSkill() {
-        axios.get('skill/')
+        axios.get('/staff/' + this.search)
         .then(response => {
             this.skill = response.data.data;
-            console.log(response)
+            console.log(response.data)
+            
         })
-        .catch(error => alert(error))
-        
+        .catch(error => alert(error)) 
     }
-    
+
   }
 }
 
