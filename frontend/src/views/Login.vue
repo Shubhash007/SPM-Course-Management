@@ -5,22 +5,36 @@
                 <label for="staffID" class="col-form-label" id="spacing">Staff ID</label>
             </div>
             <div class="col-auto">
-                <input type="text" v-model="staffID" class="form-control" aria-describedby="roleNameLimit" maxlength="20">
+                <input type="text" v-model=staffID class="form-control" aria-describedby="roleNameLimit" maxlength="20">
             </div>
-            <router-link to="/StaffHome"><button type="button" class="btn login-button" @click="authenticate()">Login</button></router-link>
+            <button type="button" class="btn login-button" @click.prevent="authenticate()">Login</button>
         </div>
     </div>
 </template>
 <script>
+    import axios from "axios";
     export default{
         data(){
             return{
                 staffID: "",
             }
         },
-        methods:{
-            authenticate(){
-
+        computed:{
+            authenticate:function(){
+                let staffID = this.staffID;
+                axios.get("/staff/" + staffID)
+                .then(response => {
+                    let staffInfo = response.data; 
+                    localStorage.userRole = staffInfo.User_Role;
+                    if (staffInfo.User_Role == 1 || staffInfo.User_Role == 4){
+                        this.$router.push("/StaffHome");
+                    }else if (staffInfo.User_Role == 2 || staffInfo.User_Role == 3){
+                        this.$router.push("/HRHome");
+                    }
+                })
+                .catch(error=>{
+                    console.log(error.message);
+                })
             }
         }
     }

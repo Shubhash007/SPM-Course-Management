@@ -4,7 +4,6 @@ import { createPinia } from "pinia";
 
 import App from "./App.vue";
 import router from "./router";
-import Vuex from "vuex";
 
 import "./assets/main.css";
 import "./assets/navbar.css";
@@ -14,7 +13,6 @@ const app = createApp(App);
 
 app.use(createPinia());
 app.use(router);
-app.use(Vuex);
 
 app.mount("#app");
 
