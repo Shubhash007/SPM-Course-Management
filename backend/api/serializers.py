@@ -19,4 +19,8 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = ['Course_ID','Course_Name','Course_Desc','Course_Status','Course_Type','Course_Category']
 
-        
+
+class JobRoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Job_Role
+        fields = ['Job_Role_ID','Job_Role_Desc','Job_Role_Name']

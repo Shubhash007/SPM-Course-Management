@@ -53,6 +53,10 @@
                     }
             }
         }
+
+        methods{
+
+        }
     }
 </script>
 

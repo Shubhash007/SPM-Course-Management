@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from .models import User_Role,Staff,Skill,Course,Registration,Job_Role,Requirements
-from .serializers import CourseSerializer, StaffSerializer,SkillSerializer
+from .serializers import CourseSerializer, JobRoleSerializer, StaffSerializer,SkillSerializer
 from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django.views.decorators.csrf import csrf_exempt
@@ -91,3 +91,21 @@ def course_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
 
+
+
+##########################ROLE############################
+@api_view(['GET', 'POST'])
+@csrf_exempt
+def role_list(request):
+    #get all course
+    if request.method == 'GET':
+        job_roles = Job_Role.objects.all()
+        serializer = JobRoleSerializer(job_roles, many=True)
+        return Response({'job_role': serializer.data},status = status.HTTP_200_OK)
+
+    if request.method == 'POST':
+        serializer = JobRoleSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
