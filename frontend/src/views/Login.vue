@@ -17,6 +17,7 @@
         data(){
             return{
                 staffID: "",
+                userRole: 0
             }
         },
         computed:{
@@ -25,7 +26,8 @@
                 axios.get("/staff/" + staffID)
                 .then(response => {
                     let staffInfo = response.data; 
-                    localStorage.userRole = staffInfo.User_Role;
+                    localStorage.setItem("userRole", staffInfo.User_Role);
+                    this.userRole = localStorage.userRole;
                     if (staffInfo.User_Role == 1 || staffInfo.User_Role == 4){
                         this.$router.push("/StaffHome");
                     }else if (staffInfo.User_Role == 2 || staffInfo.User_Role == 3){

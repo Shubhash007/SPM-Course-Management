@@ -7,10 +7,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item ms-5" v-if="userRole == 2 || userRole == 3">
+          <li class="nav-item ms-5" v-if="userRole == 1 || userRole == 3">
             <router-link to="HRHome" class="nav-link" aria-current="page">HOME</router-link>
           </li>
-          <li class="nav-item ms-5" v-if="userRole == 1 || userRole == 4">
+          <li class="nav-item ms-5" v-if="userRole == 2 || userRole == 4">
             <router-link to="StaffHome" class="nav-link" aria-current="page">HOME</router-link>
           </li>
           <li class="nav-item ms-5" v-if="userRole > 0">
@@ -20,7 +20,7 @@
             <router-link to="StaffProfile" class="nav-link" aria-current="page">ACCOUNT</router-link>
           </li>
         </ul>
-        <button type="button" class="btn btn-outline-primary navbar-button" id="navbar-signup" v-if="userRole > 0" @click.prevent="logout()">Log out</button>
+        <router-link to="/Login"><button type="button" class="btn btn-outline-primary navbar-button" id="navbar-signup" v-if="userRole > 0" @click.prevent="logout()">Log out</button></router-link>
       </div>
     </div>
   </nav>
@@ -29,19 +29,21 @@
   export default{
     data(){
       return{
-        userRole: 0
+        userRole: 0,
+        pageStatus: true
+      }
+    },
+    async created(){
+      this.userRole = localStorage.getItem('userRole');
+      console.log(this.userRole);
+      if (this.userRole == 0){
+        window.location.reload();
       }
     },
     methods:{
       logout:function(){
-        localStorage.removeItem("userRole");
-        this.$route.push("/");
-      }
-    },
-    mounted(){
-      if (localStorage.getItem("userRole") != null){
-        this.userRole = localStorage.getItem("userRole");
-        console.log(this.userRole);
+        localStorage.clear();
+        this.$router.push("/");
       }
     }
   }
