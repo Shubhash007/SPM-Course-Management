@@ -26,6 +26,9 @@ export default defineConfig({
       '/course' : {
         target: 'http://localhost:5000/'
       },
+      '/courseSkill' : {
+        target: 'http://localhost:5000/'
+      },
     }
   },
 });

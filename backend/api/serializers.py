@@ -19,4 +19,8 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = ['Course_ID','Course_Name','Course_Desc','Course_Status','Course_Type','Course_Category']
 
-        
+
+class CourseSkillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course #lol idk what to put here since no model
+        fields = ['id','course_id','skill_id']
