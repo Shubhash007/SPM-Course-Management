@@ -27,3 +27,7 @@ skill.columns = ['Skill_ID','Skill_Name','Skill_Desc']
 print(skill)
 skill.to_sql('api_skill', conn, if_exists='append', index = False)
 
+
+courseskill = pd.read_csv('course_skill.csv',encoding ='unicode_escape')
+courseskill.to_sql('api_course_Skills', conn, if_exists='append', index = False)
+
