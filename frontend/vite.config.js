@@ -22,7 +22,10 @@ export default defineConfig({
       },
       '/staff' : {
         target: 'http://localhost:5000/'
-      }
+      },
+      '/course' : {
+        target: 'http://localhost:5000/'
+      },
     }
   },
 });

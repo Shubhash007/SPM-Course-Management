@@ -89,7 +89,7 @@ const update_filter = function(){
 export default {
   data() {
     return {
-      skill: [],
+      course: [],
       search : 130001
   }
 },
@@ -97,9 +97,9 @@ export default {
     
     // a computed getter
     getSkill() {
-        axios.get('/staff/' + this.search)
+        axios.get('/course/')
         .then(response => {
-            this.skill = response.data.data;
+            this.course = response.data.data;
             console.log(response.data)
             
         })

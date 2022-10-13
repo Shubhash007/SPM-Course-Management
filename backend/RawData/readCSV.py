@@ -27,4 +27,3 @@ skill.columns = ['Skill_ID','Skill_Name','Skill_Desc']
 print(skill)
 skill.to_sql('api_skill', conn, if_exists='append', index = False)
 
-
