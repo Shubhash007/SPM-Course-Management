@@ -97,7 +97,7 @@ export default {
     
     // a computed getter
     getSkill() {
-        axios.get('/course/')
+        axios.get('/courseSkill')
         .then(response => {
             this.course = response.data.data;
             console.log(response.data)
