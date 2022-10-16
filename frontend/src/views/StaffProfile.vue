@@ -2,8 +2,9 @@
     <div class="card w-75">
         <div class="card-body">
 
-            <h1 class="card-title">STAFF NAME</h1>
-            <br><br>
+            <h1 class="card-title">{{profile.Name}}</h1>
+            <h6>{{profile.Email}}</h6>
+            <br>
 
             <div class="row">
                 <div class="col-sm">
@@ -12,7 +13,6 @@
                     <ul>
                         <li>Staff ID: {{profile.StaffID}}</li>
                         <li>Department: {{profile.Department}}</li>
-                        <li>Email: {{profile.Email}}</li>
                     </ul>
                 </p>
                 </div>
@@ -40,24 +40,36 @@
 </template>
 
 <script>
+    import axios from 'axios';
     export default{
         data(){
             return{
                 profile: 
                     {
-                        StaffID: "12345",
-                        Department: "IT",
-                        Email: "fwasung@<name>.com",
+                        StaffID: "",
+                        Name: "",
+                        Department: "",
+                        Email: "",
                         Skills: ["Python", "PHP"],
                         Roles: ["Software Engineer", "Developer"]
                     }
             }
+        },
+        mounted(){
+            const slug = this.$route.params.slug; 
+            axios.get(`/staff/${slug}`)
+            .then(response => {
+                // console.log(response.data);
+                this.profile.StaffID = response.data.Staff_ID;
+                this.profile.Name = response.data.Staff_FName + " " + response.data.Staff_LName;
+                this.profile.Department = response.data.Dept;
+                this.profile.Email = response.data.Email;
+            })
         }
     }
 </script>
 
 <style scoped>
-    /* Create Job Role */
     .card{
         margin: 10px auto;
         border-color: white;
