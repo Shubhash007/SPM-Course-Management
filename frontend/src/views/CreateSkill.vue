@@ -90,7 +90,7 @@
                 </div>
             </p>
 
-            <router-link to="/HRHome" class="btn next-button">Create</router-link>
+            <router-link to="/ViewSkills" class="btn next-button">Create</router-link>
         </div>
     </div>
 </template>
