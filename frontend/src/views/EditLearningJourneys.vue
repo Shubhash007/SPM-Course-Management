@@ -19,7 +19,7 @@
       <div class="row">
           <div class="col-6 mx-auto">
               <div class="accordion" id="accordionExample">
-                  <DeleteLJ v-for="(item,index) in data.filtered_data" :num="index" :role="item.role" :skills="item.skills"  />
+                  <DeleteLJ v-for="(item,index) in data.filtered_data" :num="index" :role="item.role" :skills="item.skills" />
                   {{getSkill}}
               </div>
           </div>
@@ -50,8 +50,8 @@ const data =reactive({
   },
   {
       role: "Developer",
-      skills: {'Python': 
-                  ["Intro to Python", "Flask Techniques"],
+      skills: {'Javascript': 
+                  ["Intro to JS", "Vuejs Techniques"],
 
                 'PHP':
                   ["Intro to PHP"]
