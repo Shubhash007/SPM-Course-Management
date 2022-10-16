@@ -15,12 +15,33 @@ class SkillSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    Skills = serializers.StringRelatedField(many=True)
     class Meta:
         model = Course
-        fields = ['Course_ID','Course_Name','Course_Desc','Course_Status','Course_Type','Course_Category']
+        fields = "__all__"
 
-
-class CourseSkillSerializer(serializers.ModelSerializer):
+class User_Role_Serializer(serializers.ModelSerializer):
     class Meta:
-        model = Course #lol idk what to put here since no model
-        fields = ['id','course_id','skill_id']
+        model = User_Role
+        fields = '__all__'
+
+class Registration_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Registration
+        fields = "__all__"
+
+class Job_Role_Serializer(serializers.ModelSerializer):
+    Skills = serializers.StringRelatedField(many=True)
+    class Meta:
+        model = Job_Role
+        fields = "__all__"
+
+class Requirements_Serializer(serializers.ModelSerializer):
+    Course = serializers.StringRelatedField()
+    Job_Role= serializers.StringRelatedField()
+    Staff = serializers.StringRelatedField()
+    class Meta:
+        model = Requirements
+        fields = "__all__"
+
+

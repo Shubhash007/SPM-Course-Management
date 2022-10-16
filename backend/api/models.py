@@ -1,4 +1,5 @@
 from email.policy import default
+from unittest.util import _MAX_LENGTH
 from django.db import models
 
 # Create your models here.
@@ -41,7 +42,7 @@ class Skill(models.Model):
         verbose_name_plural = 'Skills'
 
     def __str__(self):
-        return f'{self.Skill_ID},{self.Skill_Name},{self.Skill_Desc}'
+        return f'{self.Skill_ID},{self.Skill_Name}'
 
 
 ################################################################################
@@ -84,20 +85,22 @@ class Job_Role(models.Model):
     """Model definition for Job_Role."""
     # TODO: Define fields here
     Job_Role_ID = models.IntegerField(primary_key=True)
-    Job_Role_Name = models.CharField(max_length=20,default="")
+    Job_Role_Name = models.CharField(max_length=200,default="")
     Job_Role_Desc = models.CharField(max_length=255)
+    Dept = models.CharField(max_length=30,default="")
     #Staff = models.ForeignKey(Staff, to_field = 'Staff_ID',on_delete=models.CASCADE,null=True)
+    Skills = models.ManyToManyField(Skill)
 
     class Meta:
         """Meta definition for Job_Role."""
         verbose_name_plural = 'Job_Roles'
 
     def __str__(self):
-        return f'{self.Job_Role_ID}:{self.Job_Role_Desc}'
+        return f'{self.Job_Role_ID}:{self.Job_Role_Name}:{self.Dept}'
 ###################################################################################
 class Requirements(models.Model):
     """Model definition for Requirements."""
-    Skill = models.ForeignKey(Skill,on_delete=models.CASCADE)
+    Course = models.ForeignKey(Course,on_delete=models.CASCADE)
     Job_Role= models.ForeignKey(Job_Role,on_delete=models.CASCADE)
     Staff = models.ForeignKey(Staff,on_delete=models.CASCADE)
     # Registration = models.OneToOneField(Registration,on_delete=models.CASCADE,null=True)
@@ -107,9 +110,10 @@ class Requirements(models.Model):
 
     class Meta:
         """Meta definition for Requirements."""
-        unique_together = [['Skill', 'Job_Role', 'Staff']]
+        unique_together = [['Course', 'Job_Role', 'Staff']]
         verbose_name_plural = 'Requirements'
         managed = True
 
     def __str__(self):
-        return f'{self.Skill},{self.Job_Role},{self.Staff}'
+        return f'Course:{self.Course.Course_ID},Job_Role:{self.Job_Role.Job_Role_ID},Staff_ID:{self.Staff.Staff_ID}'
+    

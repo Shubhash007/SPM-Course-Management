@@ -31,3 +31,6 @@ skill.to_sql('api_skill', conn, if_exists='append', index = False)
 courseskill = pd.read_csv('course_skill.csv',encoding ='unicode_escape')
 courseskill.to_sql('api_course_Skills', conn, if_exists='append', index = False)
 
+job_roles = pd.read_csv('job_roles.csv',encoding ='unicode_escape')
+job_roles.to_sql('api_job_role', conn, if_exists='append', index = False)
+print(job_roles)
