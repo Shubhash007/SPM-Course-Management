@@ -9,60 +9,24 @@
         <div :id="'collapse' + num" class="accordion-collapse collapse" :aria-labelledby="'heading'+ num" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item" v-for="value, skill in skills">
+                    <li class="list-group-item" v-for="courses, skill in skills">
                         <div>
                             <div class="row">
                                 <div class="col-10">
-                                    {{skill}} 
+                                    {{skill}}
                                 </div>
                                 <div class="col-2">
-                                    <!-- <button type="submit" class="btn btn-sm pink-button" @click="deleteCourse">Edit</button> -->
-                                    <div class="modal fade" id="edit-button" aria-hidden="true" aria-labelledby="first-modal" tabindex="-1">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="first-modal">Edit Courses</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div v-for="course in value">
-                                                    <input type="checkbox" v-model="courses" name="courses[]" v-bind:value="course"> {{course}}
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn pink-button" data-bs-target="#second-modal" data-bs-toggle="modal">Confirm</button>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                        <div class="modal fade" id="second-modal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Confirmation</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                You have successfully edited your courses. 
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn pink-button" data-bs-target="#edit-button" data-bs-toggle="modal">Back</button>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                        <a class="btn btn-sm pink-button" data-bs-toggle="modal" href="#edit-button" role="button">Edit</a>
+                                    <editCoursesModal :coursesSelected="courses" :no="num" :skillSelected="skill"/>
+                                </div>
+                                <div>
+                                    <ol>
+                                        <li v-for="course in courses">
+                                            {{course}}
+                                        </li>
+                                    </ol>
+                                </div>
                                 </div>
                             </div>
-                            <div>
-                                <ol>
-                                    <li v-for="course in value">
-                                        {{course}}
-                                        <!-- <button type="submit" class="btn btn-sm pink-button" @click="deleteCourse">Delete</button> -->
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
                         <br>
                     </li>
                 </ul>
@@ -73,7 +37,9 @@
 </template>
     
     
-<script setup>    
+<script setup>
+import editCoursesModal from '../components/editCoursesModal.vue';
+
     const props = defineProps({
         num: Number,
         role: String,
@@ -81,8 +47,7 @@
         courses: Object,
     })
 </script>
-
-    
+ 
 <style scoped>
     #search{
         border-color: #2F2FFA;
