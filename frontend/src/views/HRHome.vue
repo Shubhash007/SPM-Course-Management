@@ -44,6 +44,21 @@
         </div>
       </div>
     </div>
+
+        <!-- View Roles / Skills -->
+        <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">View Skills</h5>
+          <p class="card-text">
+            View all skills to keep track of courses attached to it
+          </p>
+          <router-link class="btn" id="card-button" to="/ViewSkills"
+            >View Skills</router-link
+          >
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
