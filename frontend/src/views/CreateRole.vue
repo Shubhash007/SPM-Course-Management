@@ -96,7 +96,7 @@
                 </div> -->
             </p>
             <button @click="postJobRole">Create</button>
-            <!-- <router-link to="/HRHome" class="btn next-button" @click="getSkill">Create</router-link> -->
+            <!-- <router-link to="/HRHome" class="btn next-button" @click="postJobRole">Create</router-link> -->
         </div>
     </div>
 </template>
@@ -113,20 +113,6 @@
                 selectedSkills: ["Please select skills"]
             }
         },
-
-        // created() {
-        //     fetch('/skill')
-        //     .then((response)  => {
-        //     return response.json();
-        //     })
-        //     .then((data) => 
-        //     {
-        //         this.skillsList = data;
-        //         console.log(data)
-        //     }
-        //     )
-        //     console.log(this.skillsList)
-        // },
 
         
         
