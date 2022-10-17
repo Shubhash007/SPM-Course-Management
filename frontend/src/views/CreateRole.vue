@@ -57,30 +57,29 @@
             <p class="card-text">
                 <div v-for="n in existingSkillCounter" class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
-                        <label for="Skill{{n}}" class="col-form-label" id="spacing">Skill #{{n}}</label>
+                        <label for="Skill{{n}}" class="col-form-label" id="spacing">Skills</label>
                     </div>
                     <div class="col-auto">
-                        <select class="form-select select-skill" style="background-color: #2F2FFA; color:white;">
-                            <option selected>Select an existing skill...</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select multiple size="10" v-model="selectedSkills" class="form-select select-skill" style="background-color: #2F2FFA; color:white;" >
+                            <option v-for="skill in skillsList" :value="skill.Skill_Name">{{skill.Skill_Name}}</option>
                         </select>
+                        Selected Skills: {{selectedSkills}}
                     </div>
-                    <div class="col-auto">
+
+                    <!-- <div class="col-auto">
                         <button type="button" class="btn" style="color:white;" @click="AddExistingSkill()">+</button>
                         <button type="button" class="btn" style="color:white;" @click="RemoveExistingSkill()">-</button>
-                    </div>
+                    </div> -->
                 </div>
 
-                <div class="col-auto">
+                <!-- <div class="col-auto">
                     <button v-if="!hasNewSkill" href="#" class="btn skill-button" @click="AddNewSkill()">Add New Skill</button>
                     <h5 v-if="hasNewSkill" class="card-title" style="display: inline">ADD NEW SKILL(S)</h5>
                     <button type="button" class="btn" style="color:white; margin-left:65%" @click="AddNewSkill()">+</button>
                     <button type="button" class="btn" style="color:white;" @click="RemoveNewSkill()">-</button>
-                </div>
+                </div> -->
 
-                <div v-for="i in newSkillCounter">
+                <!-- <div v-for="i in newSkillCounter">
                     <div class="row g-3 py-3 align-items-center">
                         <div class="col-auto">
                             <label for="skillName" class="col-form-label" id="spacing">Skill #{{i}} Name</label>
@@ -94,20 +93,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="row g-3 py-3 align-items-center">
-                        <div class="col-auto">
-                            <label for="jobDescription" class="col-form-label">Skill #{{i}} Description</label>
-                        </div>
-                        <div class="col-auto">
-                            <textarea v-bind:id="jobDescription" class="form-control" aria-describedby="roleDescLimit"></textarea>
-                        </div>
-                        <div class="col-auto">
-                            <span id="roleDescLimit" class="form-text" style="color:white;">
-                            Must be 8-100 characters long.
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                </div> -->
             </p>
             <button @click="postJobRole">Create</button>
             <!-- <router-link to="/HRHome" class="btn next-button" @click="getSkill">Create</router-link> -->
@@ -122,9 +108,26 @@
             return{
                 existingSkillCounter: 1,
                 newSkillCounter: 0,
-                hasNewSkill: false
+                hasNewSkill: false,
+                skillsList: [],
+                selectedSkills: ["Please select skills"]
             }
-        }, 
+        },
+
+        // created() {
+        //     fetch('/skill')
+        //     .then((response)  => {
+        //     return response.json();
+        //     })
+        //     .then((data) => 
+        //     {
+        //         this.skillsList = data;
+        //         console.log(data)
+        //     }
+        //     )
+        //     console.log(this.skillsList)
+        // },
+
         
         
         methods:{
@@ -145,8 +148,28 @@
                 if (this.newSkillCounter == 0){
                     this.hasNewSkill = false;
                 }
+            },
+
+            onload:function(){
+                axios.get('/skill')
+            .then(response => {
+                this.course = response.data.data;
+                this.skillsList = response.data
+                console.log(this.skillsList)
+
+                
+            })
+            .catch(error => alert(error)) 
             }
         },
+
+
+        created() {
+            this.onload()
+        },
+
+
+
         computed: {
     
     // a computed getter
@@ -157,19 +180,16 @@
                 "Job_Role_Desc": document.getElementsByTagName("textarea")[0].value,
                 "Job_Role_Name": document.getElementsByTagName("input")[1].value,
                 "Dept": document.getElementsByTagName("input")[2].value,
-                "Skills": ["test"]
+                "Skills": this.selectedSkills
             })
             .then(response => {
                 this.course = response.data.data;
                 console.log(response.data)
+                console.log(this.selectedSkills)
                 
             })
             .catch(error => alert(error)) 
         }
-
-
-
-
     }
     }
 
