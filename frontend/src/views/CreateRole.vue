@@ -4,12 +4,22 @@
             <!-- Create a Job Role -->
             <h5 class="card-title">CREATE A JOB ROLE</h5>
             <p class="card-text">
+                <div class="row g-3 py-3 align-items-center" >
+                    <div class="col-auto">
+                        <label for="jobID" class="col-form-label" id="spacing1">Job ID</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="number" v-model="jobID" class="form-control">
+                    </div>
+                    <div class="col-auto">
+                    </div>
+                </div>
                 <div class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
                         <label for="jobRole" class="col-form-label" id="spacing">Job Role Name</label>
                     </div>
                     <div class="col-auto">
-                        <input type="text" v-bind:id="jobRole" class="form-control" aria-describedby="roleNameLimit" maxlength="20">
+                        <input type="text" v-model="jobRole" class="form-control" aria-describedby="roleNameLimit" maxlength="20">
                     </div>
                     <div class="col-auto">
                         <span id="roleNameLimit" class="form-text" style="color:white;">
@@ -30,6 +40,16 @@
                         </span>
                     </div>
                 </div>
+                <div class="row g-3 py-3 align-items-center">
+                    <div class="col-auto">
+                        <label for="dept" class="col-form-label" id="spacing2">Department</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" v-model="dept" class="form-control">
+                    </div>
+                    <div class="col-auto">
+                    </div>
+                </div>
             </p>
             
             <!-- Attach Skills to Role -->
@@ -37,7 +57,7 @@
             <p class="card-text">
                 <div v-for="n in existingSkillCounter" class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
-                        <label for="Skill{{n}}" class="col-form-label" id="spacing2">Skill #{{n}}</label>
+                        <label for="Skill{{n}}" class="col-form-label" id="spacing">Skill #{{n}}</label>
                     </div>
                     <div class="col-auto">
                         <select class="form-select select-skill" style="background-color: #2F2FFA; color:white;">
@@ -89,12 +109,14 @@
                     </div>
                 </div>
             </p>
-
-            <router-link to="/HRHome" class="btn next-button">Create</router-link>
+            <button @click="postJobRole">Create</button>
+            <!-- <router-link to="/HRHome" class="btn next-button" @click="getSkill">Create</router-link> -->
         </div>
     </div>
 </template>
 <script>
+
+    import axios from 'axios'
     export default{
         data(){
             return{
@@ -124,8 +146,33 @@
                     this.hasNewSkill = false;
                 }
             }
+        },
+        computed: {
+    
+    // a computed getter
+        postJobRole() {
+            var jobID = document.getElementsByTagName("input")[0].value
+            axios.post('/job_role/' + jobID, {
+                "Job_Role_ID": jobID,
+                "Job_Role_Desc": document.getElementsByTagName("textarea")[0].value,
+                "Job_Role_Name": document.getElementsByTagName("input")[1].value,
+                "Dept": document.getElementsByTagName("input")[2].value,
+                "Skills": ["test"]
+            })
+            .then(response => {
+                this.course = response.data.data;
+                console.log(response.data)
+                
+            })
+            .catch(error => alert(error)) 
         }
+
+
+
+
     }
+    }
+
 </script>
 <style scoped>
     /* Create Job Role */
@@ -146,7 +193,15 @@
     }
 
     #spacing{
-        padding-right: 42px;
+        padding-right: 35px;
+    }
+
+    #spacing1{
+        padding-right: 96px;
+    }
+
+    #spacing2{
+        padding-right: 55px;
     }
 
     .form-control{
@@ -187,10 +242,6 @@
     .skill-button:hover{
         border-color: #F64C72;
         color: #F64C72;
-    }
-
-    #spacing2{
-        padding-right: 100px;
     }
     
     .select-skill:hover{
