@@ -10,6 +10,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status,mixins,generics
+from django.db import IntegrityError
 
 
 
@@ -190,7 +191,7 @@ class skill_assign_course_detail(APIView):
     def post(self,request,skill,course,format=None):
         skill_1 = self.get_object(skill)
         course_1 = self.get_course(course)
-
+    
         course_1.Skills.add(skill_1)
         msg = f"course:{course_1.Course_ID} assigned to skill:{skill_1.Skill_ID}"
         return Response({'msg': msg},status = status.HTTP_201_CREATED)
@@ -199,10 +200,12 @@ class skill_assign_course_detail(APIView):
         skill_1 = self.get_object(skill)
         course_1 = self.get_course(course)
 
-        course_1.Skills.remove(skill_1)
-        course_1.save()
-        msg = f"course:{course_1.Course_ID} assignment to skill:{skill_1.Skill_ID} has been removed"
-        return Response({'msg': msg},status = status.HTTP_200_OK)
+        if skill_1 in course_1.Skills.all():
+            course_1.Skills.remove(skill_1)
+            course_1.save()
+            msg = f"skill:{skill_1.Skill_ID} assignment to course:{course_1.Course_ID} has been removed"
+            return Response({'msg': msg},status = status.HTTP_200_OK)
+        return Response({"msg":f"skill:{skill_1.Skill_ID} not assigned to course:{course_1.Course_ID}"},status=status.HTTP_404_NOT_FOUND)
 ##############################User_Role###############################################
 
 class user_role_list(mixins.RetrieveModelMixin,
@@ -228,7 +231,10 @@ class registration_list(generics.GenericAPIView,mixins.ListModelMixin,mixins.Cre
         return self.create(request, *args, **kwargs)
 
 
-class registration_detail(generics.GenericAPIView,mixins.UpdateModelMixin,mixins.CreateModelMixin):
+class registration_detail(generics.GenericAPIView,
+                        mixins.UpdateModelMixin,
+                        mixins.CreateModelMixin,
+                        mixins.DestroyModelMixin):
 
     queryset = Registration.objects.all()
     serializer_class = Registration_Serializer
@@ -264,6 +270,9 @@ class registration_detail(generics.GenericAPIView,mixins.UpdateModelMixin,mixins
     
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
+    
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
 ######################################JOB_ROLE######################################################
 class job_role_list(mixins.ListModelMixin,
@@ -319,16 +328,66 @@ class job_assign_skill_detail(APIView):
         job_role_1 = self.get_job_role(job_role)
 
         job_role_1.Skills.add(skill_1)
-        msg = f"skill:{skill_1.Skill_Name} assigned to course:{job_role_1.Job_Role_Name}"
+        msg = f"skill:{skill_1.Skill_Name} assigned to Job Role:{job_role_1.Job_Role_Name}"
         return Response({'msg': msg},status = status.HTTP_201_CREATED)
 
     def delete(self,request,skill,job_role,format=None):
         skill_1 = self.get_skill(skill)
         job_role_1 = self.get_job_role(job_role)
 
-        job_role_1.Skills.remove(skill_1)
-        job_role_1.save()
-        msg = f"course:{job_role_1.Job_Role_ID} assignment to skill:{skill_1.Skill_ID} has been removed"
-        return Response({'msg': msg},status = status.HTTP_200_OK)
+        if skill_1 in job_role_1.Skills.all():
+            job_role_1.Skills.remove(skill_1)
+            job_role_1.save()
+            msg = f"skill:{skill_1.Skill_ID} assignment to Job Role:{job_role_1.Job_Role_ID} has been removed"
+            return Response({'msg': msg},status = status.HTTP_200_OK)
+        return Response({"msg":f"skill:{skill_1.Skill_Name} not assigned to Job Role:{job_role_1.Job_Role_Name}"},status = status.HTTP_404_NOT_FOUND)
 
 ################################Requirements##################################################################
+class requirements_list(APIView):
+    def get_job_role(self,pk):
+        try:
+            return Job_Role.objects.get(pk=pk)
+        except Job_Role.DoesNotExist:
+            raise Http404
+
+    def get_staff(self,pk):
+        try:
+            return Staff.objects.get(pk=pk)
+        except Staff.DoesNotExist:
+            raise Http404
+
+    def get_course(self,pk):
+        try:
+            return Course.objects.get(pk=pk)
+        except Course.DoesNotExist:
+            raise Http404
+
+    def get(self,request,staff_id,job_role_id,format=None):
+        staff = self.get_staff(staff_id)
+        job_role = self.get_job_role(job_role_id)
+
+        search = Requirements.objects.filter(Staff_id=staff,Job_Role_id=job_role)
+        serializer = Requirements_Serializer(search,many=True)
+        return Response(serializer.data,status = status.HTTP_200_OK)
+
+    def post(self,request,staff_id,job_role_id,course_id,format=None):
+        staff = self.get_staff(staff_id)
+        job_role = self.get_job_role(job_role_id)
+        course = self.get_course(course_id)
+
+        try:
+            Registration.objects.create(Course_id=course,Job_Role_id=job_role,Staff_id=staff)
+            return Response(f"{staff} with {job_role} has {course} saved",status=status.HTTP_200_OK)
+        except IntegrityError as e:
+            return Response({'msg': e},status=status.HTTP_404_NOT_FOUND)
+
+    def delete(self,request,staff_id,job_role_id,course_id,format=None):
+        staff = self.get_staff(staff_id)
+        job_role = self.get_job_role(job_role_id)
+        course = self.get_course(course_id)
+        
+        req = Requirements.objects.filter(Staff_id=staff,Job_Role_id=job_role,Course_id=course)
+        if req.exists():
+            req.delete()
+            return Response({'msg':f"{staff.Staff_ID},{course.Course_ID},{job_role.Job_Role_ID} has been removed"},status=status.HTTP_200_OK)
+        return Response({'msg':f"{staff.Staff_ID},{course.Course_ID},{job_role.Job_Role_ID} dosent exist"},status=status.HTTP_404_NOT_FOUND)
