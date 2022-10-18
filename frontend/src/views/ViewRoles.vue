@@ -12,23 +12,13 @@
                 <th scope="col">S/N</th>
                 <th scope="col">Staff Name</th>
                 <th scope="col">Job Role</th>
-                <!-- <th></th> -->
                 </tr>
             </thead>
-            <!-- <tbody v-if="hasSearch">
-                <tr v-for="(employee, index) in returnData">
-                    <th scope="row" style="color: #2F2FFA">{{index+1}}</th>
-                    <td>{{ employee.Staff }}</td>
-                    <td>{{ employee.Role }}</td> -->
-                    <!-- <td width="150px"><button href="#" class="btn search-button" style="transform: scale(0.7); margin: -10px;">Assign Role</button></td> -->
-                <!-- </tr>
-            </tbody> -->
             <tbody id="tbody">
                 <tr v-for="(employee, index) in employees">
                     <th scope="row" style="color: #2F2FFA">{{index+1}}</th>
-                    <td>{{ employee.Staff }}</td> <!--link to staff profile page-->
+                    <td><router-link :to="{name: 'StaffProfile', params: {slug: employee.StaffID}}">{{ employee.Staff }}</router-link></td>
                     <td>{{ employee.Role }}</td> 
-                    <!-- <td width="150px"><button href="#" class="btn search-button" style="transform: scale(0.7); margin: -10px;">Assign Role</button></td> -->
                 </tr>
             </tbody>
         </table>
@@ -41,19 +31,23 @@
                 employees: [
                     {
                         Role: "Software Engineer",
-                        Staff: "Mary Lamb"
+                        Staff: "Mary Lamb",
+                        StaffID: 130001
                     },
                     {
                         Role: "Software Engineer",
-                        Staff: "Mary Cow"
+                        Staff: "Mary Cow",
+                        StaffID: 130002
                     },
                     {
                         Role: "Consultant",
-                        Staff: "Bob Tan"
+                        Staff: "Bob Tan",
+                        StaffID: 140001
                     },
                     {
                         Role: "Consultant",
-                        Staff: "Benjamin Toh"
+                        Staff: "Benjamin Toh",
+                        StaffID: 140002
                     }
                 ],
                 category: "Category",
@@ -62,29 +56,6 @@
                 returnData: []
             }
         }, methods:{
-            searchButton:function(){
-                let text = this.keyword;
-                let category = this.category;
-
-                if (text != "" && category != "Category"){
-                    this.hasSearch = true;
-                }
-                this.returnData = [];
-                for (var employee in this.employees){
-                    if(category == "staff"){
-                        if(employee.Staff == text || text.includes(employee.Staff)){
-                            this.returnData.push(employee);
-                        }
-                    }else if(category == "role"){
-                        if(employee.Role == text || text.includes(employee.Role)){
-                            this.returnData.push(employee);
-                        }
-                    }
-                }
-                this.hasSearch = false;
-                return this.returnData;
-            },
-
             searchFunction: function () {
                 var input, filter, table, tbody, tr, tdName, tdRoles, i, txtValue;
                 input = document.getElementById("search");
@@ -106,7 +77,7 @@
                     }
                     }
                 }
-                }
+            }
 
         }
     }
@@ -151,5 +122,14 @@
     }
     td{
         color: #2F2FFA;
+    }
+
+    a{
+        color: #2F2FFA;
+        text-decoration: none;
+    }
+
+    a:hover{
+        color:#F64C72;
     }
 </style>

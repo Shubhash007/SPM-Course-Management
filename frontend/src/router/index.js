@@ -43,6 +43,11 @@ const router = createRouter({
       component: StaffProfile,
     },
     {
+      path: "/StaffProfile/:slug",
+      name: 'StaffProfile',
+      component: StaffProfile,
+    },
+    {
       path: "/StartLJ",
       component: StaffStartLJ,
     },
