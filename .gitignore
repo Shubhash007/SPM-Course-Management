@@ -1,2 +1,7 @@
 spm_venv/
 .vscode
+*.log
+*.pot
+*.pyc
+backend/api/__pycache__/
+backend/backend/__pycache__/
