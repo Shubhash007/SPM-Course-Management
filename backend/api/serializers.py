@@ -15,7 +15,7 @@ class SkillSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    Skills = serializers.StringRelatedField(many=True)
+    Skills = SkillSerializer(many=True)
     class Meta:
         model = Course
         fields = "__all__"
@@ -31,15 +31,15 @@ class Registration_Serializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class Job_Role_Serializer(serializers.ModelSerializer):
-    Skills = serializers.StringRelatedField(many=True)
+    Skills = SkillSerializer(many=True)
     class Meta:
         model = Job_Role
         fields = "__all__"
 
 class Requirements_Serializer(serializers.ModelSerializer):
-    Course = serializers.StringRelatedField()
-    Job_Role= serializers.StringRelatedField()
-    Staff = serializers.StringRelatedField()
+    Course = CourseSerializer(many=True)
+    Job_Role= Job_Role_Serializer(many=True)
+    Staff = StaffSerializer(many=True)
     class Meta:
         model = Requirements
         fields = "__all__"
