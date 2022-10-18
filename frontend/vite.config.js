@@ -29,6 +29,12 @@ export default defineConfig({
       '/courseSkill' : {
         target: 'http://localhost:5000/'
       },
+      '/skill_to_course': {
+        target: 'http://localhost:5000/'
+      },
+      '/job_role': {
+        target: 'http://localhost:5000/'
+      },
     }
   },
 });
