@@ -23,10 +23,11 @@
         computed:{
             authenticate:function(){
                 let staffID = this.staffID;
-                axios.get("/staff/" + staffID)
+                axios.get("/staff/" + staffID +'/')
                 .then(response => {
                     let staffInfo = response.data; 
                     localStorage.setItem("userRole", staffInfo.User_Role);
+                    localStorage.setItem("staff_id", staffInfo.Staff_ID)
                     this.userRole = localStorage.userRole;
                     if (staffInfo.User_Role == 1 || staffInfo.User_Role == 4){
                         this.$router.push("/StaffHome");
