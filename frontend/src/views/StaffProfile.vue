@@ -26,8 +26,13 @@
                     </ul>
                 </p>
                 </div>
-                <div class="col-sm">
-                <h5 class="card-title">Current Roles</h5>
+                <div class="col-sm row">
+                    <div class="col-7">
+                        <h5 class="card-title">Current Roles</h5>
+                    </div>
+                    <div class="col-5" v-if="userRole == 3 || userRole == 2">
+                        <editRolesModal :staffID="profile.StaffID" :roles="profile.Roles" />
+                    </div>
                 <p class="card-text">
                     <ul>
                         <li v-for="role in profile.Roles">{{role}}</li>
@@ -41,22 +46,25 @@
 
 <script>
     import axios from 'axios';
+    
     export default{
         data(){
             return{
                 profile: 
                     {
-                        StaffID: "",
+                        StaffID: 0,
                         Name: "",
                         Department: "",
                         Email: "",
                         Skills: ["Python", "PHP"],
                         Roles: ["Software Engineer", "Developer"]
-                    }
+                    },
+                userRole: 0,
             }
         },
-        mounted(){
+        created(){
             const slug = this.$route.params.slug; 
+            this.userRole = localStorage.getItem("userRole");
             axios.get(`/staff/${slug}`)
             .then(response => {
                 // console.log(response.data);
@@ -65,8 +73,14 @@
                 this.profile.Department = response.data.Dept;
                 this.profile.Email = response.data.Email;
             })
+            .catch(error=>{
+                    console.log(error.message);
+            })
         }
     }
+</script>
+<script setup>
+import editRolesModal from '../components/editRolesModal.vue';
 </script>
 
 <style scoped>
