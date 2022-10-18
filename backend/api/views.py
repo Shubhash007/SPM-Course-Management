@@ -362,11 +362,10 @@ class requirements_list(APIView):
         except Course.DoesNotExist:
             raise Http404
 
-    def get(self,request,staff_id,job_role_id,format=None):
+    def get(self,request,staff_id,format=None):
         staff = self.get_staff(staff_id)
-        job_role = self.get_job_role(job_role_id)
 
-        search = Requirements.objects.filter(Staff_id=staff,Job_Role_id=job_role)
+        search = Requirements.objects.filter(Staff_id=staff.Staff_ID)
         serializer = Requirements_Serializer(search,many=True)
         return Response(serializer.data,status = status.HTTP_200_OK)
 

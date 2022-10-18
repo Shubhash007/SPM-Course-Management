@@ -23,7 +23,7 @@
         computed:{
             authenticate:function(){
                 let staffID = this.staffID;
-                axios.get("/staff/" + staffID)
+                axios.get("/staff/" + staffID +'/')
                 .then(response => {
                     let staffInfo = response.data; 
                     localStorage.setItem("userRole", staffInfo.User_Role);

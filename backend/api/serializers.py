@@ -37,9 +37,8 @@ class Job_Role_Serializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class Requirements_Serializer(serializers.ModelSerializer):
-    Course = CourseSerializer(many=True)
-    Job_Role= Job_Role_Serializer(many=True)
-    Staff = StaffSerializer(many=True)
+    Job_Role= Job_Role_Serializer()
+    Course = CourseSerializer()
     class Meta:
         model = Requirements
         fields = "__all__"

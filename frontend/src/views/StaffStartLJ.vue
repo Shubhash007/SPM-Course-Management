@@ -38,7 +38,7 @@ const data =reactive({
 
 async function get_data() {
     try {
-        const response = await axios.get('http://127.0.0.1:5000/job_role');
+        const response = await axios.get('http://127.0.0.1:5000/job_role/');
         let res = response.data
         data.skills_data = res
         data.filtered_data = res
