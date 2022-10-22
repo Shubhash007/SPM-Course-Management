@@ -137,7 +137,7 @@
             },
 
             onload:function(){
-                axios.get('/skill')
+                axios.get('/skill/')
             .then(response => {
                 this.course = response.data.data;
                 this.skillsList = response.data
@@ -161,7 +161,7 @@
     // a computed getter
         postJobRole() {
             var jobID = document.getElementsByTagName("input")[0].value
-            axios.post('/job_role/' + jobID, {
+            axios.post('/job_role/', {
                 "Job_Role_ID": jobID,
                 "Job_Role_Desc": document.getElementsByTagName("textarea")[0].value,
                 "Job_Role_Name": document.getElementsByTagName("input")[1].value,
