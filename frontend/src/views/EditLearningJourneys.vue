@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <NavBar></NavBar>
+  <div class="container" style="min-height: 82vh">
       <div class="row text-dark fs-1 fw-bold p-2 text-center">
           <p>Learning Journeys</p>
       </div>
@@ -32,8 +33,7 @@ import AddRoleToLJ from '@/components/AddRoleToLJ.vue'
 import { ref,reactive } from 'vue';
 import DeleteLJ from '../components/DeleteLJ.vue';
 import axios from 'axios'
-
-
+import NavBar from '../components/NavBar.vue';
 
 const search_term = ref('')
 const data =reactive({

@@ -1,5 +1,6 @@
 <template>
-    <div class="card w-75">
+    <NavBar></NavBar>
+    <div class="card w-75" style="min-height: 80vh;">
         <div class="card-body">
             <!-- Create a Skill -->
             <h5 class="card-title">CREATE A SKILL</h5>
@@ -94,6 +95,9 @@
         </div>
     </div>
 </template>
+<script setup>
+    import NavBar from '../components/NavBar.vue';
+</script>
 <script>
     export default{
         data(){

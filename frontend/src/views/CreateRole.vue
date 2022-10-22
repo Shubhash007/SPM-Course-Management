@@ -1,4 +1,5 @@
 <template>
+    <NavBar></NavBar>
     <div class="card w-75">
         <div class="card-body">
             <!-- Create a Job Role -->
@@ -100,8 +101,10 @@
         </div>
     </div>
 </template>
+<script setup>
+    import NavBar from '../components/NavBar.vue';
+</script>
 <script>
-
     import axios from 'axios'
     export default{
         data(){
@@ -113,9 +116,6 @@
                 selectedSkills: ["Please select skills"]
             }
         },
-
-        
-        
         methods:{
             AddExistingSkill:function(){
                 this.existingSkillCounter += 1;
@@ -135,27 +135,19 @@
                     this.hasNewSkill = false;
                 }
             },
-
             onload:function(){
                 axios.get('/skill/')
             .then(response => {
                 this.course = response.data.data;
                 this.skillsList = response.data
                 console.log(this.skillsList)
-
-                
             })
             .catch(error => alert(error)) 
             }
         },
-
-
         created() {
             this.onload()
         },
-
-
-
         computed: {
     
     // a computed getter

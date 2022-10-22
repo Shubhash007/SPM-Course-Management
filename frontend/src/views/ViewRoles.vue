@@ -1,4 +1,5 @@
 <template>
+    <NavBar></NavBar>
     <div style="min-height: 80vh;">
         <div class="row g-3" style="margin: 20px 50px;">
             <div class="col-auto">
@@ -24,6 +25,9 @@
         </table>
     </div>
 </template>
+<script setup>
+    import NavBar from '../components/NavBar.vue';
+</script>
 <script>
     export default{
         data(){

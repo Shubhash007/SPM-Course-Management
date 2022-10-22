@@ -1,4 +1,5 @@
 <template>
+  <NavBar></NavBar>
   <div style="min-height: 80vh">
     <div class="row g-3" style="margin: 20px 50px"></div>
     <div class="accordion" id="accordionExample">
@@ -33,6 +34,9 @@
     </div>
   </div>
 </template>
+<script setup>
+    import NavBar from '../components/NavBar.vue';
+</script>
 <script>
 export default {
   data() {
