@@ -1,49 +1,51 @@
-<template style="min-height: 100vh;">
-    <div class="card w-75">
-        <div class="card-body">
-
-            <h1 class="card-title">{{profile.Name}}</h1>
-            <h6>{{profile.Email}}</h6>
-            <br>
-
-            <div class="row">
-                <div class="col-sm">
-                <h5 class="card-title">Staff Particulars</h5>
-                <p class="card-text">
-                    <ul>
-                        <li>Staff ID: {{profile.StaffID}}</li>
-                        <li>Department: {{profile.Department}}</li>
-                    </ul>
-                </p>
-                </div>
-                
-                <div class="col-sm">
-                <h5 class="card-title">Skills Attained</h5>
-                <p class="card-text">
-                    <ul>
-                        <li v-for="skill in profile.Skills">{{skill}}
-                        </li>
-                    </ul>
-                </p>
-                </div>
-                <div class="col-sm row">
-                    <div class="col-7">
-                        <h5 class="card-title">Current Roles</h5>
+<template>
+    <NavBar></NavBar>
+    <div style="min-height: 80vh">
+        <div class="card w-75">
+            <div class="card-body">
+    
+                <h1 class="card-title">{{profile.Name}}</h1>
+                <h6>{{profile.Email}}</h6>
+                <br>
+    
+                <div class="row">
+                    <div class="col-sm">
+                    <h5 class="card-title">Staff Particulars</h5>
+                    <p class="card-text">
+                        <ul>
+                            <li>Staff ID: {{profile.StaffID}}</li>
+                            <li>Department: {{profile.Department}}</li>
+                        </ul>
+                    </p>
                     </div>
-                    <div class="col-5" v-if="userRole == 3 || userRole == 2">
-                        <editRolesModal :staffID="profile.StaffID" :roles="profile.Roles" />
+                    
+                    <div class="col-sm">
+                    <h5 class="card-title">Skills Attained</h5>
+                    <p class="card-text">
+                        <ul>
+                            <li v-for="skill in profile.Skills">{{skill}}
+                            </li>
+                        </ul>
+                    </p>
                     </div>
-                <p class="card-text">
-                    <ul>
-                        <li v-for="role in profile.Roles">{{role}}</li>
-                    </ul>
-                </p>
+                    <div class="col-sm row">
+                        <div class="col-7">
+                            <h5 class="card-title">Current Roles</h5>
+                        </div>
+                        <div class="col-5" v-if="userRole == 3 || userRole == 2">
+                            <editRolesModal :staffID="profile.StaffID" :roles="profile.Roles" />
+                        </div>
+                    <p class="card-text">
+                        <ul>
+                            <li v-for="role in profile.Roles">{{role}}</li>
+                        </ul>
+                    </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
-
 <script>
     import axios from 'axios';
     
@@ -81,6 +83,7 @@
 </script>
 <script setup>
 import editRolesModal from '../components/editRolesModal.vue';
+import NavBar from '../components/NavBar.vue';
 </script>
 
 <style scoped>
