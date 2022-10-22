@@ -7,32 +7,34 @@
         </h2>
 
         <div :id="'collapse' + num" class="accordion-collapse collapse" :aria-labelledby="'heading'+ num" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
+            <div class="accordion-body" v-for="skill, index in (skills)">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item" v-for="courses, skill in skills">
+                    <li class="list-group-item" >
                         <div>
                             <div class="row">
                                 <div class="col-10">
-                                    {{skill}}
+                                    {{skill.Skill_Name}}
                                 </div>
                                 <div class="col-2">
-                                    <editCoursesModal :coursesSelected="courses" :no="num" :skillSelected="skill"/>
+                                    <!-- need to amend this after new db is out -->
+                                    <editCoursesModal :coursesSelected="courses" :no="num" :skillSelected="index"/>
                                 </div>
                                 <div>
-                                    <ol>
-                                        <li v-for="course in courses">
-                                            {{course}}
+                                    <ul>
+                                        <li>
+                                            {{skill.Skill_Desc}}
                                         </li>
-                                    </ol>
-                                </div>
+                                    </ul>
                                 </div>
                             </div>
+                        </div>
                         <br>
                     </li>
                 </ul>
-                <button type="button" class="btn btn-outline-danger btn-md">Delete Learning Journey</button>
             </div>
+            <button type="button" class="btn btn-outline-danger btn-md">Delete Learning Journey</button>
         </div>
+        
     </div>     
 </template>
     

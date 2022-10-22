@@ -19,8 +19,8 @@
       <div class="row">
           <div class="col-6 mx-auto">
               <div class="accordion" id="accordionExample">
-                  <DeleteLJ v-for="(item,index) in data.filtered_data" :num="index" :role="item.role" :skills="item.skills" />
-                  {{getSkill}}
+                  <DeleteLJ v-for="(item,index) in data.filtered_data" :num="index" :role="item['Job_Role']['Job_Role_Name']" :courses="item['Course_Name']" :skills="item['Job_Role']['Skills']"/>
+                  
               </div>
           </div>
       </div>           
@@ -28,86 +28,52 @@
 </template>
 
 <script setup>
-import AddRoleToLJ from '@/components/AddRoleToLJ.vue'
 import { ref,reactive } from 'vue';
 import DeleteLJ from '../components/DeleteLJ.vue';
+
 import axios from 'axios'
-
-
-
 const search_term = ref('')
 const data =reactive({
-
-  skills_data:[
-  {    
-      role: "Software Engineer",
-      skills: {'Python': 
-                  ["Intro to Python", "Flask Techniques"]
-                  ,
-                'PHP':
-                  ["Intro to PHP"]
-              }
-  },
-  {
-      role: "Developer",
-      skills: {'Javascript': 
-                  ["Intro to JS", "Vuejs Techniques"],
-
-                'PHP':
-                  ["Intro to PHP"]
-              }
-  }
-],
-  filtered_data:[]
+    skills_data:[],
+    filtered_data:[],
 })
-data.filtered_data = data.skills_data
+
+async function get_data() {
+    try {
+        const response = await axios.get('http://127.0.0.1:5000/req/140002/');
+        let res = response.data
+        data.skills_data = res
+        data.filtered_data = res
+        console.log(res)
+        // for (let item in res) {
+        //   data.skills_data = res[item].Job_Role['Skills']
+        // }
+        
+        // console.log(typeof(data.skills_data))
+        
+        return res
+    } catch (error) {
+        alert(`DB is inaccesible at the moment due to ${error.message}`);
+    }
+    
+}
+get_data()
+
 
 const update_filter = function(){
-  let search = search_term.value.toLowerCase()
-  if( search && search.length > 0){
-      let res = data.skills_data.filter(info => info.role.toLowerCase().startsWith(search) )
-      console.log(res)
-      data.filtered_data = res
-      console.log(data.filtered_data)
-  }
-  else{
-      data.filtered_data = data.skills_data
-  }
-}
-
-
-
-
-
-
-
-</script>
-
-<script>
-
-
-export default {
-  data() {
-    return {
-      course: [],
-      search : 130001
-  }
-},
-  computed: {
-    
-    // a computed getter
-    getSkill() {
-        axios.get('/courseSkill')
-        .then(response => {
-            this.course = response.data.data;
-            console.log(response.data)
-            
-        })
-        .catch(error => alert(error)) 
+    let search = search_term.value.toLowerCase()
+    if( search && search.length > 0){
+        let res = data.skills_data.filter(info => info.Job_Role.Job_Role_Name.toLowerCase().startsWith(search) )
+        console.log(res)
+        data.filtered_data = res
+        console.log(data.filtered_data)
     }
-
-  }
+    else{
+        data.filtered_data = data.skills_data
+    }
 }
+
+
 
 </script>
 
