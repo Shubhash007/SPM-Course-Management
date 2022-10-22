@@ -1,45 +1,49 @@
 <template>
-  <!-- Create Role / Skill -->
-  <div class="row p-5" id="row">
-    <div class="col-sm-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Edit Learning Journey(s)</h5>
-          <p class="card-text">Edit your existing Learning Journey(s).</p>
-          <router-link class="btn" id="card-button" to="/EditLearningJourneys"
-            >Edit</router-link
-          >
+  <Navbar></Navbar>
+  <div style="min-height: 82vh">
+    <!-- Create Role / Skill -->
+    <div class="row p-5" id="row">
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Edit Learning Journey(s)</h5>
+            <p class="card-text">Edit your existing Learning Journey(s).</p>
+            <router-link class="btn" id="card-button" to="/EditLearningJourneys"
+              >Edit</router-link
+            >
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- View Roles / Skills -->
-    <div class="col-sm-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Add courses</h5>
-          <p class="card-text">
-            Add courses to existing Learning Journey(s)
-          </p>
-          <router-link class="btn" id="card-button" to="/AddCourses"
-            >Add  Courses</router-link
-          >
+  
+      <!-- View Roles / Skills -->
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Add courses</h5>
+            <p class="card-text">
+              Add courses to existing Learning Journey(s)
+            </p>
+            <router-link class="btn" id="card-button" to="/AddCourses"
+              >Add  Courses</router-link
+            >
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="col-sm-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">View Staff</h5>
-          <p class="card-text">View staffs' skills and completed courses</p>
-          <router-link class="btn" id="card-button" to="/ViewStaff">View Staff</router-link>
+  
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">View Staff</h5>
+            <p class="card-text">View staffs' skills and completed courses</p>
+            <router-link class="btn" id="card-button" to="/ViewStaff">View Staff</router-link>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-<script>
+<script setup>
+  import Navbar from '../components/NavBar.vue';
 </script>
 <style scoped>
     #row{
