@@ -3,6 +3,7 @@ spm_venv/
 *.log
 *.pot
 *.pyc
+node_modules
 backend/api/__pycache__/
 backend/backend/__pycache__/
 
