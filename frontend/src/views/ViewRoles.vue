@@ -18,8 +18,9 @@
             <tbody id="tbody">
                 <tr v-for="(employee, index) in employees">
                     <th scope="row" style="color: #2F2FFA">{{index+1}}</th>
-                    <td><router-link :to="{name: 'StaffProfile', params: {slug: employee.StaffID}}">{{ employee.Staff }}</router-link></td>
-                    <td>{{ employee.Role }}</td> 
+                    <td>{{ employee.Staff_FName}} {{employee.Staff_LName}}</td>
+                    <!-- <td><router-link :to="{name: 'StaffProfile', params: {slug: employee.StaffID}}">{{ employee.Staff }}</router-link></td> -->
+                    <td>{{ employee.Dept}}</td> 
                 </tr>
             </tbody>
         </table>
@@ -29,37 +30,57 @@
     import NavBar from '../components/NavBar.vue';
 </script>
 <script>
+
+import axios from "axios";
+
+
     export default{
         data(){
             return{
-                employees: [
-                    {
-                        Role: "Software Engineer",
-                        Staff: "Mary Lamb",
-                        StaffID: 130001
-                    },
-                    {
-                        Role: "Software Engineer",
-                        Staff: "Mary Cow",
-                        StaffID: 130002
-                    },
-                    {
-                        Role: "Consultant",
-                        Staff: "Bob Tan",
-                        StaffID: 140001
-                    },
-                    {
-                        Role: "Consultant",
-                        Staff: "Benjamin Toh",
-                        StaffID: 140002
-                    }
-                ],
+                // employees: [
+                //     {
+                //         Role: "Software Engineer",
+                //         Staff: "Mary Lamb",
+                //         StaffID: 130001
+                //     },
+                //     {
+                //         Role: "Software Engineer",
+                //         Staff: "Mary Cow",
+                //         StaffID: 130002
+                //     },
+                //     {
+                //         Role: "Consultant",
+                //         Staff: "Bob Tan",
+                //         StaffID: 140001
+                //     },
+                //     {
+                //         Role: "Consultant",
+                //         Staff: "Benjamin Toh",
+                //         StaffID: 140002
+                //     }
+                // ],
+                employees: [],
                 category: "Category",
                 keyword: "",
                 hasSearch: false,
                 returnData: []
             }
         }, methods:{
+
+
+            onload: function(){
+            axios.get('/staff/')
+            .then(response => {
+                // this.course = response.data.data;
+                this.employees = response.data
+                console.log(response.data)
+                // console.log(this.employees[10].courses);
+            })
+            .catch(error => alert(error)) 
+            },  
+
+
+
             searchFunction: function () {
                 var input, filter, table, tbody, tr, tdName, tdRoles, i, txtValue;
                 input = document.getElementById("search");
@@ -83,7 +104,15 @@
                 }
             }
 
-        }
+        },
+
+        mounted(){
+            this.onload()
+        },
+        created() {
+            this.onload()
+        },
+        
     }
 </script>
 <style scoped>
