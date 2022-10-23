@@ -152,14 +152,27 @@
     
     // a computed getter
         postJobRole() {
-            var jobID = document.getElementsByTagName("input")[0].value
             axios.post('/job_role/', {
-                "Job_Role_ID": jobID,
-                "Job_Role_Desc": document.getElementsByTagName("textarea")[0].value,
-                "Job_Role_Name": document.getElementsByTagName("input")[1].value,
-                "Dept": document.getElementsByTagName("input")[2].value,
-                "Skills": this.selectedSkills
+                Job_Role_ID: document.getElementsByTagName("input")[0].value,
+                Job_Role_Desc: document.getElementsByTagName("textarea")[0].value,
+                Job_Role_Name: document.getElementsByTagName("input")[1].value,
+                Dept: document.getElementsByTagName("input")[2].value,
+                Skills: this.selectedSkills
             })
+
+
+            {
+    "Job_Role_ID": [
+        "This field is required."
+    ],
+    "Skills": [
+        "This field is required."
+    ],
+    "Job_Role_Desc": [
+        "This field is required."
+    ]
+}
+
             .then(response => {
                 this.course = response.data.data;
                 console.log(response.data)
