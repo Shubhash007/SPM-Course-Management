@@ -160,18 +160,7 @@
                 Skills: this.selectedSkills
             })
 
-
-            {
-    "Job_Role_ID": [
-        "This field is required."
-    ],
-    "Skills": [
-        "This field is required."
-    ],
-    "Job_Role_Desc": [
-        "This field is required."
-    ]
-}
+            
 
             .then(response => {
                 this.course = response.data.data;
