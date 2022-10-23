@@ -5,7 +5,7 @@
             <!-- Create a Job Role -->
             <h5 class="card-title">CREATE A JOB ROLE</h5>
             <p class="card-text">
-                <div class="row g-3 py-3 align-items-center" >
+                <!-- <div class="row g-3 py-3 align-items-center" >
                     <div class="col-auto">
                         <label for="jobID" class="col-form-label" id="spacing1">Job ID</label>
                     </div>
@@ -14,7 +14,7 @@
                     </div>
                     <div class="col-auto">
                     </div>
-                </div>
+                </div> -->
                 <div class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
                         <label for="jobRole" class="col-form-label" id="spacing">Job Role Name</label>
@@ -113,7 +113,8 @@
                 newSkillCounter: 0,
                 hasNewSkill: false,
                 skillsList: [],
-                selectedSkills: ["Please select skills"]
+                selectedSkills: ["Please select skills"],
+                roleNo: 0
             }
         },
         methods:{
@@ -138,12 +139,25 @@
             onload:function(){
                 axios.get('/skill/')
             .then(response => {
-                this.course = response.data.data;
+                // this.course = response.data.data;
                 this.skillsList = response.data
                 console.log(this.skillsList)
             })
             .catch(error => alert(error)) 
+
+
+            axios.get('/job_role/')
+            .then(response => {
+                this.roleNo = response.data.length + 1
+                console.log(this.roleNo)
+
+            })
+            .catch(error => alert(error)) 
+
+
             }
+
+            
         },
         created() {
             this.onload()
@@ -153,10 +167,10 @@
     // a computed getter
         postJobRole() {
             axios.post('/job_role/', {
-                Job_Role_ID: document.getElementsByTagName("input")[0].value,
+                Job_Role_ID: this.roleNo,
                 Job_Role_Desc: document.getElementsByTagName("textarea")[0].value,
-                Job_Role_Name: document.getElementsByTagName("input")[1].value,
-                Dept: document.getElementsByTagName("input")[2].value,
+                Job_Role_Name: document.getElementsByTagName("input")[0].value,
+                Dept: document.getElementsByTagName("input")[1].value,
                 Skills: this.selectedSkills
             })
 
