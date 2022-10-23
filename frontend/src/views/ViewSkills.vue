@@ -18,7 +18,7 @@
             <tbody id="tbody">
                 <tr v-for="(skill, index) in skills">
                     <th scope="row" style="color: #2F2FFA">{{index+1}}</th>
-                    <td>{{ skill.Skill_Name }}</td> 
+                    <td>{{ skill.Skill_Name}}</td> 
                     <td>{{ skill.courses.toString() }}</td>
                 </tr>
             </tbody>
@@ -52,6 +52,7 @@
                 //         Courses: ["Introduction to Python", "Intermediate Python"]
                 //     }
                 // ],
+                skills:[],
                 keyword: "",
                 hasSearch: false,
                 returnData: []
@@ -63,6 +64,7 @@
                 // this.course = response.data.data;
                 this.skills = response.data
                 console.log(this.skills)
+                console.log(this.skills[10].courses);
             })
             .catch(error => alert(error)) 
             },    
