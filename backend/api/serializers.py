@@ -9,10 +9,10 @@ class StaffSerializer(serializers.ModelSerializer):
 
         
 class SkillSerializer(serializers.ModelSerializer):
+    courses = serializers.StringRelatedField(many=True)
     class Meta:
         model = Skill
-        fields = ['Skill_ID','Skill_Name','Skill_Desc']
-
+        fields = ['Skill_ID','Skill_Name','Skill_Desc','courses']
 
 class CourseSerializer(serializers.ModelSerializer):
     Skills = SkillSerializer(many=True)

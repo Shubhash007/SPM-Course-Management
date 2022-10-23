@@ -54,7 +54,7 @@ class Course(models.Model):
     Course_Status = models.CharField(max_length=15)
     Course_Type = models.CharField(max_length=10)
     Course_Category = models.CharField(max_length=50)
-    Skills = models.ManyToManyField(Skill)
+    Skills = models.ManyToManyField(Skill, related_name = 'courses')
 
     class Meta:
         """Meta definition for Courses."""

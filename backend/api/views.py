@@ -374,18 +374,19 @@ class requirements_list(APIView):
         job_role = self.get_job_role(job_role_id)
         course = self.get_course(course_id)
 
-        try:
-            Registration.objects.create(Course_id=course,Job_Role_id=job_role,Staff_id=staff)
+        if Requirements.objects.filter(Staff_id=staff.Staff_ID,Job_Role_id=job_role.Job_Role_ID,Course_id=course.Course_ID).exists():
+            return Response({'msg': f'This {course.Course_Name} has already been assigned to {staff.Staff_FName} with job role {job_role.Job_Role_Name}'},status=status.HTTP_404_NOT_FOUND)
+        else:
+            Requirements.objects.create(Course_id=course.Course_ID,Job_Role_id=job_role.Job_Role_ID,Staff_id=staff.Staff_ID)
             return Response(f"{staff} with {job_role} has {course} saved",status=status.HTTP_200_OK)
-        except IntegrityError as e:
-            return Response({'msg': e},status=status.HTTP_404_NOT_FOUND)
+            
 
     def delete(self,request,staff_id,job_role_id,course_id,format=None):
         staff = self.get_staff(staff_id)
         job_role = self.get_job_role(job_role_id)
         course = self.get_course(course_id)
         
-        req = Requirements.objects.filter(Staff_id=staff,Job_Role_id=job_role,Course_id=course)
+        req = Requirements.objects.filter(Staff_id=staff.Staff_ID,Job_Role_id=job_role.Job_Role_ID,Course_id=course.Course_ID)
         if req.exists():
             req.delete()
             return Response({'msg':f"{staff.Staff_ID},{course.Course_ID},{job_role.Job_Role_ID} has been removed"},status=status.HTTP_200_OK)
