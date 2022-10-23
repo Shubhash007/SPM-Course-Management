@@ -1,5 +1,6 @@
 <template>
-    <div class="container">
+    <NavBar></NavBar>
+    <div class="container" style="min-height: 82vh">
         <div class="row text-dark fs-1 fw-bold p-2 text-center">
             <p>Start Learning Jorney</p>
             <div class="text-muted fs-4">Click on role to see information</div>
@@ -29,6 +30,7 @@
 import AddRoleToLJ from '@/components/AddRoleToLJ.vue'
 import { ref,reactive } from 'vue';
 import axios from "axios"
+import NavBar from '../components/NavBar.vue';
 
 const search_term = ref('')
 const data =reactive({

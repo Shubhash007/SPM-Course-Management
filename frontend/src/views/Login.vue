@@ -1,5 +1,6 @@
 <template>
-    <div style="padding-top: 150px;">
+    <NavBar :staffid="staffID" :userRole="userRole"></NavBar>
+    <div style="padding-top: 150px; min-height: 85vh;">
         <div class="d-flex align-items-center justify-content-center">
             <div class="col-auto">
                 <label for="staffID" class="col-form-label" id="spacing">Staff ID</label>
@@ -11,6 +12,9 @@
         </div>
     </div>
 </template>
+<script setup>
+    import NavBar from '../components/NavBar.vue';
+</script>
 <script>
     import axios from "axios";
     export default{
@@ -29,9 +33,10 @@
                     localStorage.setItem("userRole", staffInfo.User_Role);
                     localStorage.setItem("staff_id", staffInfo.Staff_ID)
                     this.userRole = localStorage.userRole;
-                    if (staffInfo.User_Role == 1 || staffInfo.User_Role == 4){
+                    this.staffID = localStorage.staff_id;
+                    if (staffInfo.User_Role == 2 || staffInfo.User_Role == 4){
                         this.$router.push("/StaffHome");
-                    }else if (staffInfo.User_Role == 2 || staffInfo.User_Role == 3){
+                    }else if (staffInfo.User_Role == 1 || staffInfo.User_Role == 3){
                         this.$router.push("/HRHome");
                     }
                 })
