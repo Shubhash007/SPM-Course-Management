@@ -1,63 +1,92 @@
-<template style="min-height: 100vh;">
-    <div class="card w-75">
-        <div class="card-body">
-
-            <h1 class="card-title">STAFF NAME</h1>
-            <br><br>
-
-            <div class="row">
-                <div class="col-sm">
-                <h5 class="card-title">Staff Particulars</h5>
-                <p class="card-text">
-                    <ul>
-                        <li>Staff ID: {{profile.StaffID}}</li>
-                        <li>Department: {{profile.Department}}</li>
-                        <li>Email: {{profile.Email}}</li>
-                    </ul>
-                </p>
-                </div>
-                
-                <div class="col-sm">
-                <h5 class="card-title">Skills Attained</h5>
-                <p class="card-text">
-                    <ul>
-                        <li v-for="skill in profile.Skills">{{skill}}
-                        </li>
-                    </ul>
-                </p>
-                </div>
-                <div class="col-sm">
-                <h5 class="card-title">Current Roles</h5>
-                <p class="card-text">
-                    <ul>
-                        <li v-for="role in profile.Roles">{{role}}</li>
-                    </ul>
-                </p>
+<template>
+    <NavBar></NavBar>
+    <div style="min-height: 80vh">
+        <div class="card w-75">
+            <div class="card-body">
+    
+                <h1 class="card-title">{{profile.Name}}</h1>
+                <h6>{{profile.Email}}</h6>
+                <br>
+    
+                <div class="row">
+                    <div class="col-sm">
+                    <h5 class="card-title">Staff Particulars</h5>
+                    <p class="card-text">
+                        <ul>
+                            <li>Staff ID: {{profile.StaffID}}</li>
+                            <li>Department: {{profile.Department}}</li>
+                        </ul>
+                    </p>
+                    </div>
+                    
+                    <div class="col-sm">
+                    <h5 class="card-title">Skills Attained</h5>
+                    <p class="card-text">
+                        <ul>
+                            <li v-for="skill in profile.Skills">{{skill}}
+                            </li>
+                        </ul>
+                    </p>
+                    </div>
+                    <div class="col-sm row">
+                        <div class="col-7">
+                            <h5 class="card-title">Current Roles</h5>
+                        </div>
+                        <div class="col-5" v-if="userRole == 3 || userRole == 2">
+                            <editRolesModal :staffID="profile.StaffID" :roles="profile.Roles" />
+                        </div>
+                    <p class="card-text">
+                        <ul>
+                            <li v-for="role in profile.Roles">{{role}}</li>
+                        </ul>
+                    </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
-
 <script>
+    import axios from 'axios';
+    
     export default{
         data(){
             return{
                 profile: 
                     {
-                        StaffID: "12345",
-                        Department: "IT",
-                        Email: "fwasung@<name>.com",
+                        StaffID: 0,
+                        Name: "",
+                        Department: "",
+                        Email: "",
                         Skills: ["Python", "PHP"],
                         Roles: ["Software Engineer", "Developer"]
-                    }
+                    },
+                userRole: 0,
             }
+        },
+        created(){
+            const slug = this.$route.params.slug; 
+            this.userRole = localStorage.getItem("userRole");
+            axios.get(`/staff/${slug}`)
+            .then(response => {
+                // console.log(response.data);
+                this.profile.StaffID = response.data.Staff_ID;
+                this.profile.Name = response.data.Staff_FName + " " + response.data.Staff_LName;
+                this.profile.Department = response.data.Dept;
+                this.profile.Email = response.data.Email;
+            })
+            .catch(error=>{
+                    console.log(error.message);
+            })
         }
     }
 </script>
+<script setup>
+import editRolesModal from '../components/editRolesModal.vue';
+import NavBar from '../components/NavBar.vue';
+</script>
 
 <style scoped>
-    /* Create Job Role */
     .card{
         margin: 10px auto;
         border-color: white;

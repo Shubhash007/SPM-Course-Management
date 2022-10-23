@@ -1,4 +1,5 @@
 <template>
+  <NavBar></NavBar>
   <div style="min-height: 80vh">
     <div class="row g-3" style="margin: 20px 50px">
       <div class="col-auto">
@@ -41,46 +42,46 @@
     </table>
   </div>
 </template>
-
 <script>
+import NavBar from '../components/NavBar.vue';
 export default {
-  data() {
-    return {
-      staffList: [
-        {
-          name: "Mary Lamb",
-          roles: ["Software Engineer"],
-        },
-        {
-          name: "John Doe",
-          roles: ["Developer"],
-        },
-      ],
-    };
-  },
-
-  methods: {
-    searchFunction: function () {
-      var input, filter, table, tbody, tr, td, i, txtValue;
-      input = document.getElementById("search");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("staff");
-      tbody = document.getElementById("tbody");
-      tr = tbody.getElementsByTagName("tr");
-
-      for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[1];
-        if (td) {
-          txtValue = td.textContent || td.innerText;
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
-          }
-        }
-      }
+    data() {
+        return {
+            staffList: [
+                {
+                    name: "Mary Lamb",
+                    roles: ["Software Engineer"],
+                },
+                {
+                    name: "John Doe",
+                    roles: ["Developer"],
+                },
+            ],
+        };
     },
-  },
+    methods: {
+        searchFunction: function () {
+            var input, filter, table, tbody, tr, td, i, txtValue;
+            input = document.getElementById("search");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("staff");
+            tbody = document.getElementById("tbody");
+            tr = tbody.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    }
+                    else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        },
+    },
+    components: { NavBar }
 };
 </script>
 
