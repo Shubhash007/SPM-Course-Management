@@ -13,6 +13,7 @@
                 <th scope="col">S/N</th>
                 <th scope="col">Skill Name</th>
                 <th scope="col">Courses</th>
+                <th></th>
                 </tr>
             </thead>
             <tbody id="tbody">
@@ -20,6 +21,7 @@
                     <th scope="row" style="color: #2F2FFA">{{index+1}}</th>
                     <td>{{ skill.Skill }}</td> 
                     <td>{{ skill.Courses.toString() }}</td>
+                    <td><EditSkill :skillID="skill.SkillID" :skillName="skill.Skill"></EditSkill></td>
                 </tr>
             </tbody>
         </table>
@@ -27,6 +29,7 @@
 </template>
 <script setup>
     import NavBar from '../components/NavBar.vue';
+    import EditSkill from '../components/editSkillModal.vue';
 </script>
 <script>
     export default{
@@ -34,18 +37,22 @@
             return{
                 skills: [
                     {
+                        SkillID: 1,
                         Skill: "HTML",
                         Courses: ["Introduction to HTML", "Intermediate HTML"]
                     },
                     {
+                        SkillID: 2,
                         Skill: "CSS",
                         Courses: ["Introduction to CSS", "Intermediate CSS"]
                     },
                     {
+                        SkillID: 5,
                         Skill: "JavaScript",
                         Courses: ["Introduction to JavaScript", "Intermediate JavaScript"]
                     },
                     {
+                        SkillID: 10,
                         Skill: "Python",
                         Courses: ["Introduction to Python", "Intermediate Python"]
                     }

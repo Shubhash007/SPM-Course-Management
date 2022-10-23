@@ -32,7 +32,7 @@
                         <div class="col-7">
                             <h5 class="card-title">Current Roles</h5>
                         </div>
-                        <div class="col-5" v-if="userRole == 3 || userRole == 2">
+                        <div class="col-5" v-if="userRole == 3 || userRole == 1">
                             <editRolesModal :staffID="profile.StaffID" :roles="profile.Roles" />
                         </div>
                     <p class="card-text">
