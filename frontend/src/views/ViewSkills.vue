@@ -21,7 +21,7 @@
                     <th scope="row" style="color: #2F2FFA">{{index+1}}</th>
                     <td>{{ skill.Skill_Name}}</td> 
                     <td>{{ skill.courses.toString() }}</td>
-                    <td><EditSkill :skillID="skill.SkillID" :skillName="skill.Skill"></EditSkill></td>
+                    <td><EditSkill :skillID="skill.Skill_ID" :skillName="skill.Skill_Name"></EditSkill></td>
                 </tr>
             </tbody>
         </table>
@@ -71,7 +71,6 @@
                 // this.course = response.data.data;
                 this.skills = response.data
                 console.log(this.skills)
-                console.log(this.skills[10].courses);
             })
             .catch(error => alert(error)) 
             },    
@@ -98,9 +97,6 @@
                     }
                 }
                 }
-        
-            
-
         },
         mounted(){
             this.onload()
@@ -108,35 +104,6 @@
         created() {
             this.onload()
         },
-
-    //     computed:{
-    //         get_data: function() {
-    //     try {
-    //     const response = axios.get('http://127.0.0.1:5000/skill/');
-    //     let res = response.data
-        
-    //     let output = ""
-    //     let sn = 1
-    //     res.forEach(skill =>{
-    //         output += "<tr><th scope='row' style='color: #2F2FFA'> {{sn}}" + sn + "</th>"
-    //         sn += 1
-
-    //         let skill_name = skill.Skill_Name
-    //         let skill_courses = skill.courses.toString()
-    //         output +=  "<td>" + skill_name+ "</td><td>" + skill_courses 
-
-    //         output += "</td></tr>"
-
-    //     })
-    //     document.getElementById("tbody").innerHTML = output
-
-    //     console.log(res[0].courses)
-    // } catch (error) {
-    //     alert(`DB is inaccesible at the moment due to ${error.message}`);
-    // }
-
-    // }
-    //     }
     }
 
 
