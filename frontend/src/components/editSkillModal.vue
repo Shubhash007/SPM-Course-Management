@@ -15,7 +15,8 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="skillName" class="form-label">Skill Name</label>
-                        <input type="email" class="form-control" id="skillName" placeholder="name@example.com" :value="skillName">
+                        <input type="email" class="form-control" id="skillName" placeholder="Enter Skill Name" :value="skillname">
+                        <p v-show="hasErrors" class="error-message">{{ errorMessage }}</p>
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Skill Description</label>
@@ -23,8 +24,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" id="close-button" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn save-changes" @click="editSkills()">Save changes</button>
                 </div>
             </div>
         </div>
@@ -41,7 +42,10 @@
     export default{
         data(){
             return{
-                skillDescription: ""
+                skillname: "",
+                skillDescription: "",
+                hasErrors: false,
+                errorMessage: ""
             }
         },
         computed:{
@@ -49,11 +53,33 @@
                 axios.get("/skill/" + this.props.skillID +'/')
                 .then(response => {
                     let skillInfo = response.data;
+                    this.skillname = skillInfo.Skill_Name;
                     this.skillDescription = skillInfo.Skill_Desc;
                 })
                 .catch(error=>{
                     console.log(error.message);
                 })
+            }
+        },
+        methods:{
+            editSkills:function(){
+                if (this.skillname.length > 3 && this.skillname.length < 20){
+                    this.hasErrors = false;
+                    this.errorMessage = "";
+                    axios.put("/skill/" + this.props.skillID + "/", {
+                        "Skill_Name": this.skillname,
+                        "Skill_Desc": this.skillDescription
+                    })
+                    .then(response => {
+                        console.log(response.data);
+                    })
+                    .catch(error =>{
+                        console.log(error.message);
+                    }) 
+                }else{
+                    this.hasErrors = true;
+                    this.errorMessage = "Edited skill name has to be more than 3 and less than 20 characters";
+                }
             }
         }
     }
@@ -67,9 +93,25 @@
         color: white;
     }
 
-    .btn:first-child:hover{
+    .btn:first-child:hover , :not(.btn-check)+.btn:hover{
         border-color:#F64C72;
         background-color:#F64C72;
         color: black;
+    }
+
+    .error-message{
+        color: red;
+        font-size: small;
+    }
+
+    .save-changes{
+        background-color: #F64C72;
+        color: white;
+    }
+
+    #close-button:hover{
+        background-color: black;
+        border-color: black;
+        color: white;
     }
 </style>
