@@ -7,7 +7,7 @@ from .models import User_Role,Staff,Skill,Course,Registration,Job_Role,Requireme
 class StaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = Staff
-        fields = ['Staff_ID','Staff_FName','Staff_LName','Dept','Email','User_Role']
+        fields = "__all__"
 
         
 class SkillSerializer(serializers.ModelSerializer):
