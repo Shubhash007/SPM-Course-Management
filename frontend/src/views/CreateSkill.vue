@@ -194,7 +194,7 @@
             .catch(error => alert(error)) 
 
 
-            await axios.get('/skill/')
+            await axios.get('http://localhost:5000/skill/')
             .then(response => {
                 this.skillNo = response.data.length + 2
                 console.log(this.skillNo)

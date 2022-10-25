@@ -200,7 +200,7 @@
                 // "Job_Role_ID": jobID,
                 // "Skill_ID": skillID
                 })
-
+                
                 .then(response => {
                 // console.log(document.getElementsByTagName("input")[0].value)
 
