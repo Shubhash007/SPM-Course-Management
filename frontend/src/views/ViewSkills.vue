@@ -13,13 +13,15 @@
                 <th scope="col">S/N</th>
                 <th scope="col">Skill Name</th>
                 <th scope="col">Courses</th>
+                <th></th>
                 </tr>
             </thead>
             <tbody id="tbody">
                 <tr v-for="(skill, index) in skills">
                     <th scope="row" style="color: #2F2FFA">{{index+1}}</th>
-                    <td>{{ skill.Skill }}</td> 
-                    <td>{{ skill.Courses.toString() }}</td>
+                    <td>{{ skill.Skill_Name}}</td> 
+                    <td>{{ skill.courses.toString() }}</td>
+                    <td><EditSkill :skillID="skill.Skill_ID" :skillName="skill.Skill_Name"></EditSkill></td>
                 </tr>
             </tbody>
         </table>
@@ -27,34 +29,53 @@
 </template>
 <script setup>
     import NavBar from '../components/NavBar.vue';
+    import EditSkill from '../components/editSkillModal.vue';
 </script>
 <script>
+    import axios from "axios";
+
     export default{
         data(){
             return{
-                skills: [
-                    {
-                        Skill: "HTML",
-                        Courses: ["Introduction to HTML", "Intermediate HTML"]
-                    },
-                    {
-                        Skill: "CSS",
-                        Courses: ["Introduction to CSS", "Intermediate CSS"]
-                    },
-                    {
-                        Skill: "JavaScript",
-                        Courses: ["Introduction to JavaScript", "Intermediate JavaScript"]
-                    },
-                    {
-                        Skill: "Python",
-                        Courses: ["Introduction to Python", "Intermediate Python"]
-                    }
-                ],
+                // skills: [
+                //     {
+                //         SkillID: 1,   
+                //         Skill: "HTML",
+                //         Courses: ["Introduction to HTML", "Intermediate HTML"]
+                //     },
+                //     {
+                //         SkillID: 2,   
+                //         Skill: "CSS",
+                //         Courses: ["Introduction to CSS", "Intermediate CSS"]
+                //     },
+                //     {
+                //         SkillID: 5,   
+                //         Skill: "JavaScript",
+                //         Courses: ["Introduction to JavaScript", "Intermediate JavaScript"]
+                //     },
+                //     {
+                //         SkillID: 10,   
+                //         Skill: "Python",
+                //         Courses: ["Introduction to Python", "Intermediate Python"]
+                //     }
+                // ],
+                skills:[],
                 keyword: "",
                 hasSearch: false,
                 returnData: []
             }
         }, methods:{
+            onload: function(){
+                axios.get('/skill/')
+            .then(response => {
+                // this.course = response.data.data;
+                this.skills = response.data
+                console.log(this.skills)
+            })
+            .catch(error => alert(error)) 
+            },    
+
+
             searchFunction: function () {
                 var input, filter, tbody, tr, tdName, i, txtValue;
                 input = document.getElementById("search");
@@ -76,10 +97,19 @@
                     }
                 }
                 }
-
-        }
+        },
+        mounted(){
+            this.onload()
+        },
+        created() {
+            this.onload()
+        },
     }
+
+
+
 </script>
+
 <style scoped>
     #search{
         border-color: #2F2FFA;
