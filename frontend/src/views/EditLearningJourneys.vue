@@ -20,8 +20,7 @@
       <div class="row">
           <div class="col-6 mx-auto">
               <div class="accordion" id="accordionExample">
-                  <DeleteLJ v-for="(item,index) in data.filtered_data" id='test' :num="index" :role="item['Job_Role']['Job_Role_Name']" :courses="item['Course']['Course_Name']" :jobrole= "jobrole" :skills="item['Job_Role']['Skills']"/>
-                  
+                  <DeleteLJ v-for="(item,index) in data.filtered_data" id='test' :num="index" :role="item['Job_Role']['Job_Role_Name']" :courses="item['Course_Registered']" :jobrole= "item['Job_Role']" :skills="item['Job_Role']['Skills']"/>
               </div>
           </div>
       </div>           

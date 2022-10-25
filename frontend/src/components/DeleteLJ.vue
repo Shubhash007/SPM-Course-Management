@@ -7,6 +7,9 @@
         </h2>
 
         <div :id="'collapse' + num" class="accordion-collapse collapse" :aria-labelledby="'heading'+ num" data-bs-parent="#accordionExample">
+            <div class="col-2">
+                <editCoursesModal :coursesSelected="courses" :jobrole="jobrole" :no="num" :skillSelected="index"/>
+            </div>
             <div class="accordion-body" v-for="skill, index in (skills)">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" >
@@ -14,10 +17,6 @@
                             <div class="row">
                                 <div class="col-10">
                                     {{skill.Skill_Name}}
-                                </div>
-                                <div class="col-2">
-                                    <!-- need to amend this after new db is out -->
-                                    <editCoursesModal :coursesSelected="courses" :jobrole="jobrole" :no="num" :skillSelected="index"/>
                                 </div>
                                 <div>
                                     <ul>
@@ -32,6 +31,7 @@
                     </li>
                 </ul>
             </div>
+
             <button type="button" class="btn btn-outline-danger btn-md">Delete Learning Journey</button>
         </div>
         
