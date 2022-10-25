@@ -153,8 +153,8 @@
             console.log(this.skillIDList)
         },
         
-            onload:function(){
-                axios.get('/skill/')
+            onload: async function(){
+                await axios.get('/skill/')
             .then(response => {
                 // this.course = response.data.data;
                 this.skillsList = response.data
@@ -163,7 +163,7 @@
             .catch(error => alert(error)) 
 
 
-            axios.get('/job_role/')
+            await axios.get('/job_role/')
             .then(response => {
                 this.roleNo = response.data.length + 1
                 // console.log(this.roleNo)
@@ -172,18 +172,9 @@
             .catch(error => alert(error)) 
 
 
-            }
-
-            
-        },
-        created() {
-            this.onload()
-        },
-        computed: {
-    
-    // a computed getter
-        postJobRole() {
-            axios.post('http://localhost:5000/job_role/', {
+            },
+            postJobRole: async function() {
+            await axios.post('http://localhost:5000/job_role/', {
                 Job_Role_ID: this.roleNo,
                 Job_Role_Desc: document.getElementsByTagName("textarea")[0].value,
                 Job_Role_Name: document.getElementsByTagName("input")[0].value,
@@ -205,7 +196,7 @@
             var jobID = this.roleNo
             for (let j = 0; j < this.skillIDList.length; j++) {
                 let skillID = this.skillIDList[j]
-                axios.post('/skill_to_job_role/' + skillID + "/" + jobID + "/", {
+                await axios.post('/skill_to_job_role/' + skillID + "/" + jobID + "/", {
                 // "Job_Role_ID": jobID,
                 // "Skill_ID": skillID
                 })
@@ -221,6 +212,15 @@
 
 
         }
+
+            
+        },
+        created() {
+            this.onload()
+        },
+        computed: {
+    
+    // a computed getter
     }
     }
 
