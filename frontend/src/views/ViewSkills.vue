@@ -37,28 +37,6 @@
     export default{
         data(){
             return{
-                // skills: [
-                //     {
-                //         SkillID: 1,   
-                //         Skill: "HTML",
-                //         Courses: ["Introduction to HTML", "Intermediate HTML"]
-                //     },
-                //     {
-                //         SkillID: 2,   
-                //         Skill: "CSS",
-                //         Courses: ["Introduction to CSS", "Intermediate CSS"]
-                //     },
-                //     {
-                //         SkillID: 5,   
-                //         Skill: "JavaScript",
-                //         Courses: ["Introduction to JavaScript", "Intermediate JavaScript"]
-                //     },
-                //     {
-                //         SkillID: 10,   
-                //         Skill: "Python",
-                //         Courses: ["Introduction to Python", "Intermediate Python"]
-                //     }
-                // ],
                 skills:[],
                 keyword: "",
                 hasSearch: false,

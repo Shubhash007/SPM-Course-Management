@@ -1,6 +1,6 @@
 <template>
     <!-- Edit Button trigger Modal -->
-    <button type="button" class="btn edit-button" data-bs-toggle="modal" :data-bs-target="'#'+skillName+skillID" @click.prevent="populate">
+    <button type="button" class="btn edit-button" data-bs-toggle="modal" :data-bs-target="'#'+skillName+skillID" @click.prevent="populate()">
     Edit Skill
     </button>
 
@@ -15,12 +15,12 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="skillName" class="form-label">Skill Name</label>
-                        <input type="email" class="form-control" id="skillName" placeholder="Enter Skill Name" :value="skillname">
+                        <input type="text" class="form-control" id="skillName" placeholder="Enter Skill Name"  v-model="skillname">
                         <p v-show="hasErrors" class="error-message">{{ errorMessage }}</p>
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Skill Description</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" :value="skillDescription"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="skillDescription"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -48,7 +48,66 @@
                 errorMessage: ""
             }
         },
-        computed:{
+        methods:{
+            editSkills:function(){
+                if (this.skillname.length > 3 && this.skillname.length < 20){
+                    this.hasErrors = false;
+                    this.errorMessage = "";
+                    axios.patch("/skill/" + this.props.skillID + "/", {
+                        "Skill_Name": this.skillname,
+                        "Skill_Desc": this.skillDescription
+                    })
+                    .then(response => {
+                        console.log(response.data);
+                        console.log(this.skillname);
+                    })
+                    .catch(error =>{
+                        console.log(error.message);
+                    }) 
+                }else{
+                    this.hasErrors = true;
+                    this.errorMessage = "Edited skill name has to be more than 3 and less than 20 characters";
+                }
+            },
+            // editSkills:function(){
+            //     axios.get("/skill/")
+            //     .then(response => {
+            //         console.log(response.data);
+            //         let skills = response.data;
+            //         let duplicateCount = 0;
+            //         console.log(skills[0].Skill_Name);
+            //         for (skill in skills){
+            //             if (this.skillname == skills.skill.Skill_Name){
+            //                 duplicateCount += 1;
+            //             }
+            //         }
+
+            //         if (this.skillname.length > 3 && this.skillname.length < 20 && duplicateCount == 0){
+            //             this.hasErrors = false;
+            //             this.errorMessage = "";
+            //             axios.patch("/skill/" + this.props.skillID + "/", {
+            //                 "Skill_Name": this.skillname,
+            //                 "Skill_Desc": this.skillDescription
+            //             })
+            //             .then(response => {
+            //                 console.log(response.data);
+            //                 console.log(this.skillname);
+            //             })
+            //             .catch(error =>{
+            //                 console.log(error.message);
+            //             }) 
+            //         }else if (duplicateCount > 0){
+            //             this.hasErrors = true;
+            //             this.errorMessage = "Edited skill name already exists";
+            //         }else{
+            //             this.hasErrors = true;
+            //             this.errorMessage = "Edited skill name has to be more than 3 and less than 20 characters";
+            //         }
+            //     })
+            //     .catch(error=>{
+            //         console.log(error.message);
+            //     })
+            // }, 
             populate:function(){
                 axios.get("/skill/" + this.props.skillID +'/')
                 .then(response => {
@@ -59,27 +118,6 @@
                 .catch(error=>{
                     console.log(error.message);
                 })
-            }
-        },
-        methods:{
-            editSkills:function(){
-                if (this.skillname.length > 3 && this.skillname.length < 20){
-                    this.hasErrors = false;
-                    this.errorMessage = "";
-                    axios.put("/skill/" + this.props.skillID + "/", {
-                        "Skill_Name": this.skillname,
-                        "Skill_Desc": this.skillDescription
-                    })
-                    .then(response => {
-                        console.log(response.data);
-                    })
-                    .catch(error =>{
-                        console.log(error.message);
-                    }) 
-                }else{
-                    this.hasErrors = true;
-                    this.errorMessage = "Edited skill name has to be more than 3 and less than 20 characters";
-                }
             }
         }
     }
