@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="col-2">
                                     <!-- need to amend this after new db is out -->
-                                    <editCoursesModal :coursesSelected="courses" :no="num" :skillSelected="index"/>
+                                    <editCoursesModal :coursesSelected="courses" :jobrole="jobrole" :no="num" :skillSelected="index"/>
                                 </div>
                                 <div>
                                     <ul>
@@ -40,14 +40,20 @@
     
     
 <script setup>
+import { list } from 'postcss';
 import editCoursesModal from '../components/editCoursesModal.vue';
+
 
     const props = defineProps({
         num: Number,
         role: String,
         skills: Object,
-        courses: Object,
+        courses: String,
+        jobrole:Object
     })
+
+
+    
 </script>
  
 <style scoped>
