@@ -10,3 +10,5 @@ backend/backend/__pycache__/
 backend/api/__pycache__/__init__.cpython-310.pyc
 backend/api/__pycache__/models.cpython-310.pyc
 *.pyc
+*.pyc
+backend/api/__pycache__/views.cpython-38.pyc
