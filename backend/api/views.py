@@ -463,7 +463,7 @@ class requirements_list(APIView):
     def delete(self,request,staff_id,job_role_id,format=None):
         staff = self.get_staff(staff_id)
         job_role = self.get_job_role(job_role_id)
-        
+
         req = Requirements.objects.filter(Staff_id=staff.Staff_ID,Job_Role_id=job_role.Job_Role_ID)
         if req.exists():
             req.delete()
