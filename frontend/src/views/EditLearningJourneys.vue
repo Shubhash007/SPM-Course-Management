@@ -20,7 +20,7 @@
       <div class="row">
           <div class="col-6 mx-auto">
               <div class="accordion" id="accordionExample">
-                  <DeleteLJ v-for="(item,index) in data.filtered_data" :num="index" :role="item['Job_Role']['Job_Role_Name']" :courses="item['Course_Name']" :skills="item['Job_Role']['Skills']"/>
+                  <DeleteLJ v-for="(item,index) in data.filtered_data" id='test' :num="index" :role="item['Job_Role']['Job_Role_Name']" :courses="item['Course']['Course_Name']" :jobrole= "jobrole" :skills="item['Job_Role']['Skills']"/>
                   
               </div>
           </div>
@@ -34,17 +34,19 @@ import DeleteLJ from '../components/DeleteLJ.vue';
 import axios from 'axios'
 import NavBar from '../components/NavBar.vue';
 
-
-import axios from 'axios'
 const search_term = ref('')
 const data =reactive({
     skills_data:[],
     filtered_data:[],
 })
 
+
+
 async function get_data() {
     try {
-        const response = await axios.get('http://127.0.0.1:5000/req/140002/');
+        let id = localStorage.getItem("staff_id");
+        console.log(id)
+        const response = await axios.get('http://127.0.0.1:5000/req/'+id+'/');
         let res = response.data
         data.skills_data = res
         data.filtered_data = res
