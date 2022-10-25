@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status,mixins,generics
 from django.db import IntegrityError
+from django.db.models import Count
 
 
 
@@ -275,18 +276,37 @@ class registration_detail(generics.GenericAPIView,
         return self.destroy(request, *args, **kwargs)
 
 ######################################JOB_ROLE######################################################
-class job_role_list(mixins.ListModelMixin,
-                mixins.CreateModelMixin,
+class job_role_list(mixins.ListModelMixin,mixins.CreateModelMixin, 
                 generics.GenericAPIView):
 
     queryset = Job_Role.objects.all()
     serializer_class = Job_Role_Serializer
 
+    def get_skill(self,pk):
+        try:
+            return Skill.objects.get(pk=pk)
+        except Skill.DoesNotExist:
+            raise Http404
+
     def get(self,request,*args,**kwargs):
         return self.list(request, *args, **kwargs)
     
     def post(self,request,*args,**kwargs):
-        return self.create(request, *args, **kwargs)
+        # return self.create(request, *args, **kwargs)
+        data = JSONParser().parse(request)
+        skills_data = data.pop('Skills',[])
+
+        if Job_Role.objects.filter(pk=data["Job_Role_ID"]).exists() == True:
+            return Response({'msg':'Job ID already exists'},status=status.HTTP_400_BAD_REQUEST)
+
+        jb = Job_Role.objects.create(**data)
+        if len(skills_data) != 0:
+            for skill in skills_data:
+                s = self.get_skill(int(skill))
+                jb.Skills.add(s)
+        jb.save()
+        return Response(Job_Role_Serializer(jb).data,status=status.HTTP_200_OK)
+        
     
 
 class job_role_detail(mixins.RetrieveModelMixin,
@@ -297,14 +317,44 @@ class job_role_detail(mixins.RetrieveModelMixin,
     queryset = Job_Role.objects.all()
     serializer_class = Job_Role_Serializer
 
+    def get_skill(self,pk):
+        try:
+            return Skill.objects.get(pk=pk)
+        except Skill.DoesNotExist:
+            raise Http404
+
+    def get_job_role(self,pk):
+        try:
+            return Job_Role.objects.get(pk=pk)
+        except Job_Role.DoesNotExist:
+            raise Http404
+
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
+    #def put(self, request, *args, **kwargs):
+    #    return self.update(request, *args, **kwargs)
     
-    def patch(self, request, *args, **kwargs):
-        return self.partial_update(request, *args, **kwargs)
+    def put( self, request, pk, format=None):
+        jb = self.get_job_role(pk)
+        data = JSONParser().parse(request)
+        
+        skills_data = data.pop('Skills',[])
+        if len(skills_data) == 0:
+            jb = Job_Role.objects.filter(pk=pk)
+            jb.update(**data)
+            jb = Job_Role.objects.get(pk=pk)
+            return Response(Job_Role_Serializer(jb).data, status=status.HTTP_200_OK)
+        else:
+            jb.Skills.clear()
+            for skill in skills_data:
+                s = self.get_skill(int(skill))
+                jb.Skills.add(s)
+        jb.save()
+        
+            # return Response(serializer.data)
+        return Response(Job_Role_Serializer(jb).data, status=status.HTTP_200_OK)
+
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
@@ -366,28 +416,56 @@ class requirements_list(APIView):
         staff = self.get_staff(staff_id)
 
         search = Requirements.objects.filter(Staff_id=staff.Staff_ID)
+        if search.exists() == False:
+             return Response({'msg':'Staff does not exist in Learning Journey'},status=status.HTTP_400_BAD_REQUEST)
         serializer = Requirements_Serializer(search,many=True)
         return Response(serializer.data,status = status.HTTP_200_OK)
 
-    def post(self,request,staff_id,job_role_id,course_id,format=None):
+    def post(self,request,staff_id,job_role_id,format=None):
         staff = self.get_staff(staff_id)
         job_role = self.get_job_role(job_role_id)
-        course = self.get_course(course_id)
+        # course = self.get_course(course_id)
 
-        if Requirements.objects.filter(Staff_id=staff.Staff_ID,Job_Role_id=job_role.Job_Role_ID,Course_id=course.Course_ID).exists():
-            return Response({'msg': f'This {course.Course_Name} has already been assigned to {staff.Staff_FName} with job role {job_role.Job_Role_Name}'},status=status.HTTP_404_NOT_FOUND)
-        else:
-            Requirements.objects.create(Course_id=course.Course_ID,Job_Role_id=job_role.Job_Role_ID,Staff_id=staff.Staff_ID)
-            return Response(f"{staff} with {job_role} has {course} saved",status=status.HTTP_200_OK)
-            
+        # if Requirements.objects.filter(Staff_id=staff.Staff_ID,Job_Role_id=job_role.Job_Role_ID,Course_id=course.Course_ID).exists():
+        #     return Response({'msg': f'This {course.Course_Name} has already been assigned to {staff.Staff_FName} with job role {job_role.Job_Role_Name}'},status=status.HTTP_404_NOT_FOUND)
+        # else:
+        #     Requirements.objects.create(Course_id=course.Course_ID,Job_Role_id=job_role.Job_Role_ID,Staff_id=staff.Staff_ID)
+        #     return Response(f"{staff} with {job_role} has {course} saved",status=status.HTTP_200_OK)
+        data = JSONParser().parse(request)
+        course_data = data.pop('Course_Registered',[])
 
-    def delete(self,request,staff_id,job_role_id,course_id,format=None):
+        if Requirements.objects.filter(Staff_id=staff_id,Job_Role_id=job_role_id).exists() == False:    
+            req = Requirements.objects.create(Staff_id=staff_id,Job_Role_id=job_role_id)
+            for course in course_data:
+                    c = self.get_course(course)
+                    req.Course_Registered.add(c)
+            req.save()
+            return Response(Requirements_Serializer(req).data,status=status.HTTP_200_OK)
+        return Response({'msg':'Staff and Job Role combination already exists'},status=status.HTTP_400_BAD_REQUEST)
+    
+    def put(self,request,staff_id,job_role_id,format=None):
         staff = self.get_staff(staff_id)
         job_role = self.get_job_role(job_role_id)
-        course = self.get_course(course_id)
+        data = JSONParser().parse(request)
+        course_data = data.pop('Course_Registered',[])
+
+        if Requirements.objects.filter(Staff_id=staff_id,Job_Role_id=job_role_id).exists() == True:
+            req = Requirements.objects.get(Staff_id=staff_id,Job_Role_id=job_role_id)
+            req.Course_Registered.clear()
+            for course in course_data:
+                    c = self.get_course(course)
+                    req.Course_Registered.add(c)
+            req.save()
+            return Response(Requirements_Serializer(req).data,status=status.HTTP_200_OK)
+        return Response({'msg':'Staff and Job Role combination does not exist'},status=status.HTTP_400_BAD_REQUEST)
+
+
+    def delete(self,request,staff_id,job_role_id,format=None):
+        staff = self.get_staff(staff_id)
+        job_role = self.get_job_role(job_role_id)
         
-        req = Requirements.objects.filter(Staff_id=staff.Staff_ID,Job_Role_id=job_role.Job_Role_ID,Course_id=course.Course_ID)
+        req = Requirements.objects.filter(Staff_id=staff.Staff_ID,Job_Role_id=job_role.Job_Role_ID)
         if req.exists():
             req.delete()
-            return Response({'msg':f"{staff.Staff_ID},{course.Course_ID},{job_role.Job_Role_ID} has been removed"},status=status.HTTP_200_OK)
-        return Response({'msg':f"{staff.Staff_ID},{course.Course_ID},{job_role.Job_Role_ID} dosent exist"},status=status.HTTP_404_NOT_FOUND)
+            return Response({'msg':f"{staff.Staff_ID},{job_role.Job_Role_ID} has been removed"},status=status.HTTP_200_OK)
+        return Response({'msg':f"{staff.Staff_ID},{job_role.Job_Role_ID} dosent exist"},status=status.HTTP_404_NOT_FOUND)

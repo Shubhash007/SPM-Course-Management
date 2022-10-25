@@ -6,3 +6,6 @@ spm_venv/
 backend/api/__pycache__/
 backend/backend/__pycache__/
 
+*.pyc
+backend/backend/__pycache__/__init__.cpython-310.pyc
+backend/api/__pycache__/__init__.cpython-310.pyc
