@@ -185,7 +185,7 @@
 
             onload:function(){
 
-            axios.get('/job_role/')
+            axios.get('http://localhost:5000/job_role/')
             .then(response => {
                 this.course = response.data.data;
                 this.jobsList = response.data
@@ -204,20 +204,10 @@
 
 
         },
-
-        },
-        created() {
-            this.onload()
-        }
-        
-        ,
-        computed: {
-    
-    // a computed getter
         postSkill() {
             // console.log(document.getElementsByTagName("input")[0].value)
 
-            axios.post('/skill/', {
+            axios.post('http://localhost:5000/skill/', {
                 Skill_ID: this.skillNo,
                 Skill_Name: document.getElementsByTagName("input")[0].value,
                 Skill_Desc: document.getElementsByTagName("textarea")[0].value
@@ -228,6 +218,7 @@
 
             .then(response => {
                 // console.log(document.getElementsByTagName("input")[0].value)
+                console.log(response.data)
                 
             })
             .catch(error => alert(error))
@@ -235,14 +226,14 @@
             var skillID = this.skillNo
             for (let j = 0; j < this.jobIDList.length; j++) {
                 let jobID = this.jobIDList[j]
-                axios.post('/skill_to_job_role/' + skillID + "/" + jobID + "/", {
-                "Job_Role_ID": jobID,
-                "Skill_ID": skillID
+                axios.post('http://localhost:5000/skill_to_job_role/' + skillID + "/" + jobID + "/", {
+                // "Job_Role_ID": jobID,
+                // "Skill_ID": skillID
                 })
 
                 .then(response => {
                 // console.log(document.getElementsByTagName("input")[0].value)
-
+                    console.log(response.data)
                 })
                 .catch(error => alert(error))
 
@@ -250,6 +241,17 @@
 
 
         }
+
+        },
+        created() {
+            this.onload()
+        }
+        
+        ,
+        computed: {
+    
+    // a computed getter
+
 
 
 

@@ -62,7 +62,7 @@
                     </div>
                     <div class="col-auto">
                         <select @change="appendSkillID" multiple size="10" v-model="selectedSkills" class="form-select select-skill" style="background-color: #2F2FFA; color:white;" >
-                            <option v-for="skill in skillsList" :value="skill.Skill_Name">{{skill.Skill_Name}}</option>
+                            <option v-for="skill in skillsList" :value="skill.Skill_ID">{{skill.Skill_Name}}</option>
                         </select>
                         Selected Skills: {{selectedSkills}}
                     </div>
@@ -183,7 +183,7 @@
     
     // a computed getter
         postJobRole() {
-            axios.post('/job_role/', {
+            axios.post('http://localhost:5000/job_role/', {
                 Job_Role_ID: this.roleNo,
                 Job_Role_Desc: document.getElementsByTagName("textarea")[0].value,
                 Job_Role_Name: document.getElementsByTagName("input")[0].value,
@@ -206,8 +206,8 @@
             for (let j = 0; j < this.skillIDList.length; j++) {
                 let skillID = this.skillIDList[j]
                 axios.post('/skill_to_job_role/' + skillID + "/" + jobID + "/", {
-                "Job_Role_ID": jobID,
-                "Skill_ID": skillID
+                // "Job_Role_ID": jobID,
+                // "Skill_ID": skillID
                 })
 
                 .then(response => {
