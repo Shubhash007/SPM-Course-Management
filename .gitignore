@@ -3,9 +3,10 @@ spm_venv/
 *.log
 *.pot
 *.pyc
+node_modules
 backend/api/__pycache__/
 backend/backend/__pycache__/
 
-*.pyc
-backend/backend/__pycache__/__init__.cpython-310.pyc
 backend/api/__pycache__/__init__.cpython-310.pyc
+backend/api/__pycache__/models.cpython-310.pyc
+*.pyc

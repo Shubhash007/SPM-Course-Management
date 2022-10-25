@@ -5,7 +5,7 @@
             <!-- Create a Job Role -->
             <h5 class="card-title">CREATE A JOB ROLE</h5>
             <p class="card-text">
-                <div class="row g-3 py-3 align-items-center" >
+                <!-- <div class="row g-3 py-3 align-items-center" >
                     <div class="col-auto">
                         <label for="jobID" class="col-form-label" id="spacing1">Job ID</label>
                     </div>
@@ -14,7 +14,7 @@
                     </div>
                     <div class="col-auto">
                     </div>
-                </div>
+                </div> -->
                 <div class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
                         <label for="jobRole" class="col-form-label" id="spacing">Job Role Name</label>
@@ -61,7 +61,7 @@
                         <label for="Skill{{n}}" class="col-form-label" id="spacing">Skills</label>
                     </div>
                     <div class="col-auto">
-                        <select multiple size="10" v-model="selectedSkills" class="form-select select-skill" style="background-color: #2F2FFA; color:white;" >
+                        <select @change="appendSkillID" multiple size="10" v-model="selectedSkills" class="form-select select-skill" style="background-color: #2F2FFA; color:white;" >
                             <option v-for="skill in skillsList" :value="skill.Skill_Name">{{skill.Skill_Name}}</option>
                         </select>
                         Selected Skills: {{selectedSkills}}
@@ -113,7 +113,9 @@
                 newSkillCounter: 0,
                 hasNewSkill: false,
                 skillsList: [],
-                selectedSkills: ["Please select skills"]
+                selectedSkills: ["Please select skills"],
+                skillIDList: [],
+                roleNo: 0
             }
         },
         methods:{
@@ -135,15 +137,44 @@
                     this.hasNewSkill = false;
                 }
             },
+
+            appendSkillID:function(){
+            this.skillIDList = []
+
+            for (let i = 0; i < this.selectedSkills.length; i++) {
+
+                for (let j = 0; j < this.skillsList.length; j++) {
+                    // console.log(this.skillsList[j])
+                if (this.skillsList[j].Skill_Name == this.selectedSkills[i]) {
+                    this.skillIDList.push(this.skillsList[j].Skill_ID)
+                }
+            }
+            }
+            console.log(this.skillIDList)
+        },
+        
             onload:function(){
                 axios.get('/skill/')
             .then(response => {
-                this.course = response.data.data;
+                // this.course = response.data.data;
                 this.skillsList = response.data
                 console.log(this.skillsList)
             })
             .catch(error => alert(error)) 
+
+
+            axios.get('/job_role/')
+            .then(response => {
+                this.roleNo = response.data.length + 1
+                // console.log(this.roleNo)
+
+            })
+            .catch(error => alert(error)) 
+
+
             }
+
+            
         },
         created() {
             this.onload()
@@ -152,14 +183,16 @@
     
     // a computed getter
         postJobRole() {
-            var jobID = document.getElementsByTagName("input")[0].value
             axios.post('/job_role/', {
-                "Job_Role_ID": jobID,
-                "Job_Role_Desc": document.getElementsByTagName("textarea")[0].value,
-                "Job_Role_Name": document.getElementsByTagName("input")[1].value,
-                "Dept": document.getElementsByTagName("input")[2].value,
-                "Skills": this.selectedSkills
+                Job_Role_ID: this.roleNo,
+                Job_Role_Desc: document.getElementsByTagName("textarea")[0].value,
+                Job_Role_Name: document.getElementsByTagName("input")[0].value,
+                Dept: document.getElementsByTagName("input")[1].value,
+                Skills: this.selectedSkills
             })
+
+            
+
             .then(response => {
                 this.course = response.data.data;
                 console.log(response.data)
@@ -167,6 +200,26 @@
                 
             })
             .catch(error => alert(error)) 
+
+
+            var jobID = this.roleNo
+            for (let j = 0; j < this.skillIDList.length; j++) {
+                let skillID = this.skillIDList[j]
+                axios.post('/skill_to_job_role/' + skillID + "/" + jobID + "/", {
+                "Job_Role_ID": jobID,
+                "Skill_ID": skillID
+                })
+
+                .then(response => {
+                // console.log(document.getElementsByTagName("input")[0].value)
+
+                })
+                .catch(error => alert(error))
+
+            }
+
+
+
         }
     }
     }
