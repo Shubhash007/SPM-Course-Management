@@ -21,7 +21,7 @@
                     <th scope="row" style="color: #2F2FFA">{{index+1}}</th>
                     <td>{{ skill.Skill_Name}}</td> 
                     <td>{{ skill.courses.toString() }}</td>
-                    <td><EditSkill :skillID="skill.Skill_ID" :skillName="skill.Skill_Name"></EditSkill></td>
+                    <td><EditSkill :skillID="skill.Skill_ID" :skillName="skill.Skill_Name" :allSkills="skills"></EditSkill></td>
                 </tr>
             </tbody>
         </table>
@@ -52,8 +52,6 @@
             })
             .catch(error => alert(error)) 
             },    
-
-
             searchFunction: function () {
                 var input, filter, tbody, tr, tdName, i, txtValue;
                 input = document.getElementById("search");

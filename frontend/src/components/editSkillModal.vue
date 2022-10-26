@@ -34,7 +34,8 @@
 <script setup>
     const props = defineProps({
         skillID: Number,
-        skillName: String
+        skillName: String,
+        allSkills: Array
     })    
 </script>
 <script>
@@ -50,7 +51,15 @@
         },
         methods:{
             editSkills:function(){
-                if (this.skillname.length > 3 && this.skillname.length < 20){
+                let allSkills = this.props.allSkills;
+                var duplicateCount = 0;
+                for (let skill of allSkills){
+                    if (skill.Skill_Name == this.skillname){
+                        duplicateCount += 1;
+                    }
+                }
+                console.log(duplicateCount);
+                if (this.skillname.length > 3 && this.skillname.length < 20 && duplicateCount == 0){
                     this.hasErrors = false;
                     this.errorMessage = "";
                     axios.patch("/skill/" + this.props.skillID + "/", {
@@ -64,50 +73,14 @@
                     .catch(error =>{
                         console.log(error.message);
                     }) 
+                }else if (duplicateCount > 0){
+                    this.hasErrors = true;
+                    this.errorMessage = "Edited skill name already exists";
                 }else{
                     this.hasErrors = true;
                     this.errorMessage = "Edited skill name has to be more than 3 and less than 20 characters";
                 }
             },
-            // editSkills:function(){
-            //     axios.get("/skill/")
-            //     .then(response => {
-            //         console.log(response.data);
-            //         let skills = response.data;
-            //         let duplicateCount = 0;
-            //         console.log(skills[0].Skill_Name);
-            //         for (skill in skills){
-            //             if (this.skillname == skills.skill.Skill_Name){
-            //                 duplicateCount += 1;
-            //             }
-            //         }
-
-            //         if (this.skillname.length > 3 && this.skillname.length < 20 && duplicateCount == 0){
-            //             this.hasErrors = false;
-            //             this.errorMessage = "";
-            //             axios.patch("/skill/" + this.props.skillID + "/", {
-            //                 "Skill_Name": this.skillname,
-            //                 "Skill_Desc": this.skillDescription
-            //             })
-            //             .then(response => {
-            //                 console.log(response.data);
-            //                 console.log(this.skillname);
-            //             })
-            //             .catch(error =>{
-            //                 console.log(error.message);
-            //             }) 
-            //         }else if (duplicateCount > 0){
-            //             this.hasErrors = true;
-            //             this.errorMessage = "Edited skill name already exists";
-            //         }else{
-            //             this.hasErrors = true;
-            //             this.errorMessage = "Edited skill name has to be more than 3 and less than 20 characters";
-            //         }
-            //     })
-            //     .catch(error=>{
-            //         console.log(error.message);
-            //     })
-            // }, 
             populate:function(){
                 axios.get("/skill/" + this.props.skillID +'/')
                 .then(response => {
