@@ -9,13 +9,19 @@
         <div :id="'collapse' + num" class="accordion-collapse collapse" :aria-labelledby="'heading'+ num" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item" v-for="value, key in skills">{{key}}
-                            <ol>
-                                <li v-for="skill in value">
-                                    {{skill}}
-                                    <button type="submit" class="btn btn-sm delete-button" @click="addCourse">Add</button>
+                    <li class="list-group-item" v-for="value, key in skills">
+                            <ul>
+                                <li>
+                                    {{value.Skill_Name}}
+                                    <ul class="list-group-item" v-for="item in value.courses">
+                                        <li>
+                                            {{item.split(',')[1]}} 
+                                            <button type="submit" class="btn btn-sm delete-button" @click="addCourse">Add</button>
+                                        </li>
+                                    </ul>
+                                    
                                 </li>
-                            </ol>
+                            </ul>
                             <br>
                     </li>
                 </ul>
@@ -28,11 +34,14 @@
     
     
 <script setup>
+
     const props = defineProps({
         num: Number,
         role:String,
-        skills:Object
+        skills:Object,
     })
+
+
     
 </script>
 

@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-6 mx-auto">
                 <div class="accordion" id="accordionExample">
-                    <addCourse v-for="(item,index) in data.filtered_data" :num="index" :role="item.role" :skills="item.skills"  />
+                    <addCourse v-for="(item,index) in data.filtered_data" :num="index" :role="item.Job_Role_Name" :skills="item.Skills"  />
                 </div>
             </div>
         </div>           
@@ -30,46 +30,83 @@
   import AddRoleToLJ from '@/components/AddRoleToLJ.vue'
   import { ref,reactive } from 'vue';
   import addCourse from '../components/addCourse.vue';
-  import NavBar from '../components/NavBar.vue';
-  
+  import axios from "axios";
   const search_term = ref('')
-const data =reactive({
-  skills_data:[
-  {    
-      role: "Software Engineer",
-      skills: {'Python': 
-                  ["Intro to Python", "Flask Techniques"]
-                  ,
-                'PHP':
-                  ["Intro to PHP"]
-              }
-  },
-  {
-      role: "Developer",
-      skills: {'Python': 
-                  ["Intro to Python", "Flask Techniques"],
-
-                'PHP':
-                  ["Intro to PHP"]
-              }
-  }
-],
-  filtered_data:[]
+    const data =reactive({
+    skills_data:[],
+    filtered_data:[],
 })
-data.filtered_data = data.skills_data
+
+async function get_data() {
+    try {
+        const response = await axios.get('http://127.0.0.1:5000/job_role/');
+        let res = response.data
+        data.skills_data = res
+        data.filtered_data = res;
+        // return res
+        // localStorage.setItem('SkillID',value.Skill_ID);
+        // data.IDlist = res
+            console.log(res);
+    } catch (error) {
+        alert(`DB is inaccesible at the moment due to ${error.message}`);
+    }
+}
+
+get_data()
 
 const update_filter = function(){
-  let search = search_term.value.toLowerCase()
-  if( search && search.length > 0){
-      let res = data.skills_data.filter(info => info.role.toLowerCase().startsWith(search) )
-      console.log(res)
-      data.filtered_data = res
-      console.log(data.filtered_data)
-  }
-  else{
-      data.filtered_data = data.skills_data
-  }
+    let search = search_term.value.toLowerCase()
+    if( search && search.length > 0){
+        let res = data.skills_data.filter(info => info.Job_Role_Name.toLowerCase().startsWith(search) )
+        console.log(res)
+        data.filtered_data = res
+    //     console.log(data.filtered_data)
+     }
+    else{
+        data.filtered_data = data.skills_data
+    }
 }
+
+
+
+//   const search_term = ref('')
+// const data =reactive({
+//   skills_data:[
+//   {    
+//       role: "Software Engineer",
+//       skills: {'Python': 
+//                   ["Intro to Python", "Flask Techniques"]
+//                   ,
+//                 'PHP':
+//                   ["Intro to PHP"]
+//               }
+//   },
+//   {
+//       role: "Developer",
+//       skills: {'Python': 
+//                   ["Intro to Python", "Flask Techniques"],
+
+//                 'PHP':
+//                   ["Intro to PHP"]
+//               }
+//   }
+// ],
+//   filtered_data:[]
+// })
+// data.filtered_data = data.skills_data
+
+// const update_filter = function(){
+//   let search = search_term.value.toLowerCase()
+//   if( search && search.length > 0){
+//       let res = data.skills_data.filter(info => info.role.toLowerCase().startsWith(search) )
+//       console.log(res)
+//       data.filtered_data = res
+//       console.log(data.filtered_data)
+//   }
+//   else{
+//       data.filtered_data = data.skills_data
+//   }
+// }
 
 
 </script>
