@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "../views/Login.vue";
-import CreateRole from "../views/CreateRole.vue";
-import HRHome from "../views/HRHome.vue";
-import ViewRoles from "../views/ViewRoles.vue";
-import CreateSkill from "../views/CreateSkill.vue";
+import CreateRole from "../views/admin/CreateRole.vue";
+import HRHome from "../views/admin/HRHome.vue";
+import ViewRoles from "../views/admin/ViewRoles.vue";
+import CreateSkill from "../views/admin/CreateSkill.vue";
 import StaffProfile from "../views/StaffProfile.vue";
-import StaffStartLJ from "../views/StaffStartLJ.vue"
-import StaffHome from "../views/StaffHome.vue";
-import EditLearningJourneys from "../views/EditLearningJourneys.vue";
-import ViewStaff from "../views/ViewStaff.vue";
-import RemoveCourse from "../views/RemoveCourse.vue";
-import AddCourses from "../views/AddCourses.vue";
-import ViewSkills from "../views/ViewSkills.vue";
+import StaffStartLJ from "../views/staff/StaffStartLJ.vue"
+import StaffHome from "../views/staff/StaffHome.vue";
+import EditLearningJourneys from "../views/staff/EditLearningJourneys.vue";
+import ViewStaff from "../views/admin/ViewStaff.vue";
+import AddCourses from "../views/staff/AddCourses.vue";
+import ViewSkills from "../views/admin/ViewSkills.vue";
+import ManagerHome from "../views/manager/ManagerHome.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,7 +22,7 @@ const router = createRouter({
       meta: { role: "" }
     },
     {
-      path: "/HRHome",
+      path: "/admin",
       component: HRHome,
       meta: { role: "admin" }
     },
@@ -64,16 +64,16 @@ const router = createRouter({
       component: ViewStaff,
     },
     {
-      path: "/RemoveCourse",
-      component: RemoveCourse,
-    },
-    {
       path: "/AddCourses",
       component: AddCourses,
     },
     {
       path: "/ViewSkills",
       component: ViewSkills,
+    },
+    {
+      path: "/Manager",
+      component: ManagerHome,
     }
   ],
 });

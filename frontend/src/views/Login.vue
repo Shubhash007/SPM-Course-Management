@@ -36,8 +36,10 @@
                     this.staffID = localStorage.staff_id;
                     if (staffInfo.User_Role == 2 || staffInfo.User_Role == 4){
                         this.$router.push("/StaffHome");
-                    }else if (staffInfo.User_Role == 1 || staffInfo.User_Role == 3){
-                        this.$router.push("/HRHome");
+                    }else if (staffInfo.User_Role == 1){
+                        this.$router.push("/admin");
+                    }else if (staffInfo.User_Role == 3){
+                        this.$router.push("/Manager");
                     }
                 })
                 .catch(error=>{

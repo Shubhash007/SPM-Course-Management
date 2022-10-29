@@ -82,7 +82,7 @@
     }
 </script>
 <script setup>
-import editRolesModal from '../components/editRolesModal.vue';
+import editRolesModal from '../components/admin/editRolesModal.vue';
 import NavBar from '../components/NavBar.vue';
 </script>
 

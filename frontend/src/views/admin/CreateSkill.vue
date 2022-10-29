@@ -132,7 +132,7 @@
 </template>
 <script setup>
     import axios from 'axios'
-    import NavBar from '../components/NavBar.vue';
+    import NavBar from '../../components/NavBar.vue';
 </script>
 <script>
     export default{

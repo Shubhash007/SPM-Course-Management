@@ -27,10 +27,10 @@
 </template>
 
 <script setup>
-import AddRoleToLJ from '@/components/AddRoleToLJ.vue'
+import AddRoleToLJ from '@/components/staff/AddRoleToLJ.vue'
 import { ref,reactive } from 'vue';
 import axios from "axios"
-import NavBar from '../components/NavBar.vue';
+import NavBar from '../../components/NavBar.vue';
 
 const search_term = ref('')
 const data =reactive({

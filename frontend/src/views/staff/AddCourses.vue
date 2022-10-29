@@ -27,10 +27,10 @@
     </div>
   </template>
   <script setup>
-  import AddRoleToLJ from '@/components/AddRoleToLJ.vue'
+  import AddRoleToLJ from '@/components/staff/AddRoleToLJ.vue'
   import { ref,reactive } from 'vue';
-  import addCourse from '../components/addCourse.vue';
-  import NavBar from '../components/NavBar.vue';
+  import addCourse from '../../components/staff/addCourse.vue';
+  import NavBar from '../../components/NavBar.vue';
   
   const search_term = ref('')
 const data =reactive({

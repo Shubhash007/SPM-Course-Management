@@ -1,7 +1,7 @@
 <template>
   <Navbar></Navbar>
   <div style="min-height: 82vh">
-    <!-- Create Role / Skill -->
+    <!-- Edit Learning Journeys -->
     <div class="row p-5" id="row">
       <div class="col-sm-6">
         <div class="card">
@@ -15,7 +15,7 @@
         </div>
       </div>
   
-      <!-- View Roles / Skills -->
+      <!-- Add Courses to LJ -->
       <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
@@ -29,8 +29,9 @@
           </div>
         </div>
       </div>
-  
-      <div class="col-sm-6">
+      
+      <!-- View Staff -->
+      <!-- <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">View Staff</h5>
@@ -38,12 +39,12 @@
             <router-link class="btn" id="card-button" to="/ViewStaff">View Staff</router-link>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 <script setup>
-  import Navbar from '../components/NavBar.vue';
+  import Navbar from '../../components/NavBar.vue';
 </script>
 <style scoped>
     #row{

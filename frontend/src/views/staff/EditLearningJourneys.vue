@@ -29,8 +29,8 @@
 
 <script setup>
 import { ref,reactive } from 'vue';
-import DeleteLJ from '../components/DeleteLJ.vue';
-import NavBar from '../components/NavBar.vue';
+import DeleteLJ from '../../components/staff/DeleteLJ.vue';
+import NavBar from '../../components/NavBar.vue';
 import axios from 'axios'
 
 const search_term = ref('')
