@@ -220,6 +220,7 @@
                 .then(response => {
                 // console.log(document.getElementsByTagName("input")[0].value)
                     console.log(response.data)
+                    alert("Job Role successfully assigned to Skill")
                 })
                 .catch(error => alert(error))
 
@@ -238,6 +239,7 @@
                 .then(response => {
                 // console.log(document.getElementsByTagName("input")[0].value)
                     console.log(response.data)
+                    alert("Course successfully assigned to skill")
                 })
                 .catch(error => alert(error))
 
