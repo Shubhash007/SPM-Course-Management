@@ -107,6 +107,7 @@
                 coursesList: [],
                 selectedCourses: ["Please select courses"],
                 courseIDList: [],
+                skillList: []
 
             }
         }, methods:{
@@ -174,7 +175,8 @@
             await axios.get('http://localhost:5000/skill/')
             .then(response => {
                 this.skillNo = response.data.length + 2
-                console.log(this.skillNo)
+                this.skillList = response.data
+                console.log(response.data)
 
             })
             .catch(error => alert(error)) 
@@ -193,7 +195,22 @@
         postSkill: async function() {
             // console.log(document.getElementsByTagName("input")[0].value)
 
-            await axios.post('http://localhost:5000/skill/', {
+
+            var exist = false
+                var skillName = document.getElementsByTagName("input")[0].value
+                for (let i = 0; i < this.skillList.length; i++) {
+
+
+                    if (this.skillList[i].Skill_Name == skillName) {
+                        var exist = true
+                        }
+
+
+                    }
+            
+            if (exist == false) {
+
+                await axios.post('http://localhost:5000/skill/', {
                 Skill_ID: this.skillNo,
                 Skill_Name: document.getElementsByTagName("input")[0].value,
                 Skill_Desc: document.getElementsByTagName("textarea")[0].value
@@ -205,6 +222,8 @@
             .then(response => {
                 // console.log(document.getElementsByTagName("input")[0].value)
                 console.log(response.data)
+                alert("Skill successfully created")
+                
                 
             })
             .catch(error => alert(error))
@@ -239,11 +258,16 @@
                 .then(response => {
                 // console.log(document.getElementsByTagName("input")[0].value)
                     console.log(response.data)
-                    alert("Course successfully assigned to skill")
+                    alert("Course successfully assigned to Skill")
                 })
                 .catch(error => alert(error))
 
             }
+            }
+            else {
+                alert("Skill already exists")
+            }
+
 
 
 

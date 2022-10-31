@@ -20,7 +20,7 @@
                         <label for="jobRole" class="col-form-label" id="spacing">Job Role Name</label>
                     </div>
                     <div class="col-auto">
-                        <input type="text" v-model="jobRole" class="form-control" aria-describedby="roleNameLimit" maxlength="20">
+                        <input  type="text" v-model="jobRole" class="form-control" aria-describedby="roleNameLimit" minlength="3" maxlength="20">
                     </div>
                     <div class="col-auto">
                         <span id="roleNameLimit" class="form-text" style="color:white;">
@@ -33,7 +33,7 @@
                         <label for="jobDescription" class="col-form-label">Job Role Description</label>
                     </div>
                     <div class="col-auto">
-                        <textarea v-bind:id="jobDescription" class="form-control" aria-describedby="roleDescLimit"></textarea>
+                        <textarea v-bind:id="jobDescription" class="form-control" aria-describedby="roleDescLimit" minlength="3" maxlength="100"></textarea>
                     </div>
                     <div class="col-auto">
                         <span id="roleDescLimit" class="form-text" style="color:white;">
@@ -115,7 +115,8 @@
                 skillsList: [],
                 selectedSkills: ["Please select skills"],
                 skillIDList: [],
-                roleNo: 0
+                roleNo: 0,
+                roleList: []
             }
         },
         methods:{
@@ -166,6 +167,8 @@
             await axios.get('/job_role/')
             .then(response => {
                 this.roleNo = response.data.length + 1
+                this.roleList = response.data
+                console.log(response.data)
                 // console.log(this.roleNo)
 
             })
@@ -174,40 +177,64 @@
 
             },
             postJobRole: async function() {
-            await axios.post('http://localhost:5000/job_role/', {
-                Job_Role_ID: this.roleNo,
-                Job_Role_Desc: document.getElementsByTagName("textarea")[0].value,
-                Job_Role_Name: document.getElementsByTagName("input")[0].value,
-                Dept: document.getElementsByTagName("input")[1].value,
-                Skills: this.selectedSkills
-            })
 
-            
+                var exist = false
+                var jobRoleName = document.getElementsByTagName("input")[0].value
+                for (let i = 0; i < this.roleList.length; i++) {
 
-            .then(response => {
-                this.course = response.data.data;
-                console.log(response.data)
-                console.log(this.selectedSkills)
+
+                    if (this.roleList[i].Job_Role_Name == jobRoleName) {
+                        var exist = true
+                        }
+
+
+                    }
                 
-            })
-            .catch(error => alert(error)) 
+                if (exist == false) {
+                    await axios.post('http://localhost:5000/job_role/', {
+                        Job_Role_ID: this.roleNo,
+                        Job_Role_Desc: document.getElementsByTagName("textarea")[0].value,
+                        Job_Role_Name: document.getElementsByTagName("input")[0].value,
+                        Dept: document.getElementsByTagName("input")[1].value,
+                        Skills: this.selectedSkills
+                    })
+
+                    
+
+                    .then(response => {
+                        this.course = response.data.data;
+                        console.log(response.data)
+                        console.log(this.selectedSkills)
+                        alert("Job Role successfully created")
+                        
+                    })
+                    .catch(error => alert(error)) 
 
 
-            var jobID = this.roleNo
-            for (let j = 0; j < this.skillIDList.length; j++) {
-                let skillID = this.skillIDList[j]
-                await axios.post('/skill_to_job_role/' + skillID + "/" + jobID + "/", {
-                // "Job_Role_ID": jobID,
-                // "Skill_ID": skillID
-                })
-                
-                .then(response => {
-                // console.log(document.getElementsByTagName("input")[0].value)
+                    var jobID = this.roleNo
+                    for (let j = 0; j < this.skillIDList.length; j++) {
+                        let skillID = this.skillIDList[j]
+                        await axios.post('/skill_to_job_role/' + skillID + "/" + jobID + "/", {
+                        // "Job_Role_ID": jobID,
+                        // "Skill_ID": skillID
+                        })
+                        
+                        .then(response => {
+                            console.log(response.data)
+                            alert("Skill successfully assigned to Job Role")
+                        // console.log(document.getElementsByTagName("input")[0].value)
 
-                })
-                .catch(error => alert(error))
+                        })
+                        .catch(error => alert(error))
 
-            }
+                    }
+
+                }
+                else {
+                    alert("Role already exists")
+                }
+
+
 
 
 
