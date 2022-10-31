@@ -17,6 +17,24 @@
           </div>
         </div>
       </div>
+
+
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Delete role(s)</h5>
+            <p class="card-text">
+              Delete role(s) from the system. Roles are soft deleted.
+            </p>
+            <router-link class="btn" id="card-button" to="/CreateRole"
+              >Delete Role</router-link
+            >
+          </div>
+        </div>
+      </div>
+
+
+
       <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
@@ -61,6 +79,10 @@
           </div>
         </div>
       </div>
+
+
+
+      
     </div>
   </div>
 </template>
