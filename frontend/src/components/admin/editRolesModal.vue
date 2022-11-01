@@ -48,7 +48,8 @@
     export default{
         data(){
             return{
-                noRole: false
+                noRole: false,
+                roles: []
             }
         },
         methods:{
@@ -78,9 +79,40 @@
                 }else{
                     this.noRole = false;
                 }
+            },
+            // onload: function(){
+            // axios.get('/job_role/')
+            // .then(response => {
+            //     // this.course = response.data.data;
+            //     // this.employees = response.data
+            //     console.log(response.data)
+            //     // console.log(this.employees[10].courses);
+            // })
+            // .catch(error => alert(error)) 
+            // },
+
+            assignRoleFunction: function(){
+                axios.get('/req/130001')
+                .then(response =>{
+                    console.log(response.data)
+                })
+
+// fetch request from staff
+// job_role_id
+// update
+
+// 1. display list of roles - not those that they already have
+// 2. send selected role's job role id and update
+
+//display roles that staff does not have
+
+//when clicked, role is added to 
+ //get jole role ID from api_job_roles, append it to 
+
             }
         }
-    }
+        }
+    
 </script>
 
 <script setup>

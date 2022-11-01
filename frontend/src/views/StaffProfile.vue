@@ -33,12 +33,13 @@
                             <h5 class="card-title">Current Roles</h5>
                         </div>
                         <div class="col-5" v-if="userRole == 3 || userRole == 1">
-                            <editRolesModal :staffID="profile.StaffID" :roles="profile.Roles" />
+                            <editRolesModal :staffID="profile.StaffID" :roles="currentRoles" />
                         </div>
                     <p class="card-text">
                         <ul>
                             <li v-for="role in profile.Roles">{{role}}</li>
                         </ul>
+                        {{profile}}
                     </p>
                     </div>
                 </div>
@@ -52,33 +53,56 @@
     export default{
         data(){
             return{
-                profile: 
-                    {
-                        StaffID: 0,
-                        Name: "",
-                        Department: "",
-                        Email: "",
-                        Skills: ["Python", "PHP"],
-                        Roles: ["Software Engineer", "Developer"]
-                    },
+                profile: [],
+                    // {
+                    //     StaffID: 0,
+                    //     Name: "",
+                    //     Department: "",
+                    //     Email: "",
+                    //     Skills: ["Python", "PHP"],
+                    //     Roles: ["Software Engineer", "Developer"]
+                    // },
                 userRole: 0,
+                allRoles: []
             }
         },
         created(){
             const slug = this.$route.params.slug; 
-            this.userRole = localStorage.getItem("userRole");
-            axios.get(`/staff/${slug}`)
+            // this.userRole = localStorage.getItem("userRole");
+        //     axios.get(`/staff/${slug}`)
+        //     .then(response => {
+        //         // console.log(response.data);
+        //         this.profile.StaffID = response.data.Staff_ID;
+        //         this.profile.Name = response.data.Staff_FName + " " + response.data.Staff_LName;
+        //         this.profile.Department = response.data.Dept;
+        //         this.profile.Email = response.data.Email;
+        //     })
+        //     .catch(error=>{
+        //             console.log(error.message);
+        //     })
+        },
+        methods: {
+            // onload: function(){
+            // axios.get(`/req/${slug}/`)
+            // .then(response => {
+            //     this.currentRoles = response.data
+            //     console.log(response.data)
+            // })
+            // .catch(error => alert(error)) 
+            // },
+
+            onload: function(){
+            axios.get(`/job_roles/`)
             .then(response => {
-                // console.log(response.data);
-                this.profile.StaffID = response.data.Staff_ID;
-                this.profile.Name = response.data.Staff_FName + " " + response.data.Staff_LName;
-                this.profile.Department = response.data.Dept;
-                this.profile.Email = response.data.Email;
+                this.allRoles = response.data
+                console.log(response.data)
+                
             })
-            .catch(error=>{
-                    console.log(error.message);
-            })
+            .catch(error => alert(error)) 
+            },
+
         }
+
     }
 </script>
 <script setup>
