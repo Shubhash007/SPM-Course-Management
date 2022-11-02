@@ -30,6 +30,8 @@ urlpatterns = [
 #####################################################################################################
     path('req/<int:staff_id>/',views.requirements_list.as_view()),
     path('req/<int:staff_id>/<int:job_role_id>/',views.requirements_list.as_view()),
+###################################################################################################
+    path('skill_attained/<int:staff_id>/', views.Skill_Attained.as_view())
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

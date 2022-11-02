@@ -469,3 +469,33 @@ class requirements_list(APIView):
             req.delete()
             return Response({'msg':f"{staff.Staff_ID},{job_role.Job_Role_ID} has been removed"},status=status.HTTP_200_OK)
         return Response({'msg':f"{staff.Staff_ID},{job_role.Job_Role_ID} dosent exist"},status=status.HTTP_404_NOT_FOUND)
+#####################################################################################################################################
+class Skill_Attained(generics.GenericAPIView):
+    def get_staff(self,pk):
+        try:
+            return Staff.objects.get(pk=pk)
+        except Staff.DoesNotExist:
+            raise Http404
+
+    def get_course(self,pk):
+        try:
+            return Course.objects.get(pk=pk)
+        except Course.DoesNotExist:
+            raise Http404
+
+    def get(self,request,staff_id,format=None):
+        staff = self.get_staff(staff_id)
+        registrations = staff.registration_set.filter(Completion_Status='Completed')
+        if registrations.exists() == True:
+            # res = dict()
+            # for c in registrations:
+            #     course_data = self.get_course(c.Course.Course_ID)
+            #     s = course_data.Skills.all()
+            #     data = SkillSerializer(s,many=True)
+            #     res[c.Course.Course_ID] = data.data
+            res = []
+            for c in registrations:
+                c = CourseSerializer(c.Course)
+                res.append(c.data)
+            return Response(res,status=status.HTTP_200_OK)
+        return Response({'msg':'Staff does not have any active completed courses'},status=status.HTTP_400_BAD_REQUEST)
