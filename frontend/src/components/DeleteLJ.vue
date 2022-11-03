@@ -9,6 +9,7 @@
         <div :id="'collapse' + num" class="accordion-collapse collapse" :aria-labelledby="'heading'+ num" data-bs-parent="#accordionExample">
             <div class="col-2">
                 <editCoursesModal :coursesSelected="courses" :jobrole="jobrole" :no="num" :skillSelected="index"/>
+                <AddCoursesModal  :coursesSelected="courses" :jobrole="jobrole" :no="num" :skillSelected="index" :jobroleid="id"/>
             </div>
             <div class="accordion-body" v-for="skill, index in (skills)">
                 <ul class="list-group list-group-flush">
@@ -42,6 +43,7 @@
 <script setup>
 import { list } from 'postcss';
 import editCoursesModal from '../components/editCoursesModal.vue';
+import AddCoursesModal from "./addCourseModal.vue";
 
 
     const props = defineProps({

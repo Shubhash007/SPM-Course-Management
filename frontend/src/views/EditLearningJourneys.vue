@@ -33,6 +33,7 @@ import DeleteLJ from '../components/DeleteLJ.vue';
 import NavBar from '../components/NavBar.vue';
 import axios from 'axios'
 
+
 const search_term = ref('')
 const data =reactive({
     skills_data:[],

@@ -4,19 +4,21 @@
             <button class="accordion-button" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + num" aria-expanded="true" :aria-controls="'collapseOne' + num">
                 {{role}}
             </button>
+
             
         </h2>
         <div :id="'collapse' + num" class="accordion-collapse collapse" :aria-labelledby="'heading'+ num" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item" v-for="value, key in skills">
+                    <li class="list-group-item" v-for="value, index in skills">
+                        <AddCoursesModal  :coursesSelected="value.courses" :jobrole="value.jobrole" :no="num" :skillSelected="index" :jobroleid="id"/>
                             <ul>
                                 <li>
                                     {{value.Skill_Name}}
-                                    <ul class="list-group-item" v-for="item in value.courses">
+                                    <ul class="list-group-item" v-for="item,index in value.courses">
                                         <li>
                                             {{item.split(',')[1]}} 
-                                            <button type="submit" class="btn btn-sm delete-button" @click="addCourse">Add</button>
+                                            <div type ="hidden" style="display: none;visibility: hidden;" :id="courseroleid">{{item.split(',')[0]}}</div>
                                         </li>
                                     </ul>
                                     
@@ -35,15 +37,26 @@
     
 <script setup>
 
+import axios from "axios";
+import AddCoursesModal from "./addCourseModal.vue";
+
     const props = defineProps({
         num: Number,
         role:String,
         skills:Object,
+        id:Number,
+        courses: String,
+        jobrole:Object
     })
 
 
+
+        
+    
+
     
 </script>
+
 
     
     <style scoped>

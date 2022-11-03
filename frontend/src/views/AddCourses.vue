@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-6 mx-auto">
                 <div class="accordion" id="accordionExample">
-                    <addCourse v-for="(item,index) in data.filtered_data" :num="index" :role="item.Job_Role_Name" :skills="item.Skills"  />
+                    <addCourse v-for="(item,index) in data.filtered_data" :num="index" :role="item.Job_Role_Name" :skills="item.Skills" :id="item.Job_Role_ID" />
                 </div>
             </div>
         </div>           
@@ -37,6 +37,8 @@
     filtered_data:[],
 })
 
+
+
 async function get_data() {
     try {
         const response = await axios.get('http://127.0.0.1:5000/job_role/');
@@ -44,9 +46,9 @@ async function get_data() {
         data.skills_data = res
         data.filtered_data = res;
         // return res
-        // localStorage.setItem('SkillID',value.Skill_ID);
+        // localStorage.setItem('JobRoleID',id);
         // data.IDlist = res
-            console.log(res);
+        console.log(res);
     } catch (error) {
         alert(`DB is inaccesible at the moment due to ${error.message}`);
     }
@@ -67,46 +69,6 @@ const update_filter = function(){
     }
 }
 
-
-
-//   const search_term = ref('')
-// const data =reactive({
-//   skills_data:[
-//   {    
-//       role: "Software Engineer",
-//       skills: {'Python': 
-//                   ["Intro to Python", "Flask Techniques"]
-//                   ,
-//                 'PHP':
-//                   ["Intro to PHP"]
-//               }
-//   },
-//   {
-//       role: "Developer",
-//       skills: {'Python': 
-//                   ["Intro to Python", "Flask Techniques"],
-
-//                 'PHP':
-//                   ["Intro to PHP"]
-//               }
-//   }
-// ],
-//   filtered_data:[]
-// })
-// data.filtered_data = data.skills_data
-
-// const update_filter = function(){
-//   let search = search_term.value.toLowerCase()
-//   if( search && search.length > 0){
-//       let res = data.skills_data.filter(info => info.role.toLowerCase().startsWith(search) )
-//       console.log(res)
-//       data.filtered_data = res
-//       console.log(data.filtered_data)
-//   }
-//   else{
-//       data.filtered_data = data.skills_data
-//   }
-// }
 
 
 </script>
