@@ -393,6 +393,17 @@ class job_assign_skill_detail(APIView):
         return Response({"msg":f"skill:{skill_1.Skill_Name} not assigned to Job Role:{job_role_1.Job_Role_Name}"},status = status.HTTP_404_NOT_FOUND)
 
 ################################Requirements##################################################################
+class requirements(mixins.ListModelMixin,
+                generics.GenericAPIView):
+                
+    queryset = Registration.objects.all()
+    serializer_class = Registration_Serializer
+
+    def get(self,request,*args,**kwargs):
+        return self.list(request, *args, **kwargs)    
+
+
+
 class requirements_list(APIView):
     def get_job_role(self,pk):
         try:
