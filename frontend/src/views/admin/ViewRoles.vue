@@ -12,6 +12,7 @@
                 <tr>
                 <th scope="col">S/N</th>
                 <th scope="col">Role Name</th>
+                <th></th>
                 </tr>
             </thead>
             <tbody id="tbody">
@@ -20,6 +21,10 @@
                     <td>{{ jobRoles.Job_Role_Name}}</td>
                     <!-- <td><router-link :to="{name: 'StaffProfile', params: {slug: employee.StaffID}}">{{ employee.Staff }}</router-link></td> -->
                     <!-- <td>{{ jobRoles.Skills.toString()}}</td>  -->
+                    <td><button type="button" id="edit" class="btn" @click="deleteRole(jobRoles.Job_Role_ID)">
+                        Delete Role
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -62,7 +67,17 @@
             .catch(error => alert(error)) 
 
 
-            },  
+            },
+
+
+            deleteRole: async function(jobID) {
+                await axios.delete('/job_role/' + jobID + "/")
+                .then(response => {
+                // this.course = response.data.data;
+                alert("Job Role has been deleted")
+                location.reload();
+            })
+            },
 
 
 
@@ -147,5 +162,13 @@
 
     a:hover{
         color:#F64C72;
+    }
+
+    #edit{
+        margin: -0.5rem 0;
+        scale: 0.7;
+        border-color:#F64C72;
+        background-color:#F64C72;
+        color: white;
     }
 </style>

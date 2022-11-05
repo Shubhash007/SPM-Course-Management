@@ -14,6 +14,7 @@
                 <th scope="col">Skill Name</th>
                 <th scope="col">Courses</th>
                 <th></th>
+                <th></th>
                 </tr>
             </thead>
             <tbody id="tbody">
@@ -22,6 +23,11 @@
                     <td>{{ skill.Skill_Name}}</td> 
                     <td>{{ skill.courses.toString() }}</td>
                     <td><EditSkill :skillID="skill.Skill_ID" :skillName="skill.Skill_Name" :allSkills="skills"></EditSkill></td>
+                    <td><button type="button" id="edit" class="btn" @click="deleteSkill(skill.Skill_ID)">
+                        Delete Skill
+                        </button>
+                    </td>
+                    
                 </tr>
             </tbody>
         </table>
@@ -41,7 +47,8 @@
                 skills:[],
                 keyword: "",
                 hasSearch: false,
-                returnData: []
+                returnData: [],
+                skillid: null,
             }
         }, methods:{
             onload: function(){
@@ -52,7 +59,18 @@
                 console.log(this.skills)
             })
             .catch(error => alert(error)) 
-            },    
+            },  
+            
+            deleteSkill: async function(skillID) {
+                await axios.delete('/skill/' + skillID + "/")
+                .then(response => {
+                // this.course = response.data.data;
+                alert("Skill has been deleted")
+                location.reload();
+            })
+            },
+
+
             searchFunction: function () {
                 var input, filter, tbody, tr, tdName, i, txtValue;
                 input = document.getElementById("search");
@@ -88,6 +106,13 @@
 </script>
 
 <style scoped>
+    #edit{
+        margin: -0.5rem 0;
+        scale: 0.7;
+        border-color:#F64C72;
+        background-color:#F64C72;
+        color: white;
+    }
     #search{
         border-color: #2F2FFA;
     }
