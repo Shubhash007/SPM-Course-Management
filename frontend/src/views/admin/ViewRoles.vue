@@ -11,16 +11,15 @@
             <thead>
                 <tr>
                 <th scope="col">S/N</th>
-                <th scope="col">Staff Name</th>
-                <th scope="col">Job Role</th>
+                <th scope="col">Role Name</th>
                 </tr>
             </thead>
             <tbody id="tbody">
-                <tr v-for="(employee, index) in employees">
+                <tr v-for="(jobRoles, index) in jobRoles">
                     <th scope="row" style="color: #2F2FFA">{{index+1}}</th>
-                    <td>{{ employee.Staff_FName}} {{employee.Staff_LName}}</td>
+                    <td>{{ jobRoles.Job_Role_Name}}</td>
                     <!-- <td><router-link :to="{name: 'StaffProfile', params: {slug: employee.StaffID}}">{{ employee.Staff }}</router-link></td> -->
-                    <td>{{ employee.Dept}}</td> 
+                    <!-- <td>{{ jobRoles.Skills.toString()}}</td>  -->
                 </tr>
             </tbody>
         </table>
@@ -38,7 +37,8 @@
                 category: "Category",
                 keyword: "",
                 hasSearch: false,
-                returnData: []
+                returnData: [],
+                jobRoles: []
             }
         }, methods:{
 
@@ -52,6 +52,16 @@
                 // console.log(this.employees[10].courses);
             })
             .catch(error => alert(error)) 
+
+
+            axios.get('/job_role/')
+            .then(response => {
+                this.jobRoles = response.data
+                console.log(response.data)
+            })
+            .catch(error => alert(error)) 
+
+
             },  
 
 
@@ -60,17 +70,15 @@
                 var input, filter, table, tbody, tr, tdName, tdRoles, i, txtValue;
                 input = document.getElementById("search");
                 filter = input.value.toUpperCase();
-                table = document.getElementById("roles");
                 tbody = document.getElementById("tbody");
                 tr = tbody.getElementsByTagName("tr");
 
                 for (i = 0; i < tr.length; i++) {
                     tdName = tr[i].getElementsByTagName("td")[0];
-                    tdRoles = tr[i].getElementsByTagName("td")[1];
-                    if (tdName && tdRoles) {
-                    txtValue = [tdName.textContent, tdRoles.textContent];
+                    if (tdName) {
+                    txtValue = [tdName.textContent];
                     console.log(txtValue)
-                    if ((txtValue[0].toUpperCase().indexOf(filter) > -1) || (txtValue[1].toUpperCase().indexOf(filter) > -1)) {
+                    if ((txtValue[0].toUpperCase().indexOf(filter) > -1)) {
                         tr[i].style.display = "";
                     } else {
                         tr[i].style.display = "none";
