@@ -1,18 +1,32 @@
 <template>
 <div class="accordion-item">
-    <h2 class="accordion-header" :id="'heading'+ num">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + num" aria-expanded="true" :aria-controls="'collapseOne' + num">
+    <h2 class="accordion-header" :id="'heading'+ num" >
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + num" aria-expanded="true" :aria-controls="'collapseOne' + num" >
             {{role}}
+            <div type ="hidden" style="display: none;visibility: hidden;" id="jobroleid">{{num}}</div>
         </button>
     </h2>
     <div :id="'collapse' + num" class="accordion-collapse collapse" :aria-labelledby="'heading'+ num" data-bs-parent="#accordionExample">
         <div class="accordion-body">
             <p class="fs-4 fst-italic">Skills</p>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item" v-if="Object.keys(skills).length != 0" v-for="skill in skills">{{skill.Skill_ID}}:{{skill.Skill_Name}}</li>
+                <li class="list-group-item" v-if="Object.keys(skills).length != 0" v-for="skill in skills">{{skill.Skill_ID}}:{{skill.Skill_Name}}
+                <div>
+                    <ul  v-for="c in skill.courses">
+                        <li>
+                            
+                            <input type="checkbox" class="hi" :id='skills+c' :value="c" @change="checkeditem(skills+c)">
+                            {{c.split(',')[0]}} : {{c.split(',')[1] }}
+                        </li>
+                    </ul>
+                </div>
+                </li>
                 <li class="list-group-item" v-else>No skills assigned to this course</li>
+
+
             </ul>
-            <br><button type="button" class="btn btn-outline-danger btn-md">Add Role to Learning Jorney</button>
+            <br>
+            <button class="btn btn-outline-danger btn-md" @click="addcourse">Add Role to Learning Journey</button>
         </div>
     </div>
 </div> 
@@ -22,10 +36,93 @@
 
 
 <script setup>
+
+
+import axios from "axios"
+import { ref,reactive } from 'vue';
 const props = defineProps({
     num: Number,
     role:String,
-    skills:Object
+    skills:Object,
+    coursesSelected: Object,
+    roleTaken: Object
 })
-console.log(props.num)
+
+
+const data =reactive({
+    skills_data:[],
+    filtered_data:[],
+    roleTaken: []
+})
+
+let courseSelected = []
+const checkeditem = function(course_selected){
+    
+    var checked = document.getElementById(course_selected)
+    let splitValue = checked.value.split(',')
+    console.log(splitValue)
+    let cid = splitValue[0]
+    console.log(cid)
+        if (checked.checked == true){
+            console.log(checked)
+            courseSelected.push(cid)
+            
+        }
+        else{
+            console.log('hi')
+            courseSelected.splice(courseSelected.indexOf(cid), 1)
+        }
+
+
+        console.log(courseSelected)
+        return(courseSelected)
+    }
+
+
+const addRole = function(){
+    if (courseSelected.length == 0) {
+        alert(`Unable to delete course. Learning Journey needs to have at least one course.`);
+    }
+}
+
+let Course_Registered
+async function addcourse() {
+    addRole()
+    console.log(courseSelected)
+    try {
+        let id = localStorage.getItem("staff_id");
+        console.log(id)
+        console.log(props.num)
+        Course_Registered = {"Course_Registered": courseSelected}
+        console.log(Course_Registered)
+        const response = await axios.post('http://127.0.0.1:5000/req/'+id+'/'+props.num+'/',Course_Registered);
+        // const del = axios.post('http://127.0.0.1:5000/job_role/'+id+'/'+props.num+'/',Course_Registered)
+        console.log(response)
+
+    } catch (error) {
+        alert(`DB is inaccesible at the moment due to ${error.message}`);
+    }
+}
+
+// async function checkLJ(){
+//     try {
+//         let id = localStorage.getItem("staff_id");
+//         console.log(id)
+//         const response = await axios.get('http://127.0.0.1:5000/req/'+id+'/');
+//         console.log(response.data)
+//         for (let role in response.data) {
+//             console.log(response.data[role]['Job_Role']['Job_Role_ID'])
+
+//             data.roleTaken.push(response.data[role]['Job_Role']['Job_Role_ID'])
+//         }
+
+
+//     } catch (error) {
+//         alert(`DB is inaccesible at the moment due to ${error.message}`);
+//     }
+// }
+
+// checkLJ()
+// console.log(data.roleTaken)
+
 </script>

@@ -184,7 +184,7 @@ class skill_assign_course_detail(APIView):
     def get(self,request,pk,format=None):
         skill = self.get_object(pk)
 
-        courses = skill.course_set.all()
+        courses = skill.courses.all()
         course_serializer = CourseSerializer(courses,many=True)
         return Response(course_serializer.data)
         #return Response({'error':"No Courses attached to skill"},status=status.HTTP_204_NO_CONTENT)

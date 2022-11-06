@@ -8,10 +8,10 @@
                 </div>
                 <div class="modal-body">
                     <div v-for="eachcourse in coursesSelected">
-                        <input type="checkbox" name="courses[]" @change="checkeditem(eachcourse)" :id='eachcourse' :value="eachcourse"> {{eachcourse}}
+                        <input type="checkbox" name="courses[]" @change="checkeditem(eachcourse)"  :id='eachcourse' :value="eachcourse"> {{eachcourse}}
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" id="test">
                     <button class="btn pink-button" :data-bs-target="'#back-button'+no+skillSelected" data-bs-toggle="modal">Confirm</button>
                 </div>
             </div>
@@ -51,6 +51,7 @@
     const checkeditem = function(course_selected){
         var checked = document.getElementById(course_selected)
         get_data(course_selected)
+
     }
     
     let regcourse
@@ -58,29 +59,40 @@
     try {
         var checked = document.getElementById(course_selected)
         console.log(checked.value)
-        if (checked.checked == true){
-            var checkBox = checked.value;
-            for (let obj in props.coursesSelected){
-                if (props.coursesSelected[obj] == checked.value){
-                    console.log(checked.value)
-                    props.coursesSelected.indexOf(checked.value)
-                    console.log(props.coursesSelected.indexOf(checked.value))
-                    props.coursesSelected.splice(props.coursesSelected.indexOf(checked.value), 1)
-                    console.log(typeof(props.coursesSelected))
-                    regcourse = Object.values(props.coursesSelected)
-                    console.log(regcourse)
-                }
-                
+        console.log(regcourse)
+        
+            if (props.coursesSelected.length > 1){
+                if (checked.checked == true){
+                    var checkBox = checked.value;
+                    for (let obj in props.coursesSelected){
+                        if (props.coursesSelected[obj] == checked.value){
+                            console.log(checked.value)
+                            props.coursesSelected.indexOf(checked.value)
+                            console.log(props.coursesSelected.indexOf(checked.value))
+                            props.coursesSelected.splice(props.coursesSelected.indexOf(checked.value), 1)
+                            console.log(typeof(props.coursesSelected))
+                            regcourse = Object.values(props.coursesSelected)
+                            console.log(regcourse)
+                            }
+                        }
+                        
+                    let Course_Registered = {'Course_Registered': regcourse}
+                    console.log(Course_Registered)
+                    let id = localStorage.getItem("staff_id");
+                    console.log(regcourse.length)
+                    const response = await axios.put('http://127.0.0.1:5000/req/'+id+'/'+props.jobrole['Job_Role_ID'] + '/', Course_Registered);
+                    }
             }
-            let Course_Registered = {'Course_Registered': regcourse}
-            console.log(Course_Registered)
-            let id = localStorage.getItem("staff_id");
-            console.log(id)
-            const response = await axios.put('http://127.0.0.1:5000/req/'+id+'/'+props.jobrole['Job_Role_ID'] + '/', Course_Registered);
-        }
+            else {
+                alert(`Unable to delete course. Learning Journey needs to have at least one course.`);
+                document.getElementById(course_selected).checked = false;
+                window.location = "\EditLearningJourneys"
+            }
 
         } catch (error) {
             alert(`DB is inaccesible at the moment due to ${error.message}`);
+            document.getElementById(course_selected).checked = false;
+            
         }
         
     }
