@@ -99,14 +99,14 @@
     .edit-button{
         margin: -0.5rem 0;
         scale: 0.7;
-        border-color:#F64C72;
-        background-color:#F64C72;
+        border-color:#f5b9c6c7;
+        background-color:#f5b9c6c7;
         color: white;
     }
 
     .btn:first-child:hover , :not(.btn-check)+.btn:hover{
-        border-color:#F64C72;
-        background-color:#F64C72;
+        border-color:#f5b9c6c7;
+        background-color:#f5b9c6c7;
         color: black;
     }
 
@@ -116,7 +116,7 @@
     }
 
     .save-changes{
-        background-color: #F64C72;
+        background-color: #f5b9c6c7;
         color: white;
     }
 

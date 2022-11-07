@@ -7,7 +7,7 @@
                 <input type="text" @keyup="searchFunction" v-model="keyword" class="form-control search-textbox" id="search" placeholder="Search skill here...">
             </div>
         </div>
-        <table class="table table-responsive" style="width: 75%; border-color: #2F2FFA; margin: 20px 60px;" border="#2F2FFA">
+        <table class="table table-responsive" style="width: 75%; border-color: #d8648b; margin: 20px 60px;" border="#d8648b">
             <thead>
                 <tr>
                 <th scope="col">S/N</th>
@@ -19,7 +19,7 @@
             </thead>
             <tbody id="tbody">
                 <tr v-for="(skill, index) in skills">
-                    <th scope="row" style="color: #2F2FFA">{{index+1}}</th>
+                    <th scope="row" style="color: #d8648b">{{index+1}}</th>
                     <td>{{ skill.Skill_Name}}</td> 
                     <td>{{ skill.courses.toString() }}</td>
                     <td><EditSkill :skillID="skill.Skill_ID" :skillName="skill.Skill_Name" :allSkills="skills"></EditSkill></td>
@@ -109,23 +109,23 @@
     #edit{
         margin: -0.5rem 0;
         scale: 0.7;
-        border-color:#F64C72;
-        background-color:#F64C72;
+        border-color:#f5b9c6c7;
+        background-color:#f5b9c6c7;
         color: white;
     }
     #search{
-        border-color: #2F2FFA;
+        border-color: #d8648b;
     }
     
     #search::placeholder{
-        color: #2F2FFA;
+        color: #d8648b;
     }
 
     .search-textbox:focus{
-        box-shadow: #F64C72;
+        box-shadow: #f5b9c6c7;
     }
 
     td{
-        color: #2F2FFA;
+        color: #d8648b;
     }
 </style>

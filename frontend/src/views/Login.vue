@@ -52,13 +52,13 @@
 <style scoped>
     .login-button{
         color: white;
-        background-color: #2F2FFA;
+        background-color: #d8648b;
         margin: 10px;
     }
 
     .login-button:hover{
         color: black;
-        background-color: #2F2FFA;
+        background-color: #d8648b;
     }
 
     #spacing{
@@ -67,20 +67,20 @@
 
     .form-control{
         color: black;
-        border-color: #2F2FFA;
+        border-color: #d8648b;
         width: 300px;
     }
 
     .form-control:active{
-        border-color: #F64C72;
+        border-color: #f5b9c6c7;
     }
 
     .form-control:hover{
-        border-color: #F64C72;
+        border-color: #f5b9c6c7;
     }
 
     .form-control:focus{
-        border-color: #F64C72;
+        border-color: #f5b9c6c7;
     }
 
 

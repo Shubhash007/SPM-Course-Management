@@ -61,7 +61,7 @@
                         <label for="Skill{{n}}" class="col-form-label" id="spacing">Skills</label>
                     </div>
                     <div class="col-auto">
-                        <select @change="appendSkillID" multiple size="10" v-model="selectedSkills" class="form-select select-skill" style="background-color: #2F2FFA; color:white;" >
+                        <select @change="appendSkillID" multiple size="10" v-model="selectedSkills" class="form-select select-skill" style="background-color: #d8648b; color:white;" >
                             <option v-for="skill in skillsList" :value="skill.Skill_ID">{{skill.Skill_Name}}</option>
                         </select>
                         Selected Skills: {{selectedSkills}}
@@ -96,7 +96,8 @@
                     </div>
                 </div> -->
             </p>
-            <button @click="postJobRole">Create</button>
+            <!-- <button @click="postJobRole">Create</button> -->
+            <button @click="postJobRole" type="button" class="btn next-button">Create</button>
             <!-- <router-link to="/HRHome" class="btn next-button" @click="postJobRole">Create</router-link> -->
         </div>
     </div>
@@ -260,7 +261,7 @@
     }
 
     .card-body{
-        background-color: #2F2FFA;
+        background-color: #d8648b;
         color: white;
         padding: 20px 35px;
         border-radius: 10px;
@@ -283,31 +284,31 @@
     }
 
     .form-control{
-        background-color: #2F2FFA;
+        background-color: #d8648b;
         color: white;
         width: 500px;
     }
 
     .form-control:active{
-        border-color: #F64C72;
+        border-color: #f5b9c6c7;
     }
 
     .form-control:hover{
-        border-color: #F64C72;
+        border-color: #f5b9c6c7;
     }
 
     .form-control:focus{
-        border-color: #F64C72;
+        border-color: #f5b9c6c7;
     }
 
     .next-button{
-        background-color: #F64C72;
+        background-color: #f5b9c6c7;
         color: white;
         width: 10%;
     }
 
     .next-button:hover{
-        background-color: #F64C72;
+        background-color: #f5b9c6c7;
         color: black;
     }
 
@@ -318,11 +319,11 @@
     }
 
     .skill-button:hover{
-        border-color: #F64C72;
-        color: #F64C72;
+        border-color: #f5b9c6c7;
+        color: #f5b9c6c7;
     }
     
     .select-skill:hover{
-        border-color: #F64C72;
+        border-color: #f5b9c6c7;
     }
 </style>

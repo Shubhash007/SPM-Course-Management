@@ -57,7 +57,7 @@
                         <label for="Role{{n}}" class="col-form-label" id="spacing">Roles</label>
                     </div>
                     <div class="col-auto">
-                        <select @change="appendJobID" multiple size="10" v-model="selectedRoles" class="form-select select-skill" style="background-color: #2F2FFA; color:white;" >
+                        <select @change="appendJobID" multiple size="10" v-model="selectedRoles" class="form-select select-skill" style="background-color: #d8648b; color:white;" >
                             <option v-for="job in jobsList" :value="job.Job_Role_Name">{{job.Job_Role_Name}}</option>
                         </select>
                         Selected Roles: {{selectedRoles}}
@@ -75,7 +75,7 @@
                         <label for="Course{{n}}" class="col-form-label" id="spacing">Courses</label>
                     </div>
                     <div class="col-auto">
-                        <select @change="appendCourseID" multiple size="10" v-model="selectedCourses" class="form-select select-skill" style="background-color: #2F2FFA; color:white;" >
+                        <select @change="appendCourseID" multiple size="10" v-model="selectedCourses" class="form-select select-skill" style="background-color: #d8648b; color:white;" >
                             <option v-for="course in coursesList" :value="course.Course_Name">{{course.Course_Name}}</option>
                         </select>
                         Selected Courses: {{selectedCourses}}
@@ -84,7 +84,8 @@
                 </p>
 
 
-            <button @click="postSkill">Create</button>
+            <!-- <button @click="postSkill">Create</button> -->
+            <button @click="postSkill" type="button" class="btn next-button">Create</button>
             <!-- <router-link to="/ViewSkills" class="btn next-button">Create</router-link> -->
         </div>
     </div>
@@ -302,7 +303,7 @@
     }
 
     .card-body{
-        background-color: #2F2FFA;
+        background-color: #d8648b;
         color: white;
         padding: 20px 35px;
         border-radius: 10px;
@@ -317,31 +318,31 @@
     }
 
     .form-control{
-        background-color: #2F2FFA;
+        background-color: #d8648b;
         color: white;
         width: 500px;
     }
 
     .form-control:active{
-        border-color: #F64C72;
+        border-color: #f5b9c6c7;
     }
 
     .form-control:hover{
-        border-color: #F64C72;
+        border-color: #f5b9c6c7;
     }
 
     .form-control:focus{
-        border-color: #F64C72;
+        border-color: #f5b9c6c7;
     }
 
     .next-button{
-        background-color: #F64C72;
+        background-color: #f5b9c6c7;
         color: white;
         width: 10%;
     }
 
     .next-button:hover{
-        background-color: #F64C72;
+        background-color: #f5b9c6c7;
         color: black;
     }
 
@@ -352,8 +353,8 @@
     }
 
     .role-button:hover{
-        border-color: #F64C72;
-        color: #F64C72;
+        border-color: #f5b9c6c7;
+        color: #f5b9c6c7;
     }
 
     #spacing2{
@@ -361,6 +362,6 @@
     }
     
     .select-skill:hover{
-        border-color: #F64C72;
+        border-color: #f5b9c6c7;
     }
 </style>

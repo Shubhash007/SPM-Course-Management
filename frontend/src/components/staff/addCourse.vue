@@ -39,24 +39,24 @@
     
     <style scoped>
       #search{
-          border-color: #2F2FFA;
+          border-color: #d8648b;
       }
       
       #search::placeholder{
-          color: #2F2FFA;
+          color: #d8648b;
       }
     
       .search-textbox:focus{
-          box-shadow: #F64C72;
+          box-shadow: #f5b9c6c7;
       }
       
       .delete-button{
-        background-color: #F64C72;
+        background-color: #f5b9c6c7;
         color: white;
       }
     
       .delete-button:hover{
-          background-color: #F64C72;
+          background-color: #f5b9c6c7;
           color: black;
       }
     </style>

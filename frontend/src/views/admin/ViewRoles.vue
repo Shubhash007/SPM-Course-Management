@@ -7,7 +7,7 @@
                 <input type="text" @keyup="searchFunction" v-model="keyword" class="form-control search-textbox" id="search" placeholder="Search by...">
             </div>
         </div>
-        <table class="table table-responsive" style="width: 75%; border-color: #2F2FFA; margin: 20px 60px;" border="#2F2FFA">
+        <table class="table table-responsive" style="width: 75%; border-color: #d8648b; margin: 20px 60px;" border="#d8648b">
             <thead>
                 <tr>
                 <th scope="col">S/N</th>
@@ -17,7 +17,7 @@
             </thead>
             <tbody id="tbody">
                 <tr v-for="(jobRoles, index) in jobRoles">
-                    <th scope="row" style="color: #2F2FFA">{{index+1}}</th>
+                    <th scope="row" style="color: #d8648b">{{index+1}}</th>
                     <td>{{ jobRoles.Job_Role_Name}}</td>
                     <!-- <td><router-link :to="{name: 'StaffProfile', params: {slug: employee.StaffID}}">{{ employee.Staff }}</router-link></td> -->
                     <!-- <td>{{ jobRoles.Skills.toString()}}</td>  -->
@@ -115,60 +115,60 @@
 </script>
 <style scoped>
     #search{
-        border-color: #2F2FFA;
+        border-color: #d8648b;
     }
     
     #search::placeholder{
-        color: #2F2FFA;
+        color: #d8648b;
     }
 
     .search-textbox:focus{
-        box-shadow: #F64C72;
+        box-shadow: #f5b9c6c7;
     }
 
     .category-dropdown{
-        border-color: #F64C72;
-        color: #F64C72;
+        border-color: #f5b9c6c7;
+        color: #f5b9c6c7;
     }
 
     .category-dropdown:hover{
-        border-color: #F64C72;
+        border-color: #f5b9c6c7;
         color: black
     }
 
     .category-dropdown:focus{
-        border-color: #F64C72;
+        border-color: #f5b9c6c7;
         color: black;
         box-shadow: none;
     }
     
     .search-button{
-        background-color: #F64C72;
+        background-color: #f5b9c6c7;
         color: white;
     }
 
     .search-button:hover{
-        background-color: #F64C72;
+        background-color: #f5b9c6c7;
         color: black;
     }
     td{
-        color: #2F2FFA;
+        color: #d8648b;
     }
 
     a{
-        color: #2F2FFA;
+        color: #d8648b;
         text-decoration: none;
     }
 
     a:hover{
-        color:#F64C72;
+        color:#f5b9c6c7;
     }
 
     #edit{
         margin: -0.5rem 0;
         scale: 0.7;
-        border-color:#F64C72;
-        background-color:#F64C72;
+        border-color:#f5b9c6c7;
+        background-color:#f5b9c6c7;
         color: white;
     }
 </style>

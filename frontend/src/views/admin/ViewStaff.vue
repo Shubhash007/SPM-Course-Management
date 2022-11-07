@@ -87,27 +87,27 @@ export default {
 
 <style scoped>
 #filter {
-  border-color: #2f2ffa;
+  border-color: #d8648b;
 }
 
 #filter::placeholder {
-  color: #2f2ffa;
+  color: #d8648b;
 }
 
 .filter-textbox:focus {
-  box-shadow: #f64c72;
+  box-shadow: #f5b9c6c7;
 }
 
 .filter-button {
-  background-color: #f64c72;
+  background-color: #f5b9c6c7;
   color: white;
 }
 
 .filter-button:hover {
-  background-color: #f64c72;
+  background-color: #f5b9c6c7;
   color: black;
 }
 td {
-  color: #2f2ffa;
+  color: #d8648b;
 }
 </style>

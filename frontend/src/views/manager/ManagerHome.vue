@@ -82,24 +82,24 @@
     }
 
     .card{
-        border-color: #2F2FFA;
+        border-color: #d8648b;
         color:black;
         margin-bottom: 20px;
     }
 
     .card:hover{
-        background-color: #2F2FFA;
+        background-color: #d8648b;
         color:white;
     }
 
     #card-button{
-        background-color: #F64C72;
-        border-color: #F64C72;
+        background-color: #f5b9c6c7;
+        border-color: #f5b9c6c7;
         color: white;
     }
 
     #card-button:hover{
-        background-color: #F64C72;
+        background-color: #f5b9c6c7;
         color:black;
     }
 </style>

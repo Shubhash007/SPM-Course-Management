@@ -1,9 +1,9 @@
 nav{
-    background-color: #2F2FFA;
+    background-color: #d8648b;
 }
 
 .navbar-brand{
-color: #F64C72;
+color: #f5b9c6c7;
 }
 
 .nav-link{
@@ -15,9 +15,9 @@ margin:10px;
 }
 
 #navbar-login{
-border-color: #F64C72;
-color:#F64C72;
-background-color: #2F2FFA;
+border-color: #f5b9c6c7;
+color:#f5b9c6c7;
+background-color: #d8648b;
 }
 
 #navbar-login:hover{
@@ -26,8 +26,8 @@ background-color: white;
 
 #navbar-signup{
 color:white;
-background-color: #F64C72;
-border-color: #F64C72;
+background-color: #f5b9c6c7;
+border-color: #f5b9c6c7;
 }
 
 #navbar-signup:hover{
