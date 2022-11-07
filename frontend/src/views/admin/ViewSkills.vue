@@ -1,6 +1,6 @@
 <template>
-    <NavBar></NavBar>
-    <div style="min-height: 80vh;">
+    <NavBar v-if="userRole == 1 || userRole == 3"></NavBar>
+    <div style="min-height: 80vh;" v-if="userRole == 1 || userRole == 3">
         <div class="row g-3" style="margin: 20px 50px;">
             <div class="col-auto">
                 <label for="search" class="visually-hidden">Search</label>
@@ -32,10 +32,12 @@
             </tbody>
         </table>
     </div>
+    <Error v-else></Error>
 </template>
 <script setup>
     import NavBar from '../../components/NavBar.vue';
     import EditSkill from '../../components/admin/editSkillModal.vue';
+    import Error from '../../components/Error.vue';
 </script>
 
 <script>
@@ -48,18 +50,19 @@
                 keyword: "",
                 hasSearch: false,
                 returnData: [],
-                skillid: null,
+                userRole: 0,
+                skillid: null
             }
         }, methods:{
             onload: function(){
                 axios.get('/skill/')
-            .then(response => {
-                // this.course = response.data.data;
-                this.skills = response.data
-                console.log(this.skills)
-            })
-            .catch(error => alert(error)) 
-            },  
+                .then(response => {
+                    // this.course = response.data.data;
+                    this.skills = response.data
+                    console.log(this.skills)
+                })
+                .catch(error => alert(error)) 
+            },    
             
             deleteSkill: async function(skillID) {
                 await axios.delete('/skill/' + skillID + "/")
