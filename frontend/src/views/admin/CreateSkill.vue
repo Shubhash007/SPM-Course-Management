@@ -1,6 +1,6 @@
 <template>
-    <NavBar></NavBar>
-    <div class="card w-75" style="min-height: 80vh;">
+    <NavBar v-if="userRole == 1"></NavBar>
+    <div class="card w-75" style="min-height: 80vh;" v-if="userRole == 1">
         <div class="card-body">
             <!-- Create a Skill -->
             <h5 class="card-title">CREATE A SKILL</h5>
@@ -64,8 +64,8 @@
                     </div>
                 </div>
                 </p>
-            
 
+                    
             <!-- Attach Courses to Skills -->
 
             <h5 class="card-title">ATTACH TO COURSES(S)</h5>
@@ -80,7 +80,7 @@
                         </select>
                         Selected Courses: {{selectedCourses}}
                     </div>
-                </div>
+                    </div>
                 </p>
 
 
@@ -89,10 +89,12 @@
             <!-- <router-link to="/ViewSkills" class="btn next-button">Create</router-link> -->
         </div>
     </div>
+    <Error v-else></Error>
 </template>
 <script setup>
     import axios from 'axios'
     import NavBar from '../../components/NavBar.vue';
+    import Error from '../../components/Error.vue';
 </script>
 <script>
     export default{
@@ -108,8 +110,8 @@
                 coursesList: [],
                 selectedCourses: ["Please select courses"],
                 courseIDList: [],
-                skillList: []
-
+                skillList: [],
+                userRole: 0
             }
         }, methods:{
             AddExistingRole:function(){
@@ -130,14 +132,10 @@
                     this.hasNewRole = false;
                 }
             },
-
-
-
             appendCourseID:function(){
             this.courseIDList = []
 
             for (let i = 0; i < this.selectedCourses.length; i++) {
-
                 for (let j = 0; j < this.coursesList.length; j++) {
                 if (this.coursesList[j].Course_Name == this.selectedCourses[i]) {
                     this.courseIDList.push(this.coursesList[j].Course_ID)
@@ -146,9 +144,7 @@
             }
             console.log(this.courseIDList)
         },
-
-
-        appendJobID:function(){
+            appendJobID:function(){
             this.jobIDList = []
 
             for (let i = 0; i < this.selectedRoles.length; i++) {
@@ -211,21 +207,16 @@
             
             if (exist == false) {
 
-                await axios.post('http://localhost:5000/skill/', {
+            await axios.post('http://localhost:5000/skill/', {
                 Skill_ID: this.skillNo,
                 Skill_Name: document.getElementsByTagName("input")[0].value,
                 Skill_Desc: document.getElementsByTagName("textarea")[0].value
-
-
-
             })
 
             .then(response => {
                 // console.log(document.getElementsByTagName("input")[0].value)
                 console.log(response.data)
                 alert("Skill successfully created")
-                
-                
             })
             .catch(error => alert(error))
 
