@@ -1,14 +1,14 @@
 <template>
-    <div class="modal fade" :id="'edit-button'+no+skillSelected" aria-hidden="true" aria-labelledby="first-modal" tabindex="-1">
+    <div class="modal fade" :id="'add-button'+i+SkillSelected" aria-hidden="true" aria-labelledby="second-modal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="first-modal" v-if="coursesSelected!=[]">Add Courses</h1>
+                    <h1 class="modal-title fs-5" id="second-modal">Add Courses</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <div v-for="eachcourse in coursesSelected">
-                        <input type="checkbox" name="courses[]" @change="checkeditem(eachcourse)" :id='eachcourse' :value="eachcourse"> {{eachcourse}}
+                <div class="modal-body"> 
+                    <div v-for="eachcourse in CoursesSelected">
+                        <input type="checkbox" name="Courses[]" @change="checkeditem(eachcourse)" :id='eachcourse' :value="eachcourse"> {{eachcourse.split(',')[0]}}
                         <div type ="hidden" style="display: none;visibility: hidden;" id="jobroleid">{{jobroleid}}</div>
                     </div>
                 </div>
@@ -20,41 +20,41 @@
     </div>
 
     
-    <a class="btn btn-sm pink-button" data-bs-toggle="modal" :href="'#edit-button'+no+skillSelected" role="button">Add</a>
+    <a class="btn btn-sm pink-button" data-bs-toggle="modal" :href="'#add-button'+i+SkillSelected" role="button">Add Course</a>
 </template>
 
 <script setup>
     import axios from 'axios'
     const props = defineProps({
-        coursesSelected: Object,
-        no: Number,
-        skillSelected: String,
-        jobrole: Object,
+        CoursesSelected: Object,
+        i: Number,
+        SkillSelected: String,
+        JobRole: Object,
         jobroleid:Number,
     })
 
 
-    const checkeditem = function(course_selected){
-        var checked = document.getElementById(course_selected)
-        get_data(course_selected)
+    const checkeditem = function(CoursesSelected){
+        var checked = document.getElementById(CoursesSelected)
+        get_data(CoursesSelected)
     }
     
     let regcourse
-    async function get_data(course_selected) { 
+    async function get_data(CoursesSelected) { 
     try {
-        var checked = document.getElementById(course_selected)
+        var checked = document.getElementById(CoursesSelected)
         console.log(checked.value)
         if (checked.checked == true){
             var checkBox = checked.value;
-            for (let obj in props.coursesSelected){
-                if (props.coursesSelected[obj] == checked.value){
+            for (let obj in props.CoursesSelected){
+                if (props.CoursesSelected[obj] == checked.value){
                     console.log(checked.value)
-                    props.coursesSelected.indexOf(checked.value)
-                    console.log(props.coursesSelected.indexOf(checked.value))
-                    props.coursesSelected.splice(props.coursesSelected.indexOf(checked.value), 1)
-                    console.log(typeof(props.coursesSelected))
-                    regcourse = Object.values(props.coursesSelected)
-                    regcourse.push(checked.value)
+                    props.CoursesSelected.indexOf(checked.value)
+                    console.log(props.CoursesSelected.indexOf(checked.value))
+                    props.CoursesSelected.splice(props.CoursesSelected.indexOf(checked.value), 1)
+                    console.log(typeof(props.CoursesSelected))
+                    regcourse = Object.values(props.CoursesSelected)
+                    regcourse.push(checked.value.split(',')[0])
                     console.log(regcourse)
 
                 }
@@ -66,8 +66,11 @@
             console.log(id)
             let jrid = document.getElementById('jobroleid')
             console.log(jrid.innerText)
-            const response = await axios.post('http://127.0.0.1:5000/req/'+id+'/'+jrid.innerText + '/', Course_Registered);
-        }
+            const response = await axios.put('http://127.0.0.1:5000/req/'+id+'/'+jrid.innerText + '/', Course_Registered);
+            if(response.status == 200)
+                            {
+                                alert("Course Added!")
+                            }        }
 
         } catch (error) {
 
@@ -79,7 +82,8 @@
                 alert("Course Added!")
             }
             else{
-             alert(`DB is inaccesible at the moment due to ${error.message}`);
+             alert(`DB is inaccesible at the moment due to ${error.message}`)
+             console.log(error.response);
         }
         
     }
