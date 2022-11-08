@@ -11,7 +11,7 @@
             <div class="accordion-body">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" v-for="value, index in skills">
-                        <AddCoursesModal  :coursesSelected="value.courses" :jobrole="value.jobrole" :no="num" :skillSelected="index" :jobroleid="id"/>
+                        <AddCoursesModal  :CoursesSelected="value.courses" :JobRole="value.jobrole" :i="num" :SkillSelected="index" :jobroleid="id"/>
                             <ul>
                                 <li>
                                     {{value.Skill_Name}}
