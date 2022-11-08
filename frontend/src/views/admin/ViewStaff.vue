@@ -1,6 +1,6 @@
 <template>
-  <NavBar></NavBar>
-  <div style="min-height: 80vh">
+  <NavBar v-if="userRole == 3"></NavBar>
+  <div style="min-height: 80vh" v-if="userRole == 3">
     <div class="row g-3" style="margin: 20px 50px">
       <div class="col-auto">
         <label for="search" class="visually-hidden">Search</label>
@@ -41,9 +41,11 @@
       </tbody>
     </table>
   </div>
+  <Error v-else></Error>
 </template>
 <script>
 import NavBar from '../../components/NavBar.vue';
+import Error from '../../components/Error.vue';
 export default {
     data() {
         return {
@@ -57,6 +59,7 @@ export default {
                     roles: ["Developer"],
                 },
             ],
+            userRole: 0
         };
     },
     methods: {
@@ -80,6 +83,12 @@ export default {
                 }
             }
         },
+        userAuthentication: function(){
+          this.userRole = localStorage.getItem("userRole");
+        }
+    },
+    created(){
+      this.userAuthentication()
     },
     components: { NavBar }
 };
@@ -87,27 +96,27 @@ export default {
 
 <style scoped>
 #filter {
-  border-color: #2f2ffa;
+  border-color: #d8648b;
 }
 
 #filter::placeholder {
-  color: #2f2ffa;
+  color: #d8648b;
 }
 
 .filter-textbox:focus {
-  box-shadow: #f64c72;
+  box-shadow: #f5b9c6c7;
 }
 
 .filter-button {
-  background-color: #f64c72;
+  background-color: #f5b9c6c7;
   color: white;
 }
 
 .filter-button:hover {
-  background-color: #f64c72;
+  background-color: #f5b9c6c7;
   color: black;
 }
 td {
-  color: #2f2ffa;
+  color: #d8648b;
 }
 </style>

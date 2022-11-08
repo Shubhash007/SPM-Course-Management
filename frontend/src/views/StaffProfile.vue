@@ -93,7 +93,7 @@ import NavBar from '../components/NavBar.vue';
     }
 
     .card-body{
-        background-color: #2F2FFA;
+        background-color: #d8648b;
         color: white;
         padding: 20px 35px;
         border-radius: 10px;
@@ -110,11 +110,11 @@ import NavBar from '../components/NavBar.vue';
 
     .title-header{
         font-size: 1rem;
-        color: #F64C72;
+        color: #f5b9c6c7;
     }
     
     h5{
-        color: #F64C72;
+        color: #f5b9c6c7;
     }
 
     #spacing{

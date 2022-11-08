@@ -1,6 +1,6 @@
 <template>
-  <NavBar></NavBar>
-  <div class="container" style="min-height: 82vh">
+  <NavBar v-if="userRole % 2 == 0"></NavBar>
+  <div class="container" style="min-height: 82vh" v-if="userRole % 2 == 0">
       <div class="row text-dark fs-1 fw-bold p-2 text-center">
           <p>Learning Journeys</p>
       </div>
@@ -20,26 +20,27 @@
       <div class="row">
           <div class="col-6 mx-auto">
               <div class="accordion" id="accordionExample">
-                  <DeleteLJ v-for="(item,index) in data.filtered_data" id='test' :num="index" :role="item['Job_Role']['Job_Role_Name']" :courses="item['Course_Registered']" :jobrole= "item['Job_Role']" :skills="item['Job_Role']['Skills']"/>
+                  <DeleteLJ v-for="(item,index) in data.filtered_data" id='test' :num="index" :role="item['Job_Role']['Job_Role_Name']" :courses="item['Course_Registered']" :jobrole= "item['Job_Role']" :skills="item['Job_Role']['Skills']" :jobroleid="item['id']"/>
               </div>
           </div>
       </div>           
   </div>
+  <Error v-else></Error>
 </template>
 
 <script setup>
 import { ref,reactive } from 'vue';
 import DeleteLJ from '../../components/staff/DeleteLJ.vue';
 import NavBar from '../../components/NavBar.vue';
+import Error from '../../components/Error.vue';
 import axios from 'axios'
+
 
 const search_term = ref('')
 const data =reactive({
     skills_data:[],
     filtered_data:[],
 })
-
-
 
 async function get_data() {
     try {
@@ -64,7 +65,6 @@ async function get_data() {
 }
 get_data()
 
-
 const update_filter = function(){
     let search = search_term.value.toLowerCase()
     if( search && search.length > 0){
@@ -77,31 +77,40 @@ const update_filter = function(){
         data.filtered_data = data.skills_data
     }
 }
-
-
-
+</script>
+<script>
+    export default{
+        data(){
+        return{
+            userRole: 0
+        }
+        },
+        created(){
+        this.userRole = localStorage.getItem("userRole");
+        }
+    }
 </script>
 
 <style scoped>
   #search{
-      border-color: #2F2FFA;
+      border-color: #d8648b;
   }
   
   #search::placeholder{
-      color: #2F2FFA;
+      color: #d8648b;
   }
 
   .search-textbox:focus{
-      box-shadow: #F64C72;
+      box-shadow: #f5b9c6c7;
   }
   
   .search-button{
-      background-color: #F64C72;
+      background-color: #f5b9c6c7;
       color: white;
   }
 
   .search-button:hover{
-      background-color: #F64C72;
+      background-color: #f5b9c6c7;
       color: black;
   }
 </style>

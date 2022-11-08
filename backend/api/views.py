@@ -393,6 +393,17 @@ class job_assign_skill_detail(APIView):
         return Response({"msg":f"skill:{skill_1.Skill_Name} not assigned to Job Role:{job_role_1.Job_Role_Name}"},status = status.HTTP_404_NOT_FOUND)
 
 ################################Requirements##################################################################
+class requirements(mixins.ListModelMixin,
+                generics.GenericAPIView):
+                
+    queryset = Registration.objects.all()
+    serializer_class = Registration_Serializer
+
+    def get(self,request,*args,**kwargs):
+        return self.list(request, *args, **kwargs)    
+
+
+
 class requirements_list(APIView):
     def get_job_role(self,pk):
         try:
@@ -469,3 +480,33 @@ class requirements_list(APIView):
             req.delete()
             return Response({'msg':f"{staff.Staff_ID},{job_role.Job_Role_ID} has been removed"},status=status.HTTP_200_OK)
         return Response({'msg':f"{staff.Staff_ID},{job_role.Job_Role_ID} dosent exist"},status=status.HTTP_404_NOT_FOUND)
+#####################################################################################################################################
+class Skill_Attained(generics.GenericAPIView):
+    def get_staff(self,pk):
+        try:
+            return Staff.objects.get(pk=pk)
+        except Staff.DoesNotExist:
+            raise Http404
+
+    def get_course(self,pk):
+        try:
+            return Course.objects.get(pk=pk)
+        except Course.DoesNotExist:
+            raise Http404
+
+    def get(self,request,staff_id,format=None):
+        staff = self.get_staff(staff_id)
+        registrations = staff.registration_set.filter(Completion_Status='Completed')
+        if registrations.exists() == True:
+            # res = dict()
+            # for c in registrations:
+            #     course_data = self.get_course(c.Course.Course_ID)
+            #     s = course_data.Skills.all()
+            #     data = SkillSerializer(s,many=True)
+            #     res[c.Course.Course_ID] = data.data
+            res = []
+            for c in registrations:
+                c = CourseSerializer(c.Course)
+                res.append(c.data)
+            return Response(res,status=status.HTTP_200_OK)
+        return Response({'msg':'Staff does not have any active completed courses'},status=status.HTTP_400_BAD_REQUEST)

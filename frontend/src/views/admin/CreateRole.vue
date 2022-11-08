@@ -1,26 +1,16 @@
 <template>
-    <NavBar></NavBar>
-    <div class="card w-75">
+    <NavBar v-if="userRole == 1"></NavBar>
+    <div class="card w-75" v-if="userRole == 1">
         <div class="card-body">
             <!-- Create a Job Role -->
             <h5 class="card-title">CREATE A JOB ROLE</h5>
             <p class="card-text">
-                <!-- <div class="row g-3 py-3 align-items-center" >
-                    <div class="col-auto">
-                        <label for="jobID" class="col-form-label" id="spacing1">Job ID</label>
-                    </div>
-                    <div class="col-auto">
-                        <input type="number" v-model="jobID" class="form-control">
-                    </div>
-                    <div class="col-auto">
-                    </div>
-                </div> -->
                 <div class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
                         <label for="jobRole" class="col-form-label" id="spacing">Job Role Name</label>
                     </div>
                     <div class="col-auto">
-                        <input type="text" v-model="jobRole" class="form-control" aria-describedby="roleNameLimit" maxlength="20">
+                        <input  type="text" v-model="jobRole" class="form-control" aria-describedby="roleNameLimit" minlength="3" maxlength="20">
                     </div>
                     <div class="col-auto">
                         <span id="roleNameLimit" class="form-text" style="color:white;">
@@ -33,7 +23,7 @@
                         <label for="jobDescription" class="col-form-label">Job Role Description</label>
                     </div>
                     <div class="col-auto">
-                        <textarea v-bind:id="jobDescription" class="form-control" aria-describedby="roleDescLimit"></textarea>
+                        <textarea v-bind:id="jobDescription" class="form-control" aria-describedby="roleDescLimit" minlength="3" maxlength="100"></textarea>
                     </div>
                     <div class="col-auto">
                         <span id="roleDescLimit" class="form-text" style="color:white;">
@@ -61,7 +51,7 @@
                         <label for="Skill{{n}}" class="col-form-label" id="spacing">Skills</label>
                     </div>
                     <div class="col-auto">
-                        <select @change="appendSkillID" multiple size="10" v-model="selectedSkills" class="form-select select-skill" style="background-color: #2F2FFA; color:white;" >
+                        <select @change="appendSkillID" multiple size="10" v-model="selectedSkills" class="form-select select-skill" style="background-color: #d8648b; color:white;" >
                             <option v-for="skill in skillsList" :value="skill.Skill_ID">{{skill.Skill_Name}}</option>
                         </select>
                         Selected Skills: {{selectedSkills}}
@@ -96,13 +86,16 @@
                     </div>
                 </div> -->
             </p>
-            <button @click="postJobRole">Create</button>
+            <!-- <button @click="postJobRole">Create</button> -->
+            <button @click="postJobRole" type="button" class="btn next-button">Create</button>
             <!-- <router-link to="/HRHome" class="btn next-button" @click="postJobRole">Create</router-link> -->
         </div>
     </div>
+    <Error v-else></Error>
 </template>
 <script setup>
     import NavBar from '../../components/NavBar.vue';
+    import Error from '../../components/Error.vue';
 </script>
 <script>
     import axios from 'axios'
@@ -115,7 +108,9 @@
                 skillsList: [],
                 selectedSkills: ["Please select skills"],
                 skillIDList: [],
-                roleNo: 0
+                roleNo: 0,
+                userRole: 0,
+                roleList: []
             }
         },
         methods:{
@@ -151,9 +146,10 @@
             }
             }
             console.log(this.skillIDList)
-        },
+            },
         
             onload: async function(){
+                this.userRole = localStorage.getItem("userRole")
                 await axios.get('/skill/')
             .then(response => {
                 // this.course = response.data.data;
@@ -166,14 +162,22 @@
             await axios.get('/job_role/')
             .then(response => {
                 this.roleNo = response.data.length + 1
-                // console.log(this.roleNo)
-
+                this.roleList = response.data
+                console.log(response.data)
             })
             .catch(error => alert(error)) 
 
 
             },
             postJobRole: async function() {
+                var exist = false
+                var jobRoleName = document.getElementsByTagName("input")[0].value
+                for (let i = 0; i < this.roleList.length; i++) {
+                    if (this.roleList[i].Job_Role_Name == jobRoleName) {
+                        var exist = true
+                        }
+                    }
+                if (exist == false) {
             await axios.post('http://localhost:5000/job_role/', {
                 Job_Role_ID: this.roleNo,
                 Job_Role_Desc: document.getElementsByTagName("textarea")[0].value,
@@ -188,6 +192,7 @@
                 this.course = response.data.data;
                 console.log(response.data)
                 console.log(this.selectedSkills)
+                alert("Job Role successfully created")
                 
             })
             .catch(error => alert(error)) 
@@ -202,15 +207,18 @@
                 })
                 
                 .then(response => {
+                            console.log(response.data)
+                            alert("Skill successfully assigned to Job Role")
                 // console.log(document.getElementsByTagName("input")[0].value)
 
                 })
                 .catch(error => alert(error))
 
             }
-
-
-
+                }
+                else {
+                    alert("Role already exists")
+                }
         }
 
             
@@ -221,7 +229,7 @@
         computed: {
     
     // a computed getter
-    }
+        }
     }
 
 </script>
@@ -233,7 +241,7 @@
     }
 
     .card-body{
-        background-color: #2F2FFA;
+        background-color: #d8648b;
         color: white;
         padding: 20px 35px;
         border-radius: 10px;
@@ -256,31 +264,31 @@
     }
 
     .form-control{
-        background-color: #2F2FFA;
+        background-color: #d8648b;
         color: white;
         width: 500px;
     }
 
     .form-control:active{
-        border-color: #F64C72;
+        border-color: #f5b9c6c7;
     }
 
     .form-control:hover{
-        border-color: #F64C72;
+        border-color: #f5b9c6c7;
     }
 
     .form-control:focus{
-        border-color: #F64C72;
+        border-color: #f5b9c6c7;
     }
 
     .next-button{
-        background-color: #F64C72;
+        background-color: #f5b9c6c7;
         color: white;
         width: 10%;
     }
 
     .next-button:hover{
-        background-color: #F64C72;
+        background-color: #f5b9c6c7;
         color: black;
     }
 
@@ -291,11 +299,11 @@
     }
 
     .skill-button:hover{
-        border-color: #F64C72;
-        color: #F64C72;
+        border-color: #f5b9c6c7;
+        color: #f5b9c6c7;
     }
     
     .select-skill:hover{
-        border-color: #F64C72;
+        border-color: #f5b9c6c7;
     }
 </style>

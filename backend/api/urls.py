@@ -28,8 +28,11 @@ urlpatterns = [
 ###################################################################################################
     path('skill_to_job_role/<int:skill>/<int:job_role>/',views.job_assign_skill_detail.as_view()),
 #####################################################################################################
+    path('req/',views.requirements.as_view()),
     path('req/<int:staff_id>/',views.requirements_list.as_view()),
     path('req/<int:staff_id>/<int:job_role_id>/',views.requirements_list.as_view()),
+###################################################################################################
+    path('skill_attained/<int:staff_id>/', views.Skill_Attained.as_view())
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

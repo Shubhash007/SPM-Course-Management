@@ -1,6 +1,6 @@
 <template>
-  <Navbar></Navbar>
-  <div style="min-height: 82vh">
+  <Navbar v-if="userRole == 2 || userRole == 4"></Navbar>
+  <div style="min-height: 82vh" v-if="userRole == 2 || userRole == 4">
     <!-- Edit Learning Journeys -->
     <div class="row p-5" id="row">
       <div class="col-sm-6">
@@ -42,9 +42,23 @@
       </div> -->
     </div>
   </div>
+  <Error v-else></Error>
 </template>
 <script setup>
   import Navbar from '../../components/NavBar.vue';
+  import Error from '../../components/Error.vue';
+</script>
+<script>
+  export default{
+    data(){
+      return{
+        userRole: 0
+      }
+    },
+    created(){
+      this.userRole = localStorage.getItem("userRole");
+    }
+  }
 </script>
 <style scoped>
     #row{
@@ -52,23 +66,23 @@
     }
 
     .card{
-        border-color: #2F2FFA;
+        border-color: #d8648b;
         color:black;
     }
 
     .card:hover{
-        background-color: #ababb7;
+        background-color: #d8648b;
         color:white;
     }
 
     #card-button{
-        background-color: #F64C72;
-        border-color: #F64C72;
+        background-color: #f5b9c6c7;
+        border-color: #f5b9c6c7;
         color: white;
     }
 
     #card-button:hover{
-        background-color: #F64C72;
+        background-color: #f5b9c6c7;
         color:black;
     }
 </style>
