@@ -45,4 +45,3 @@ class Requirements_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Requirements
         fields = "__all__"
-
