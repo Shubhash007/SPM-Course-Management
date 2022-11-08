@@ -34,7 +34,7 @@
   import NavBar from '../../components/NavBar.vue';
   import Error from '../../components/Error.vue';
   
-  import addCourse from '../components/addCourse.vue';
+
   import axios from "axios";
   const search_term = ref('')
     const data =reactive({

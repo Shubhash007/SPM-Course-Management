@@ -42,7 +42,7 @@
 <script setup>
 import { list } from 'postcss';
 import editCoursesModal from './editCoursesModal.vue';
-import AddCoursesModal from "./addCourseModal.vue";
+import AddCoursesModal from "../../components/addCourseModal.vue";
 
 
     const props = defineProps({
