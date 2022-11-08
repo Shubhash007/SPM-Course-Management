@@ -32,14 +32,14 @@
                         <div class="col-7">
                             <h5 class="card-title">Current Roles</h5>
                         </div>
-                        <div class="col-5" v-if="userRole == 3 || userRole == 1">
-                            <editRolesModal :staffID="profile.StaffID" :roles="currentRoles" />
+                        <div class="col-5"> 
+                            <!-- v-if="userRole == 3 || userRole == 1"> -->
+                            <editRolesModal :staffID="profile.StaffID" :roles="allRoles" />
                         </div>
                     <p class="card-text">
                         <ul>
-                            <li v-for="role in profile.Roles">{{role}}</li>
+                            <li v-for="role in existingRoles">{{role}}</li>
                         </ul>
-                        {{profile}}
                     </p>
                     </div>
                 </div>
@@ -53,57 +53,69 @@
     export default{
         data(){
             return{
-                profile: [],
-                    // {
-                    //     StaffID: 0,
-                    //     Name: "",
-                    //     Department: "",
-                    //     Email: "",
-                    //     Skills: ["Python", "PHP"],
-                    //     Roles: ["Software Engineer", "Developer"]
-                    // },
+                profile:
+                    {
+                        StaffID: 0,
+                        Name: "",
+                        Department: "",
+                        Email: "",
+                        Skills: [],//["Python", "PHP"],
+                        Roles: ["Software Engineer", "Developer"]
+                    },
                 userRole: 0,
-                allRoles: []
+                allRoles: [],
+                existingRoles: []
             }
         },
         created(){
             const slug = this.$route.params.slug; 
-            // this.userRole = localStorage.getItem("userRole");
-        //     axios.get(`/staff/${slug}`)
-        //     .then(response => {
-        //         // console.log(response.data);
-        //         this.profile.StaffID = response.data.Staff_ID;
-        //         this.profile.Name = response.data.Staff_FName + " " + response.data.Staff_LName;
-        //         this.profile.Department = response.data.Dept;
-        //         this.profile.Email = response.data.Email;
-        //     })
-        //     .catch(error=>{
-        //             console.log(error.message);
-        //     })
+            this.userRole = localStorage.getItem("userRole");
+            // axios.get(`/staff/140002`)
+
+            axios.get(`/staff/${slug}`)
+            .then(response => {
+                console.log(response.data);
+                this.profile.StaffID = response.data.Staff_ID;
+                this.profile.Name = response.data.Staff_FName + " " + response.data.Staff_LName;
+                this.profile.Department = response.data.Dept;
+                this.profile.Email = response.data.Email;
+            })
+            .catch(error=>{
+                    console.log(error.message);
+            })
+        this.onload();
         },
         methods: {
-            // onload: function(){
-            // axios.get(`/req/${slug}/`)
-            // .then(response => {
-            //     this.currentRoles = response.data
-            //     console.log(response.data)
-            // })
-            // .catch(error => alert(error)) 
-            // },
-
             onload: function(){
-            axios.get(`/job_roles/`)
-            .then(response => {
-                this.allRoles = response.data
-                console.log(response.data)
+            const requestOne = axios.get('/job_role/');
+            const requestTwo = axios.get('http://127.0.0.1:5000/req/140002/');
+            const requestThree = axios.get('/staff/')
+            axios.all([requestOne, requestTwo, requestThree])
+            .then(axios.spread((...responses) => {
+                const responseOne = responses[0]
+                const responseTwo = responses[1]
+                const responseThree = responses[2]
+                console.log(responseTwo)
+
+                this.allRoles = responseOne.data
                 
-            })
+                responseTwo.data.forEach(role =>
+                this.existingRoles.push(role.Job_Role.Job_Role_Name))
+
+                console.log(this.existingRoles)
+
+                }
+                
+            ))
             .catch(error => alert(error)) 
             },
 
         }
 
-    }
+        }
+
+
+
 </script>
 <script setup>
 import editRolesModal from '../components/admin/editRolesModal.vue';

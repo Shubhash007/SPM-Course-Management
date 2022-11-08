@@ -11,9 +11,9 @@
                     <input type="text" @keyup="searchFunction" v-model="keyword" class="form-control search-textbox" id="search" placeholder="Search for Role...">
                     <br>
                     <div id="divRoles">
-                        <div v-for="role in roles">
-                            <input type="checkbox" name="roles[]" :value="role" id="checkbox"> {{role}}
-                        </div>
+
+                            <!-- <input type="checkbox" name="roles[]" :value="role.id" id="checkboxUntick"> {{role.Job_Role_Name}} -->
+
                         <p v-show="noRole">No such role</p>
                     </div>
                 </div>
@@ -45,14 +45,86 @@
 </template>
 
 <script>
+    import axios from 'axios';
+
     export default{
         data(){
             return{
                 noRole: false,
-                roles: []
+                roles: [],
+                existingRoles: [],
+                selectedRoles: []
             }
         },
+        created(){
+            const reqOne = axios.get('http://127.0.0.1:5000/req/140002/')
+            const reqTwo = axios.get('/job_role/')
+            axios.all([reqOne, reqTwo])
+            .then(axios.spread((...responses) => {
+                const responseOne = responses[0].data
+                const responseTwo = responses[1].data
+                
+                console.log(responseOne)
+
+                responseOne.forEach(role =>
+                this.existingRoles.push(role.Job_Role.Job_Role_Name))
+
+                this.roles = responseTwo
+
+                // console.log(this.existingRoles)
+                this.ifChecked();
+                console.log(this.roles)
+
+            }
+            ))
+            .catch(error => alert(error)) 
+
+
+        },
+
         methods:{
+            ifChecked: function(){
+                // console.log(this.roles)
+                
+                var jobList = ""
+                this.roles.forEach(role => {
+                    if(this.existingRoles.includes(role.Job_Role_Name)){
+                        jobList += `<div> <input type='checkbox' name='roles[]' :value='role.id' checked> `  + role.Job_Role_Name + `</div>`
+                        this.selectedRoles += role.Job_Role_id
+
+                    }else{
+                        jobList += `<div> <input type='checkbox' name='roles[]' :value='role.id'> `  + role.Job_Role_Name + `</div>`
+
+                    }
+                    // console.log(role.Job_Role_Name)
+                    // console.log(this.existingRoles)
+                    
+                    console.log(this.existingRoles.includes(role.Job_Role_Name))
+
+            })
+            document.getElementById("divRoles").innerHTML = jobList
+        },
+        updateRoles: function(){
+            //loop through checkbox values
+
+        },
+        // updateRequirementsDB: function(){
+        //     axios.put("http://127.0.0.1:5000/req/" + this.props.staffID + "/", {
+    //                     "id": this.skillname,
+    //                     "Job_Role_id": this.role,
+    //                     "Staff_id": this.staffID
+    //                 })
+    //                 .then(response => {
+    //                     console.log(response.data);
+    //                     console.log(this.skillname);
+    //                 })
+    //                 .catch(error =>{
+    //                     console.log(error.message);
+    //     })
+        
+    // },
+
+
             searchFunction: function () {
                 var input, filter, divRoles, roleName, i, txtValue;
                 input = document.getElementById("search");
@@ -79,46 +151,21 @@
                 }else{
                     this.noRole = false;
                 }
-            },
-            // onload: function(){
-            // axios.get('/job_role/')
-            // .then(response => {
-            //     // this.course = response.data.data;
-            //     // this.employees = response.data
-            //     console.log(response.data)
-            //     // console.log(this.employees[10].courses);
-            // })
-            // .catch(error => alert(error)) 
-            // },
+            }
 
-            assignRoleFunction: function(){
-                axios.get('/req/130001')
-                .then(response =>{
-                    console.log(response.data)
-                })
 
-// fetch request from staff
-// job_role_id
-// update
-
-// 1. display list of roles - not those that they already have
-// 2. send selected role's job role id and update
-
-//display roles that staff does not have
-
-//when clicked, role is added to 
- //get jole role ID from api_job_roles, append it to 
 
             }
+        
+        
         }
-        }
-    
 </script>
 
 <script setup>
     const props = defineProps({
         roles: Object,
         staffID: Number
+        // existingRoles: Object
     })    
 </script>
 

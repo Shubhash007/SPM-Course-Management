@@ -18,7 +18,7 @@
             <tbody id="tbody">
                 <tr v-for="(employee, index) in employees">
                     <th scope="row" style="color: #2F2FFA">{{index+1}}</th>
-                    <td>{{ employee.Staff_FName}} {{employee.Staff_LName}}</td>
+                    <!-- <td>{{ employee.Staff_FName}} {{employee.Staff_LName}}</td> -->
                     <!-- <td><router-link :to="{name: 'StaffProfile', params: {slug: employee.StaffID}}">{{ employee.Staff }}</router-link></td> -->
                     <td>{{ employee.Dept}}</td> 
                 </tr>
@@ -81,9 +81,6 @@
 
         },
 
-        mounted(){
-            this.onload()
-        },
         created() {
             this.onload()
         },
