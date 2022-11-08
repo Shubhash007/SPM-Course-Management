@@ -10,13 +10,12 @@
         <div class="accordion-body">
             <p class="fs-4 fst-italic">Skills</p>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item" v-if="Object.keys(skills).length != 0" v-for="skill in skills">{{skill.Skill_ID}}:{{skill.Skill_Name}}
+                <li class="list-group-item" v-if="Object.keys(allSkills).length != 0" v-for="skill in allSkills">{{skill.Skill_ID}}:{{skill.Skill_Name}}
                 <div>
-                    <ul  v-for="c in skill.courses">
+                    <ul v-for="c in skill.courses">
                         <li>
                             <input type="checkbox" class="hi" :id='role+c' :value="c" @change="checkeditem(role+c)">
-                            {{c.split(',')[0]}} : {{c.split(',')[1] }}
-
+                            {{c.split(',')[0]}} : {{c.split(',')[1] }} - {{c.split(',')[4]}}
                         </li>
                     </ul>
                 </div>
@@ -133,6 +132,43 @@ async function addcourse() {
 
 // checkLJ()
 // console.log(data.roleTaken)
-
-
+</script>
+<script>
+    export default{
+        data(){
+            return{
+                allSkills: {}
+            }
+        },
+        methods:{
+            filterCourses:function(){
+                this.allSkills = this.props.skills;
+                for (let eachSkill of this.allSkills){
+                    let courses = eachSkill.courses;
+                    for (let course of courses){
+                        console.log(course);
+                        let courseCode = course.split(',')[0];
+                        axios.get("/registration/")
+                        .then(response => {
+                            let data = response.data;
+                            for (let item of data){
+                                if (item.Staff == localStorage.getItem("staff_id") && item.Completion_Status == "Completed" && item.Course == courseCode){
+                                    console.log(item.Course);
+                                    let index = courses.indexOf(course);
+                                    courses.splice(index, 1);
+                                }
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error.message);
+                        })
+                    }
+                    eachSkill.courses = courses;
+                    console.log(eachSkill.courses);
+                }
+            }
+        },created(){
+            this.filterCourses();
+        }
+    }
 </script>
