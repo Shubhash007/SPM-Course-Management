@@ -14,7 +14,7 @@
                 <div>
                     <ul  v-for="c in skill.courses">
                         <li>
-                            <input type="checkbox" class="hi" :id='skill.Skill_Name+c' :value="c" @change="checkeditem(skill.Skill_Name+c)">
+                            <input type="checkbox" class="hi" :id='role+c' :value="c" @change="checkeditem(role+c)">
                             {{c.split(',')[0]}} : {{c.split(',')[1] }}
 
                         </li>
@@ -77,30 +77,39 @@ const checkeditem = function(course_selected){
         return(courseSelected)
     }
 
-
 const addRole = function(){
     if (courseSelected.length == 0) {
         alert(`Unable to add Learning Journey. Learning Journey needs to have at least one course.`);
         window.location = "\StartLJ"
     }
 }
+console.log(courseSelected.length)
 
 let Course_Registered
 async function addcourse() {
-    addRole()
-    console.log(courseSelected)
+ 
     try {
         let id = localStorage.getItem("staff_id");
         console.log(id)
         console.log(props.num)
         Course_Registered = {"Course_Registered": courseSelected}
-        console.log(Course_Registered)
-        const response = await axios.post('http://127.0.0.1:5000/req/'+id+'/'+props.num+'/',Course_Registered);
-        // const del = axios.post('http://127.0.0.1:5000/job_role/'+id+'/'+props.num+'/',Course_Registered)
+        console.log(courseSelected.length)
+        
+        if (courseSelected.length != 0) {
+            const response = await axios.post('http://127.0.0.1:5000/req/'+id+'/'+props.num+'/',Course_Registered);
+            alert(`Learning Journey Added`);
+            window.location = "\StartLJ"
+        }
+        else{
+            alert(`Unable to add Learning Journey. Learning Journey needs to have at least one course.`);
+            window.location = "\StartLJ"
+            
+        }
         console.log(response)
 
-    } catch (error) {
-        alert(`DB is inaccesible at the moment due to ${error.message}`);
+    } 
+    catch (error) {
+        // alert(`DB is inaccesible at the moment due to ${error.message}`);
     }
 }
 
@@ -124,5 +133,6 @@ async function addcourse() {
 
 // checkLJ()
 // console.log(data.roleTaken)
+
 
 </script>

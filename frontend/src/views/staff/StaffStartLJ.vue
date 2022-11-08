@@ -113,12 +113,10 @@ async function getJobs() {
         }
         console.log(dontExist)
         for (let i in dontExist){
-            
                 if (dontExist[i] == data.available[dontExist[i]-1].Job_Role_ID){
                     data.remaining.push(data.available[dontExist[i]-1])
                 }
                 console.log(dontExist[i],data.available[dontExist[i]-1].Job_Role_ID)
-            
         }
             console.log(data.remaining)
         }
@@ -127,7 +125,7 @@ async function getJobs() {
     catch{
     }
 }
-    
+
 
 get_data()
 getJobs()
