@@ -1,6 +1,6 @@
 <template>
-  <NavBar></NavBar>
-  <div style="min-height: 82vh">
+  <NavBar v-if="userRole == 1"></NavBar>
+  <div style="min-height: 82vh" v-if="userRole == 1">
     <!-- Create Role / Skill -->
     <div class="row p-5" id="row">
       <div class="col-sm-6">
@@ -17,9 +17,6 @@
           </div>
         </div>
       </div>
-
-
-
       <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
@@ -64,15 +61,30 @@
           </div>
         </div>
       </div>
-
-
-
-      
     </div>
   </div>
+  <Error v-else></Error>
 </template>
 <script setup>
   import NavBar from '../../components/NavBar.vue';
+  import Error from '../../components/Error.vue';
+</script>
+<script>
+  export default{
+    data(){
+      return{
+        userRole: 0
+      }
+    },
+    methods:{
+      onload: async function(){
+        this.userRole = localStorage.getItem('userRole');
+      }
+    },
+    created(){
+      this.onload();
+    }
+  }
 </script>
 <style scoped>
     #row{

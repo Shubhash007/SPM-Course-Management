@@ -1,6 +1,6 @@
 <template>
-    <NavBar></NavBar>
-    <div style="min-height: 80vh;">
+    <NavBar v-if="userRole == 1 || userRole == 3"></NavBar>
+    <div style="min-height: 80vh;" v-if="userRole == 1 || userRole == 3">
         <div class="row g-3" style="margin: 20px 50px;">
             <div class="col-auto">
                 <label for="search" class="visually-hidden">Search</label>
@@ -29,9 +29,11 @@
             </tbody>
         </table>
     </div>
+    <Error v-else></Error>
 </template>
 <script setup>
     import NavBar from '../../components/NavBar.vue';
+    import Error from '../../components/Error.vue';
 </script>
 <script>
     import axios from "axios";
@@ -43,12 +45,14 @@
                 keyword: "",
                 hasSearch: false,
                 returnData: [],
-                jobRoles: []
+                jobRoles: [],
+                userRole: 0
             }
         }, methods:{
 
 
             onload: function(){
+            this.userRole = localStorage.getItem("userRole")
             axios.get('/staff/')
             .then(response => {
                 // this.course = response.data.data;
@@ -57,19 +61,13 @@
                 // console.log(this.employees[10].courses);
             })
             .catch(error => alert(error)) 
-
-
             axios.get('/job_role/')
             .then(response => {
                 this.jobRoles = response.data
                 console.log(response.data)
             })
             .catch(error => alert(error)) 
-
-
             },
-
-
             deleteRole: async function(jobID) {
                 await axios.delete('/job_role/' + jobID + "/")
                 .then(response => {
@@ -77,10 +75,7 @@
                 alert("Job Role has been deleted")
                 location.reload();
             })
-            },
-
-
-
+            },  
             searchFunction: function () {
                 var input, filter, table, tbody, tr, tdName, tdRoles, i, txtValue;
                 input = document.getElementById("search");

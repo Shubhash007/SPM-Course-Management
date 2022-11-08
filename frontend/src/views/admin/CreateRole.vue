@@ -1,20 +1,10 @@
 <template>
-    <NavBar></NavBar>
-    <div class="card w-75">
+    <NavBar v-if="userRole == 1"></NavBar>
+    <div class="card w-75" v-if="userRole == 1">
         <div class="card-body">
             <!-- Create a Job Role -->
             <h5 class="card-title">CREATE A JOB ROLE</h5>
             <p class="card-text">
-                <!-- <div class="row g-3 py-3 align-items-center" >
-                    <div class="col-auto">
-                        <label for="jobID" class="col-form-label" id="spacing1">Job ID</label>
-                    </div>
-                    <div class="col-auto">
-                        <input type="number" v-model="jobID" class="form-control">
-                    </div>
-                    <div class="col-auto">
-                    </div>
-                </div> -->
                 <div class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
                         <label for="jobRole" class="col-form-label" id="spacing">Job Role Name</label>
@@ -101,9 +91,11 @@
             <!-- <router-link to="/HRHome" class="btn next-button" @click="postJobRole">Create</router-link> -->
         </div>
     </div>
+    <Error v-else></Error>
 </template>
 <script setup>
     import NavBar from '../../components/NavBar.vue';
+    import Error from '../../components/Error.vue';
 </script>
 <script>
     import axios from 'axios'
@@ -117,6 +109,7 @@
                 selectedSkills: ["Please select skills"],
                 skillIDList: [],
                 roleNo: 0,
+                userRole: 0,
                 roleList: []
             }
         },
@@ -153,9 +146,10 @@
             }
             }
             console.log(this.skillIDList)
-        },
+            },
         
             onload: async function(){
+                this.userRole = localStorage.getItem("userRole")
                 await axios.get('/skill/')
             .then(response => {
                 // this.course = response.data.data;
@@ -170,75 +164,61 @@
                 this.roleNo = response.data.length + 1
                 this.roleList = response.data
                 console.log(response.data)
-                // console.log(this.roleNo)
-
             })
             .catch(error => alert(error)) 
 
 
             },
             postJobRole: async function() {
-
                 var exist = false
                 var jobRoleName = document.getElementsByTagName("input")[0].value
                 for (let i = 0; i < this.roleList.length; i++) {
-
-
                     if (this.roleList[i].Job_Role_Name == jobRoleName) {
                         var exist = true
                         }
-
-
                     }
-                
                 if (exist == false) {
-                    await axios.post('http://localhost:5000/job_role/', {
-                        Job_Role_ID: this.roleNo,
-                        Job_Role_Desc: document.getElementsByTagName("textarea")[0].value,
-                        Job_Role_Name: document.getElementsByTagName("input")[0].value,
-                        Dept: document.getElementsByTagName("input")[1].value,
-                        Skills: this.selectedSkills
-                    })
+            await axios.post('http://localhost:5000/job_role/', {
+                Job_Role_ID: this.roleNo,
+                Job_Role_Desc: document.getElementsByTagName("textarea")[0].value,
+                Job_Role_Name: document.getElementsByTagName("input")[0].value,
+                Dept: document.getElementsByTagName("input")[1].value,
+                Skills: this.selectedSkills
+            })
 
-                    
+            
 
-                    .then(response => {
-                        this.course = response.data.data;
-                        console.log(response.data)
-                        console.log(this.selectedSkills)
-                        alert("Job Role successfully created")
-                        
-                    })
-                    .catch(error => alert(error)) 
+            .then(response => {
+                this.course = response.data.data;
+                console.log(response.data)
+                console.log(this.selectedSkills)
+                alert("Job Role successfully created")
+                
+            })
+            .catch(error => alert(error)) 
 
 
-                    var jobID = this.roleNo
-                    for (let j = 0; j < this.skillIDList.length; j++) {
-                        let skillID = this.skillIDList[j]
-                        await axios.post('/skill_to_job_role/' + skillID + "/" + jobID + "/", {
-                        // "Job_Role_ID": jobID,
-                        // "Skill_ID": skillID
-                        })
-                        
-                        .then(response => {
+            var jobID = this.roleNo
+            for (let j = 0; j < this.skillIDList.length; j++) {
+                let skillID = this.skillIDList[j]
+                await axios.post('/skill_to_job_role/' + skillID + "/" + jobID + "/", {
+                // "Job_Role_ID": jobID,
+                // "Skill_ID": skillID
+                })
+                
+                .then(response => {
                             console.log(response.data)
                             alert("Skill successfully assigned to Job Role")
-                        // console.log(document.getElementsByTagName("input")[0].value)
+                // console.log(document.getElementsByTagName("input")[0].value)
 
-                        })
-                        .catch(error => alert(error))
+                })
+                .catch(error => alert(error))
 
-                    }
-
+            }
                 }
                 else {
                     alert("Role already exists")
                 }
-
-
-
-
-
         }
 
             
@@ -249,7 +229,7 @@
         computed: {
     
     // a computed getter
-    }
+        }
     }
 
 </script>

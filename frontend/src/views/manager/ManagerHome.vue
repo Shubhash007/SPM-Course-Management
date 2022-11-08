@@ -1,9 +1,9 @@
 <template>
-    <NavBar></NavBar>
-    <div style="min-height: 82vh">
+    <NavBar v-if="userRole == 3"></NavBar>
+    <div style="min-height: 82vh" v-if="userRole == 3">
         <div class="row p-5" id="row">
             <!-- Edit Learning Journeys -->
-            <div class="col-sm-6">
+            <!-- <div class="col-sm-6">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Edit Learning Journey(s)</h5>
@@ -13,7 +13,7 @@
                         >
                     </div>
                 </div>
-            </div>
+            </div> -->
     
             <!-- Add Courses to LJ -->
             <div class="col-sm-6">
@@ -72,9 +72,28 @@
             </div>
         </div>
     </div>
+    <Error v-else></Error>
 </template>
 <script setup>
     import NavBar from '../../components/NavBar.vue';
+    import Error from '../../components/Error.vue';
+</script>
+<script>
+    export default{
+        data(){
+        return{
+            userRole: 0
+        }
+        },
+        methods:{
+        onload: async function(){
+            this.userRole = localStorage.getItem('userRole');
+        }
+        },
+        created(){
+        this.onload();
+        }
+    }
 </script>
 <style scoped>
     #row{
