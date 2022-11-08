@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-6 mx-auto">
                 <div class="accordion" id="accordionExample">
-                    <AddRoleToLJ v-for="(item,index) in data.filtered_data" :num="item.Job_Role_ID" :role="item.Job_Role_Name" :skills="item.Skills"  />
+                    <AddRoleToLJ v-for="(item,index) in data.remaining" :num="item.Job_Role_ID" :role="item.Job_Role_Name" :skills="item.Skills"  />
                 </div>
             </div>
         </div>           
@@ -89,7 +89,6 @@ async function get_data() {
     }
 }
 
-
 async function getJobs() {
     try{
         let id = localStorage.getItem("staff_id");
@@ -100,29 +99,42 @@ async function getJobs() {
         data.available = response.data
         console.log(data.available)
         console.log(data.taken)
-            for (let a = 0; a < data.available.length; a++){
-                console.log(data.available[a].Job_Role_ID)
-                for (let t in data.taken){
-                    console.log(data.taken[t].Job_Role.Job_Role_ID === data.available[a].Job_Role_ID)
+        var existing = []
+        for (let a = 0; a < data.available.length; a++){
+            for (let t in data.taken){
+
+                if (data.taken[t].Job_Role.Job_Role_ID == data.available[a].Job_Role_ID) {
                     console.log(data.taken[t].Job_Role.Job_Role_ID)
-                }
-                
-                
-                // console.log(JSON.stringify(obj1) === JSON.stringify(obj2))
-                
+                    existing.push(data.available[a].Job_Role_ID)
+                }   
             }
-        
-        console.log(test)
+            
+        }
+        var dontExist = []
+        for (let a = 0; a < data.available.length; a++){
+            if (existing.includes(data.available[a].Job_Role_ID) == false){
+                // console.log("LOL")
+                // console.log(data.available[a].Job_Role_ID)
+                dontExist.push(data.available[a].Job_Role_ID)
+            }
+        }
+        console.log(dontExist)
+        for (let i in dontExist){
+            
+                if (dontExist[i] == data.available[dontExist[i]-1].Job_Role_ID){
+                    data.remaining.push(data.available[dontExist[i]-1])
+                }
+                console.log(dontExist[i],data.available[dontExist[i]-1].Job_Role_ID)
+            
+        }
+            console.log(data.remaining)
         }
         
     
     catch{
     }
 }
-
     
-
-
 
 get_data()
 getJobs()
