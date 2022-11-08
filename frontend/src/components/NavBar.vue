@@ -1,7 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">INSERT LOGO HERE</a>
+      <a class="navbar-brand" href="#">
+        <img id="LJMS-LOGO" src="../assets/LJMS_logo.jpg" alt="logo" width="60" height="50">
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
