@@ -35,6 +35,9 @@ export default defineConfig({
       '/job_role': {
         target: 'http://localhost:5000/'
       },
+      '/registration': {
+        target: 'http://localhost:5000/'
+      },
     }
   },
 });
