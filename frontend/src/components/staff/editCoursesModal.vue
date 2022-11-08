@@ -158,7 +158,37 @@
         }
         
     }
-    
+
+</script>
+<script>
+    export default{
+        methods:{
+            filterCompletedCourses: function(){
+                axios.get("/registration/")
+                .then(response => {
+                    let data = response.data;
+                    let coursesCompleted = [];
+                    for (let item of data){
+                        if (item.Staff == localStorage.getItem("staff_id") && item.Completion_Status == "Completed"){
+                            coursesCompleted.push(item);
+                        }
+                    }
+                    for (let course of coursesCompleted){
+                        if (this.props.coursesSelected.includes(course.Course)){
+                            let index = this.props.coursesSelected.indexOf(course.Course);
+                            this.props.coursesSelected.splice(index, 1);
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.log(error.message);
+                })
+            }
+        },
+        created(){
+            this.filterCompletedCourses();
+        }
+    }
 </script>
 
 <style scoped>
