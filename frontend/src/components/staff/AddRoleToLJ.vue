@@ -14,9 +14,9 @@
                 <div>
                     <ul  v-for="c in skill.courses">
                         <li>
-                            
-                            <input type="checkbox" class="hi" :id='skills+c' :value="c" @change="checkeditem(skills+c)">
+                            <input type="checkbox" class="hi" :id='skill.Skill_Name+c' :value="c" @change="checkeditem(skill.Skill_Name+c)">
                             {{c.split(',')[0]}} : {{c.split(',')[1] }}
+
                         </li>
                     </ul>
                 </div>
@@ -36,7 +36,6 @@
 
 
 <script setup>
-
 
 import axios from "axios"
 import { ref,reactive } from 'vue';
@@ -81,7 +80,8 @@ const checkeditem = function(course_selected){
 
 const addRole = function(){
     if (courseSelected.length == 0) {
-        alert(`Unable to delete course. Learning Journey needs to have at least one course.`);
+        alert(`Unable to add Learning Journey. Learning Journey needs to have at least one course.`);
+        window.location = "\StartLJ"
     }
 }
 

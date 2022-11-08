@@ -80,10 +80,7 @@ async function get_data() {
         data.filtered_data = res
         console.log(res)
         return res
-        // for (item) in data {
 
-        // }
-        // console.log(data)
     } catch (error) {
         alert(`DB is inaccesible at the moment due to ${error.message}`);
     }
@@ -102,19 +99,15 @@ async function getJobs() {
         var existing = []
         for (let a = 0; a < data.available.length; a++){
             for (let t in data.taken){
-
                 if (data.taken[t].Job_Role.Job_Role_ID == data.available[a].Job_Role_ID) {
                     console.log(data.taken[t].Job_Role.Job_Role_ID)
                     existing.push(data.available[a].Job_Role_ID)
                 }   
             }
-            
         }
         var dontExist = []
         for (let a = 0; a < data.available.length; a++){
             if (existing.includes(data.available[a].Job_Role_ID) == false){
-                // console.log("LOL")
-                // console.log(data.available[a].Job_Role_ID)
                 dontExist.push(data.available[a].Job_Role_ID)
             }
         }
