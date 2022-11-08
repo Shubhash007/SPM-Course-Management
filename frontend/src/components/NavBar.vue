@@ -23,7 +23,7 @@
             <router-link to="StaffProfile" class="nav-link" aria-current="page">ACCOUNT</router-link>
           </li>
         </ul>
-        <router-link to="Login"><button type="button" class="btn btn-outline-primary navbar-button" id="navbar-signup" v-if="userRole > 0" @click.prevent="logout()">Log out</button></router-link>
+        <router-link to="/"><button type="button" class="btn btn-outline-primary navbar-button" id="navbar-signup" v-if="userRole > 0" @click.prevent="logout()">Log out</button></router-link>
       </div>
     </div>
   </nav>

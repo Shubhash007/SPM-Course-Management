@@ -1,6 +1,6 @@
 <template>
-    <NavBar></NavBar>
-    <div class="container" style="min-height: 82vh">
+    <NavBar v-if="userRole != 1"></NavBar>
+    <div class="container" style="min-height: 82vh" v-if="userRole != 1">
         <div class="row text-dark fs-1 fw-bold p-2 text-center">
             <p>Learning Journeys</p>
         </div>
@@ -25,12 +25,14 @@
             </div>
         </div>           
     </div>
+    <Error v-else></Error>
   </template>
   <script setup>
   import AddRoleToLJ from '@/components/staff/AddRoleToLJ.vue'
   import { ref,reactive } from 'vue';
   import addCourse from '../../components/staff/addCourse.vue';
   import NavBar from '../../components/NavBar.vue';
+  import Error from '../../components/Error.vue';
   
   const search_term = ref('')
 const data =reactive({

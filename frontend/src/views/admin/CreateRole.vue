@@ -149,6 +149,7 @@
             },
         
             onload: async function(){
+                this.userRole = localStorage.getItem("userRole")
                 await axios.get('/skill/')
             .then(response => {
                 // this.course = response.data.data;

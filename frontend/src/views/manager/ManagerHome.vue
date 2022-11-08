@@ -3,7 +3,7 @@
     <div style="min-height: 82vh" v-if="userRole == 3">
         <div class="row p-5" id="row">
             <!-- Edit Learning Journeys -->
-            <div class="col-sm-6">
+            <!-- <div class="col-sm-6">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Edit Learning Journey(s)</h5>
@@ -13,7 +13,7 @@
                         >
                     </div>
                 </div>
-            </div>
+            </div> -->
     
             <!-- Add Courses to LJ -->
             <div class="col-sm-6">

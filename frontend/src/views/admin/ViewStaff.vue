@@ -59,6 +59,7 @@ export default {
                     roles: ["Developer"],
                 },
             ],
+            userRole: 0
         };
     },
     methods: {
@@ -82,6 +83,12 @@ export default {
                 }
             }
         },
+        userAuthentication: function(){
+          this.userRole = localStorage.getItem("userRole");
+        }
+    },
+    created(){
+      this.userAuthentication()
     },
     components: { NavBar }
 };

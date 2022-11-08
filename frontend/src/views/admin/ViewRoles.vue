@@ -52,6 +52,7 @@
 
 
             onload: function(){
+            this.userRole = localStorage.getItem("userRole")
             axios.get('/staff/')
             .then(response => {
                 // this.course = response.data.data;

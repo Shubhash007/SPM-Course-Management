@@ -1,6 +1,6 @@
 <template>
-  <NavBar></NavBar>
-  <div class="container" style="min-height: 82vh">
+  <NavBar v-if="userRole % 2 == 0"></NavBar>
+  <div class="container" style="min-height: 82vh" v-if="userRole % 2 == 0">
       <div class="row text-dark fs-1 fw-bold p-2 text-center">
           <p>Learning Journeys</p>
       </div>
@@ -25,12 +25,14 @@
           </div>
       </div>           
   </div>
+  <Error v-else></Error>
 </template>
 
 <script setup>
 import { ref,reactive } from 'vue';
 import DeleteLJ from '../../components/staff/DeleteLJ.vue';
 import NavBar from '../../components/NavBar.vue';
+import Error from '../../components/Error.vue';
 import axios from 'axios'
 
 const search_term = ref('')
@@ -38,8 +40,6 @@ const data =reactive({
     skills_data:[],
     filtered_data:[],
 })
-
-
 
 async function get_data() {
     try {
@@ -64,7 +64,6 @@ async function get_data() {
 }
 get_data()
 
-
 const update_filter = function(){
     let search = search_term.value.toLowerCase()
     if( search && search.length > 0){
@@ -77,9 +76,18 @@ const update_filter = function(){
         data.filtered_data = data.skills_data
     }
 }
-
-
-
+</script>
+<script>
+    export default{
+        data(){
+        return{
+            userRole: 0
+        }
+        },
+        created(){
+        this.userRole = localStorage.getItem("userRole");
+        }
+    }
 </script>
 
 <style scoped>

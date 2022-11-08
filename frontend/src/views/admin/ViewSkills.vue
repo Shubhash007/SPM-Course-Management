@@ -55,6 +55,7 @@
             }
         }, methods:{
             onload: function(){
+                this.userRole = localStorage.getItem("userRole")
                 axios.get('/skill/')
                 .then(response => {
                     // this.course = response.data.data;
