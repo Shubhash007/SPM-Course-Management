@@ -13,6 +13,7 @@
                 <th scope="col">S/N</th>
                 <th scope="col">Role Name</th>
                 <th></th>
+                <th></th>
                 </tr>
             </thead>
             <tbody id="tbody">
@@ -21,10 +22,10 @@
                     <td>{{ jobRoles.Job_Role_Name}}</td>
                     <!-- <td><router-link :to="{name: 'StaffProfile', params: {slug: employee.StaffID}}">{{ employee.Staff }}</router-link></td> -->
                     <!-- <td>{{ jobRoles.Skills.toString()}}</td>  -->
-                    <td><button type="button" id="edit" class="btn" @click="deleteRole(jobRoles.Job_Role_ID)">
-                        Delete Role
-                        </button>
+                    <td>
+                        <EditRoleDetails :roleId="jobRoles.Job_Role_ID" :currentRoleName="jobRoles.Job_Role_Name"></EditRoleDetails>
                     </td>
+                    <td><button type="button" id="edit" class="btn" @click="deleteRole(jobRoles.Job_Role_ID)">Delete Role</button></td>
                 </tr>
             </tbody>
         </table>
@@ -34,6 +35,7 @@
 <script setup>
     import NavBar from '../../components/NavBar.vue';
     import Error from '../../components/Error.vue';
+    import EditRoleDetails from '../../components/admin/editRoleDetailsModal.vue';
 </script>
 <script>
     import axios from "axios";
@@ -160,7 +162,7 @@
     }
 
     #edit{
-        margin: -0.5rem 0;
+        margin: -0.5rem -3rem;
         scale: 0.7;
         border-color:#f5b9c6c7;
         background-color:#f5b9c6c7;
