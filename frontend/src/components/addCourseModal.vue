@@ -71,6 +71,7 @@
                             {
                                 alert("Course Added!")
                             }        }
+        
 
         } catch (error) {
 
