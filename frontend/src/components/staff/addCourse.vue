@@ -38,7 +38,7 @@
 <script setup>
 
 import axios from "axios";
-import AddCoursesModal from "../../components/addCourseModal.vue";
+import AddCoursesModal from "./addCourseModal.vue";
 
     const props = defineProps({
         num: Number,
