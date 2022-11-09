@@ -6,7 +6,7 @@
             <div class="text-muted fs-4">Click on role to see information</div>
         </div>
 
-        <!-- <div class="row" style="margin: 20px 320px;">
+        <div class="row" style="margin: 20px 320px;">
             <div class="col-10">
                 <label for="search" class="visually-hidden">Search</label>
                 <input @change="update_filter" @keyup="update_filter"  v-model="search_term"  type="text" class="form-control search-textbox" id="search" placeholder="Search for Job Role...">
@@ -14,7 +14,7 @@
             <div class="col-2">
                 <button type="submit" class="btn search-button mb-3">Search</button>
             </div>
-        </div> -->
+        </div>
 
         <div class="row">
             <div class="col-6 mx-auto">
@@ -41,6 +41,35 @@ const data =reactive({
     remaining:[]
 })
 
+// async function get_data() {
+    
+//     try {
+//         let id = localStorage.getItem("staff_id");
+//         console.log(id)
+//         const response = await axios.get('http://127.0.0.1:5000/job_role/');
+//         const responseReq = await axios.get('http://127.0.0.1:5000/req/'+id+'/');
+//         let res = response.data
+//         data.skills_data = res
+//         // data.filtered_data = res
+//         console.log(res)
+        
+//         for ( let item in res) {
+//             // console.log(item)
+//             // console.log(res[item].Job_Role_ID)
+//             for (let i in responseReq.data){
+//                 // console.log(responseReq.data[i].Job_Role.Job_Role_ID)
+//                 if (res[item].Job_Role_ID != responseReq.data[i].Job_Role.Job_Role_ID){
+//                     console.log(item)
+
+//                 }
+//             }
+//         }
+//         console.log(data.filtered_data)
+//         return res
+//     } catch (error) {
+//         alert(`DB is inaccesible at the moment due to ${error.message}`);
+//     }
+// }
 
 async function get_data() {
     
@@ -48,7 +77,7 @@ async function get_data() {
         const response = await axios.get('http://127.0.0.1:5000/job_role/');
         let res = response.data
         data.skills_data = res
-
+        data.filtered_data = res
         console.log(res)
         return res
 
@@ -90,7 +119,6 @@ async function getJobs() {
                 console.log(dontExist[i],data.available[dontExist[i]-1].Job_Role_ID)
         }
             console.log(data.remaining)
-            data.filtered_data =data.remaining
         }
         
     
@@ -108,7 +136,7 @@ const update_filter = function(){
     if( search && search.length > 0){
         let res = data.skills_data.filter(info => info.Job_Role_Name.toLowerCase().startsWith(search) )
         console.log(res)
-        data.remaining = res
+        data.filtered_data = res
         console.log(data.filtered_data)
     }
     else{
