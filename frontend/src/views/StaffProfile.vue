@@ -4,8 +4,8 @@
         <div class="card w-75">
             <div class="card-body">
     
-                <h1 class="card-title">{{profile.Name}}</h1>
-                <h6>{{profile.Email}}</h6>
+                <!-- <h1 class="card-title">{{staffProfile.Staff_ID}}</h1> -->
+                <h6 style="font-size: 20px">{{staffProfile.Staff_FName}} {{staffProfile.Staff_LName}}</h6>
                 <br>
     
                 <div class="row">
@@ -13,8 +13,8 @@
                     <h5 class="card-title">Staff Particulars</h5>
                     <p class="card-text">
                         <ul>
-                            <li>Staff ID: {{profile.StaffID}}</li>
-                            <li>Department: {{profile.Department}}</li>
+                            <li>Staff ID: {{staffProfile.Staff_ID}}</li>
+                            <li>Department: {{staffProfile.Dept}}</li>
                         </ul>
                     </p>
                     </div>
@@ -23,67 +23,107 @@
                     <h5 class="card-title">Skills Attained</h5>
                     <p class="card-text">
                         <ul>
-                            <li v-for="skill in profile.Skills">{{skill}}
+                            <li v-for="skill in skillsList">{{skill.Skill_Name}}
                             </li>
                         </ul>
                     </p>
                     </div>
-                    <div class="col-sm row">
-                        <div class="col-7">
-                            <h5 class="card-title">Current Roles</h5>
-                        </div>
-                        <div class="col-5" v-if="userRole == 3 || userRole == 1">
-                            <editRolesModal :staffID="profile.StaffID" :roles="profile.Roles" />
-                        </div>
+
+
+                    <div class="col-sm">
+                    <h5 class="card-title">Current LJ Roles</h5>
                     <p class="card-text">
                         <ul>
-                            <li v-for="role in profile.Roles">{{role}}</li>
+                            <li v-for="role in currentRoles">{{role["Job_Role"]["Job_Role_Name"]}}
+                            </li>
                         </ul>
                     </p>
                     </div>
+
                 </div>
+
+
+
             </div>
         </div>
     </div>
 </template>
 <script>
-    import axios from 'axios';
-    
-    export default{
-        data(){
-            return{
-                profile: 
-                    {
-                        StaffID: 0,
-                        Name: "",
-                        Department: "",
-                        Email: "",
-                        Skills: ["Python", "PHP"],
-                        Roles: ["Software Engineer", "Developer"]
-                    },
-                userRole: 0,
-            }
-        },
-        created(){
-            const slug = this.$route.params.slug; 
-            this.userRole = localStorage.getItem("userRole");
-            axios.get(`/staff/${slug}`)
-            .then(response => {
-                // console.log(response.data);
-                this.profile.StaffID = response.data.Staff_ID;
-                this.profile.Name = response.data.Staff_FName + " " + response.data.Staff_LName;
-                this.profile.Department = response.data.Dept;
-                this.profile.Email = response.data.Email;
-            })
-            .catch(error=>{
-                    console.log(error.message);
-            })
-        }
-    }
-</script>
-<script setup>
 import editRolesModal from '../components/admin/editRolesModal.vue';
 import NavBar from '../components/NavBar.vue';
+import axios from "axios";
+export default {
+    data() {
+        return {
+            employees:[],
+            userRole: 0,
+            staffProfile: [],
+            skillsList: [],
+            currentRoles: []
+        };
+    },
+    methods: {
+        // staffProfile:function(x){
+        //   // console.log(x)
+        //   sessionStorage.setItem("staffID", x);
+        // },
+
+
+        onload: async function(){
+            this.userRole = localStorage.getItem("userRole")
+            var staffID = sessionStorage.getItem('staffID')
+            // console.log(staffID)
+            // console.log(this.userRole)
+
+            await axios.get('/staff/' + staffID + "/")
+            .then(response => {
+                this.staffProfile = response.data
+                console.log(this.staffProfile)
+            })
+            .catch(error => alert(error)) 
+
+
+            await axios.get('/skill_attained/' + staffID + "/")
+            .then(response => {
+                // console.log(response.data)
+                for (let i = 0; i < response.data.length; i++){
+                    this.skillsList = response.data[i]['Skills']
+                }
+                console.log(this.skillsList)
+            })
+            .catch(error => alert(error)) 
+
+            await axios.get(' http://localhost:5000/req/' + staffID + "/")
+            .then(response => {
+                console.log(response.data)
+                this.currentRoles = response.data
+            })
+            .catch(error => error)  
+
+
+
+
+
+
+
+
+          
+            },
+    },
+
+
+    mounted(){
+      this.onload()
+    },
+    created() {
+      this.onload()
+    },
+    // created(){
+    //   this.userAuthentication()
+    // },
+    components: { NavBar }
+};
+
 </script>
 
 <style scoped>
@@ -95,8 +135,9 @@ import NavBar from '../components/NavBar.vue';
     .card-body{
         background-color: #d8648b;
         color: white;
-        padding: 20px 35px;
+        padding: 70px;
         border-radius: 10px;
+        border-top: 50px;
     }
 
     .card-title{
