@@ -16,7 +16,7 @@
                 </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn pink-button" :data-bs-target="'#back-button'+i+SkillSelected" data-bs-toggle="modal" @click="get_data()">Confirm</button>
+                    <button class="btn pink-button" :data-bs-target="'#back-button'+i+SkillSelected" data-bs-toggle="modal" @click="put_data()">Confirm</button>
                 </div>
             </div>
         </div>
@@ -53,8 +53,8 @@ import axios from 'axios'
         console.log(item)
     }
     
-    let regcourse
-        async function get_data() { 
+    let regcourse = []
+        async function put_data() { 
 
         try {
 
@@ -67,15 +67,15 @@ import axios from 'axios'
                     for( let index in props.CoursesSelected[obj].courses){
                         
                         var temp3 = props.CoursesSelected[obj].courses[index].split(',')[0]
-                        console.log(temp3)
+                        // console.log(temp3)
 
                         if(temp3==item[i]){
                         // props.CoursesSelected.indexOf(item[i])
-                        console.log(typeof(props.CoursesSelected[obj]))
-                        // var courseindex = props.CoursesSelected[obj].courses[index].split(',')[0].indexOf(item[i])
-                        // props.CoursesSelected[obj].courses[index].splice(courseindex,1)
-                        // regcourse = Object.values(props.CoursesSelected)
-                        console.log(index)
+                        // console.log(props.CoursesSelected[obj].courses)
+                        props.CoursesSelected[obj].courses.splice(index,1)
+                        // console.log(temp3)
+                        regcourse.push(temp3)
+                        console.log(regcourse)
                         }
                     }
                     
@@ -84,15 +84,16 @@ import axios from 'axios'
             // console.log(Course_Registered)
             let id = localStorage.getItem("staff_id");
             // console.log(regcourse.length)
-        //     let jrid = document.getElementById('jobroleid')
-        //     console.log(jrid.innerText)
-        //     const response = await axios.put('http://127.0.0.1:5000/req/'+id+'/'+jrid.innerText + '/', Course_Registered);
-        //     if(response.status == 200)
-        //                     {
-        //                         alert("Course Added!")
-        //                     }        }
+            let jrid = document.getElementById('jobroleid')
+            console.log(jrid.innerText)
+            const response = await axios.put('http://127.0.0.1:5000/req/'+id+'/'+jrid.innerText + '/', Course_Registered);
+            if(response.status == 200)
+                            {
+                                alert("Course Added!")
+                                get_data()
+                            }        }
         
-            }}
+            }
 
          } catch (error) {console.log(error)}}
 
@@ -100,9 +101,7 @@ import axios from 'axios'
         //         alert("Learning Jounrey already exists!")
         //     }
 
-        //     else if(error.response.status == 200){
-        //         alert("Course Added!")
-        //     }
+
         //     else{
         //      alert(`DB is inaccesible at the moment due to ${error.message}`)
         //      console.log(error.response);
@@ -143,7 +142,27 @@ import axios from 'axios'
     
     
 
-
+    async function get_data() {
+    try {
+        let id = localStorage.getItem("staff_id");
+        console.log(id)
+        const response = await axios.get('http://127.0.0.1:5000/req/'+id+'/');
+        let res = response.data
+        data.skills_data = res
+        data.filtered_data = res
+        console.log(res)
+        // for (let item in res) {
+        //   data.skills_data = res[item].Job_Role['Skills']
+        // }
+        
+        // console.log(typeof(data.skills_data))
+        
+        return res
+    } catch (error) {
+        alert(`DB is inaccesible at the moment due to ${error.message}`);
+    }
+    
+}
         
     
         
