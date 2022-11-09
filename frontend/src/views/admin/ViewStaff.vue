@@ -21,7 +21,7 @@
     >
       <thead>
         <tr>
-          <th scope="col">S/N</th>
+          <th scope="col"></th>
           <th scope="col">Staff ID</th>
           <th scope="col">Staff Name(s)</th>
           <!-- <th scope="col">Job Roles</th> -->
@@ -34,7 +34,7 @@
       
       <tbody id="tbody">
         <tr v-for="employee in employees">
-          <td scope="row" style="color: #2f2ffa">1</td>
+          <td scope="row" style="color: #2f2ffa"></td>
           <td>{{employee.Staff_ID}}</td>
           <td>{{employee.Staff_FName}} {{employee.Staff_LName}}</td>
           <!-- <td>{{ employee.Job_Role }}</td> -->
