@@ -12,6 +12,8 @@ import ViewStaff from "../views/admin/ViewStaff.vue";
 import AddCourses from "../views/staff/AddCourses.vue";
 import ViewSkills from "../views/admin/ViewSkills.vue";
 import ManagerHome from "../views/manager/ManagerHome.vue";
+import AssignCourse from "../views/admin/AssignCourse.vue";
+import AssignRole from "../views/admin/AssignRole.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -70,6 +72,14 @@ const router = createRouter({
     {
       path: "/ViewSkills",
       component: ViewSkills,
+    },
+    {
+      path: "/AssignCourse",
+      component: AssignCourse,
+    },
+    {
+      path: "/AssignRole",
+      component: AssignRole,
     },
     {
       path: "/Manager",

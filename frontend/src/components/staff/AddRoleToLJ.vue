@@ -10,12 +10,13 @@
         <div class="accordion-body">
             <p class="fs-4 fst-italic">Skills</p>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item" v-if="Object.keys(allSkills).length != 0" v-for="skill in allSkills">{{skill.Skill_ID}}:{{skill.Skill_Name}}
+                <li class="list-group-item" v-if="Object.keys(skills).length != 0" v-for="skill in skills">{{skill.Skill_ID}}:{{skill.Skill_Name}}
                 <div>
-                    <ul v-for="c in skill.courses">
+                    <ul  v-for="c in skill.courses">
                         <li>
-                            <input type="checkbox" :disabled="c.split(',')[4] == ' - Completed'" class="hi" :id='role+c' :value="c">
-                            {{c.split(',')[0]}} : {{c.split(',')[1] }}{{c.split(',')[4]}}
+                            <input type="checkbox" class="hi" :id='role+c' :value="c" @change="checkeditem(role+c)">
+                            {{c.split(',')[0]}} : {{c.split(',')[1] }}
+
                         </li>
                     </ul>
                 </div>
@@ -132,39 +133,6 @@ async function addcourse() {
 
 // checkLJ()
 // console.log(data.roleTaken)
-</script>
-<script>
-    export default{
-        data(){
-            return{
-                allSkills: {}
-            }
-        },
-        methods:{
-            filterCourses:function(){
-                this.allSkills = this.props.skills;
-                for (let eachSkill of this.allSkills){
-                    let courses = eachSkill.courses;
-                    for (let i=0; i<courses.length; i++){
-                        console.log(courses[i]);
-                        let courseCode = courses[i].split(',')[0];
-                        axios.get("/registration/")
-                        .then(response => {
-                            let data = response.data;
-                            for (let item of data){
-                                if (item.Staff == localStorage.getItem("staff_id") && item.Completion_Status == "Completed" && item.Course == courseCode){
-                                    courses[i] += ", - Completed";
-                                }
-                            }
-                        })
-                        .catch(error => {
-                            console.log(error.message);
-                        })
-                    }
-                }
-            }
-        },created(){
-            this.filterCourses();
-        }
-    }
+
+
 </script>
