@@ -2,7 +2,7 @@
   <NavBar v-if="userRole % 2 == 0"></NavBar>
   <div class="container" style="min-height: 82vh" v-if="userRole % 2 == 0">
       <div class="row text-dark fs-1 fw-bold p-2 text-center">
-          <p>Learning Journeys</p>
+          <p>My Learning Journeys</p>
       </div>
 
       <div class="row" style="margin: 20px 50px;">
@@ -20,7 +20,7 @@
       <div class="row">
           <div class="col-6 mx-auto">
               <div class="accordion" id="accordionExample">
-                  <DeleteLJ v-for="(item,index) in data.filtered_data" id='test' :num="index" :role="item['Job_Role']['Job_Role_Name']" :courses="item['Course_Registered']" :jobrole= "item['Job_Role']" :skills="item['Job_Role']['Skills']" :jobroleid="item['Job_Role']['Job_Role_ID']"/>
+                  <DeleteLJ v-for="(item,index) in data.filtered_data" id='test' :num="index" :role="item['Job_Role']['Job_Role_Name']" :roleid="item['Job_Role']['Job_Role_ID']" :courses="item['Course_Registered']" :jobrole= "item['Job_Role']" :skills="item['Job_Role']['Skills']" :jobroleid="item['id']"/>
               </div>
           </div>
       </div>           
@@ -51,11 +51,6 @@ async function get_data() {
         data.skills_data = res
         data.filtered_data = res
         console.log(res)
-        // for (let item in res) {
-        //   data.skills_data = res[item].Job_Role['Skills']
-        // }
-        
-        // console.log(typeof(data.skills_data))
         
         return res
     } catch (error) {
