@@ -47,17 +47,21 @@
                 for (let courseRegisted of this.props.CoursesSelected){
                     courseCodes.push(courseRegisted);
                 }
-                console.log(courseCodes);
-                let apiCourse = {'Course_Registered': courseCodes};
-                axios.put('http://127.0.0.1:5000/req/' + staffid + '/' + jobroleid + '/' , apiCourse)
-                .then(response => {
-                    console.log(response.data);
-                    alert('Courses has been successfully added');
-                }).catch(error => {
-                    console.log(error.message);
-                })
-                window.location = "\EditLearningJourneys";
+                if (this.Courses.length == 0){
+                    alert('Select at least one course');
+                }else{
+                    let apiCourse = {'Course_Registered': courseCodes};
+                    axios.put('http://127.0.0.1:5000/req/' + staffid + '/' + jobroleid + '/' , apiCourse)
+                    .then(response => {
+                        console.log(response.data);
+                        alert('Courses has been successfully added');
+                    }).catch(error => {
+                        console.log(error.message);
+                    })
+                    window.location = "\EditLearningJourneys";
+                }
             }
+            
         },
         created(){
             axios.get("/registration/")
@@ -74,7 +78,7 @@
                 for (let skill of this.props.Jobrole.Skills){
                     for (let course of skill.courses){
                         let aList = course.split(',');
-                        if (chosenCourses.indexOf(aList[0]) < 0){ //aList[2] == "Active" &&
+                        if (aList[2] == "Active" && chosenCourses.indexOf(aList[0]) < 0){
                             this.availableCourses.push(aList[0]);
                         }
                     }

@@ -111,7 +111,6 @@
     if (item.length == 0) {
         alert(`Please select a course to drop`);
         window.location = "\EditLearningJourneys"
-
     }
     else{
         alert(`Successfully dropped courses!`);

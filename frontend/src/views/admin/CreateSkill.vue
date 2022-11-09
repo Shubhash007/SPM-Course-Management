@@ -172,8 +172,12 @@
 
             await axios.get('http://localhost:5000/course/')
             .then(response => {
-                this.coursesList = response.data
-                console.log(this.coursesList)
+                for (let each of response.data){
+                    if (each.Course_Status == "Active"){
+                        this.coursesList.push(each);
+                    }
+                }
+                console.log(this.coursesList);
 
             })
             .catch(error => alert(error)) 

@@ -69,7 +69,7 @@ import axios from "axios"
         console.log(roleID)
         axios.delete('http://127.0.0.1:5000/req/'+id+'/'+roleID+'/')
     
-        alert(props.role + `Role Successfully Removed from Learning Journey`);
+        alert(props.role + ` Role Successfully Removed from Learning Journey`);
         window.location = "\EditLearningJourneys"
     
         console.log(response)
