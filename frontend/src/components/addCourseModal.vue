@@ -28,6 +28,7 @@
 
 <script setup>
     // import { TextModes } from '@vue/compiler-core';
+
 import axios from 'axios'
     const props = defineProps({
         CoursesSelected: Object,
@@ -67,7 +68,7 @@ import axios from 'axios'
                     for( let index in props.CoursesSelected[obj].courses){
                         
                         var temp3 = props.CoursesSelected[obj].courses[index].split(',')[0]
-                        // console.log(temp3)
+                        console.log(temp3)
 
                         if(temp3==item[i]){
                         // props.CoursesSelected.indexOf(item[i])
@@ -78,10 +79,12 @@ import axios from 'axios'
                         console.log(regcourse)
                         }
                     }
+                }
+            }
                     
 
             let Course_Registered = {'Course_Registered': regcourse}
-            // console.log(Course_Registered)
+            console.log(Course_Registered)
             let id = localStorage.getItem("staff_id");
             // console.log(regcourse.length)
             let jrid = document.getElementById('jobroleid')
@@ -90,22 +93,26 @@ import axios from 'axios'
             if(response.status == 200)
                             {
                                 alert("Course Added!")
-                                get_data()
-                            }        }
+                                window.location = "\EditLearningJourneys"
+                                
+                            }        
+                console.log(response)
         
+            
+
+                         } catch (error) {
+
+             if (error.response.status == 400){
+                alert("Learning Jounrey already exists!");
             }
 
-         } catch (error) {console.log(error)}}
 
-        //      if (error.response.status == 400){
-        //         alert("Learning Jounrey already exists!")
-        //     }
-
-
-        //     else{
-        //      alert(`DB is inaccesible at the moment due to ${error.message}`)
-        //      console.log(error.response);
-        // }
+            else{
+             alert(`DB is inaccesible at the moment due to ${error.message}`)
+             console.log(error.response);
+        }
+    }
+}
     Checking()
 
     async function Checking(){
@@ -142,32 +149,10 @@ import axios from 'axios'
     
     
 
-    async function get_data() {
-    try {
-        let id = localStorage.getItem("staff_id");
-        console.log(id)
-        const response = await axios.get('http://127.0.0.1:5000/req/'+id+'/');
-        let res = response.data
-        data.skills_data = res
-        data.filtered_data = res
-        console.log(res)
-        // for (let item in res) {
-        //   data.skills_data = res[item].Job_Role['Skills']
-        // }
-        
-        // console.log(typeof(data.skills_data))
-        
-        return res
-    } catch (error) {
-        alert(`DB is inaccesible at the moment due to ${error.message}`);
-    }
-    
-}
-        
-    
-        
-    
 
+        
+    
+    
 
 
 
