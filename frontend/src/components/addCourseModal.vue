@@ -45,12 +45,12 @@ import axios from 'axios'
 
     let item = []
     const checkeditem = function(course_selected){
-        console.log(course_selected)
+
  
 
-        // console.log(course_selected)
-        // item.push(course_selected)
-        // console.log(item)
+        console.log(course_selected)
+        item.push(course_selected)
+        console.log(item)
     }
     
     let regcourse
@@ -63,20 +63,27 @@ import axios from 'axios'
             for (let i in item){
                 for (let obj in props.CoursesSelected){
                     console.log(item[i])
-                    console.log(props.CoursesSelected[obj].courses)
-                    if (props.CoursesSelected[obj] == item[i]){
-                        props.CoursesSelected.indexOf(item[i])
-                        props.CoursesSelected.splice(props.CoursesSelected.indexOf(item[i]), 1)
-                        console.log(typeof(props.CoursesSelected))
-                        regcourse = Object.values(props.CoursesSelected)
-                        console.log(regcourse)
+
+                    for( let index in props.CoursesSelected[obj].courses){
                         
+                        var temp3 = props.CoursesSelected[obj].courses[index].split(',')[0]
+                        console.log(temp3)
+
+                        if(temp3==item[i]){
+                        // props.CoursesSelected.indexOf(item[i])
+                        console.log(typeof(props.CoursesSelected[obj]))
+                        // var courseindex = props.CoursesSelected[obj].courses[index].split(',')[0].indexOf(item[i])
+                        // props.CoursesSelected[obj].courses[index].splice(courseindex,1)
+                        // regcourse = Object.values(props.CoursesSelected)
+                        console.log(index)
+                        }
                     }
+                    
 
             let Course_Registered = {'Course_Registered': regcourse}
-            console.log(Course_Registered)
+            // console.log(Course_Registered)
             let id = localStorage.getItem("staff_id");
-            console.log(regcourse.length)
+            // console.log(regcourse.length)
         //     let jrid = document.getElementById('jobroleid')
         //     console.log(jrid.innerText)
         //     const response = await axios.put('http://127.0.0.1:5000/req/'+id+'/'+jrid.innerText + '/', Course_Registered);
@@ -113,7 +120,7 @@ import axios from 'axios'
                         // console.log(props.checkcourse[indcourse])
                             if(props.checkcourse[indcourse]==onecourse){
                                     // console.log(props.CoursesSelected[obj].courses[i])
-                                    props.CoursesSelected[obj].courses[i]='-'
+                                    props.CoursesSelected[obj].courses.splice(i,1)
    
                                                             
                                     // console.log(props.CoursesSelected[obj].courses[i])
@@ -133,53 +140,8 @@ import axios from 'axios'
         }
         
     }
-    RemoveEmptyCheckbox()
-    RemoveCheckbox() 
-
- 
-
-
-
-     async function RemoveEmptyCheckbox(){
-        
-
-        var temp = document.getElementById('-')
-        if(temp!=null){
-            temp.remove()
-        }
- 
-
-
-
-
-        
-
-
-
-    }
-
-    async function RemoveCheckbox(){
-
-        for (let obj in props.CoursesSelected){
-            for(let i in props.CoursesSelected[obj].courses){
-                let onecourse = props.CoursesSelected[obj].courses[i].split(',')[0];
-                if(onecourse=='-'){
-                    props.CoursesSelected[obj].courses[i]='   '
-       
-                }
-
-        // console.log(props.CoursesSelected[obj].courses[0])
-
-                    }
-                }
-
-
-
-                var y = document.getElementById('   ')
-                console.log(y)
-                y.remove()
-            }
-
+    
+    
 
 
         
