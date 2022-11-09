@@ -14,8 +14,8 @@
                 <div>
                     <ul v-for="c in skill.courses">
                         <li>
-                            <input type="checkbox" class="hi" :id='role+c' :value="c" @change="checkeditem(role+c)">
-                            {{c.split(',')[0]}} : {{c.split(',')[1] }} - {{c.split(',')[4]}}
+                            <input type="checkbox" :disabled="c.split(',')[4] == ' - Completed'" class="hi" :id='role+c' :value="c">
+                            {{c.split(',')[0]}} : {{c.split(',')[1] }}{{c.split(',')[4]}}
                         </li>
                     </ul>
                 </div>
@@ -145,17 +145,15 @@ async function addcourse() {
                 this.allSkills = this.props.skills;
                 for (let eachSkill of this.allSkills){
                     let courses = eachSkill.courses;
-                    for (let course of courses){
-                        console.log(course);
-                        let courseCode = course.split(',')[0];
+                    for (let i=0; i<courses.length; i++){
+                        console.log(courses[i]);
+                        let courseCode = courses[i].split(',')[0];
                         axios.get("/registration/")
                         .then(response => {
                             let data = response.data;
                             for (let item of data){
                                 if (item.Staff == localStorage.getItem("staff_id") && item.Completion_Status == "Completed" && item.Course == courseCode){
-                                    console.log(item.Course);
-                                    let index = courses.indexOf(course);
-                                    courses.splice(index, 1);
+                                    courses[i] += ", - Completed";
                                 }
                             }
                         })
@@ -163,8 +161,6 @@ async function addcourse() {
                             console.log(error.message);
                         })
                     }
-                    eachSkill.courses = courses;
-                    console.log(eachSkill.courses);
                 }
             }
         },created(){
