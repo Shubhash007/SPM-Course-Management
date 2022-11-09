@@ -8,12 +8,13 @@ import StaffProfile from "../views/StaffProfile.vue";
 import StaffStartLJ from "../views/staff/StaffStartLJ.vue"
 import StaffHome from "../views/staff/StaffHome.vue";
 import EditLearningJourneys from "../views/staff/EditLearningJourneys.vue";
-import ViewStaff from "../views/admin/ViewStaff.vue";
+import ViewStaff from "../views/manager/ViewStaff.vue";
 import AddCourses from "../views/staff/AddCourses.vue";
 import ViewSkills from "../views/admin/ViewSkills.vue";
 import ManagerHome from "../views/manager/ManagerHome.vue";
 import AssignCourse from "../views/admin/AssignCourse.vue";
 import AssignRole from "../views/admin/AssignRole.vue";
+import Account from "../views/Account.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -84,6 +85,11 @@ const router = createRouter({
     {
       path: "/Manager",
       component: ManagerHome,
+    },
+    {
+      path:'/Account',
+      component: Account,
+      
     }
   ],
 });

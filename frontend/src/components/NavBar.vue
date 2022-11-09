@@ -20,7 +20,7 @@
             <router-link to="StartLJ" class="nav-link" aria-current="page">START LJ</router-link>
           </li>
           <li class="nav-item ms-5" v-if="userRole > 0">
-            <router-link to="StaffProfile" class="nav-link" aria-current="page">ACCOUNT</router-link>
+            <router-link to="/Account" class="nav-link" aria-current="page">ACCOUNT</router-link>
           </li>
         </ul>
         <router-link to="/"><button type="button" class="btn btn-outline-primary navbar-button" id="navbar-signup" v-if="userRole > 0" @click.prevent="logout()">Log out</button></router-link>
