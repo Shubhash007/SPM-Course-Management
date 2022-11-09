@@ -136,11 +136,10 @@ const update_filter = function(){
     if( search && search.length > 0){
         let res = data.skills_data.filter(info => info.Job_Role_Name.toLowerCase().startsWith(search) )
         console.log(res)
-        data.filtered_data = res
-        console.log(data.filtered_data)
+        data.remaining = res
     }
     else{
-        data.filtered_data = data.skills_data
+        data.remaining = data.skills_data
     }
 }
 
