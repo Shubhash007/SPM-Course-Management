@@ -3,7 +3,7 @@
     <div class="card w-75" style="min-height: 80vh;" v-if="userRole == 1">
         <div class="card-body">
             <!-- Create a Skill -->
-            <h5 class="card-title">Assign Course(s)</h5>
+            <h5 class="card-title">Assign Course(s) to Skill</h5>
             
             <!-- List of Skills -->
             <p class="card-text">
@@ -25,7 +25,6 @@
                     
             <!-- Attach Courses to Skills -->
 
-            <h5 class="card-title">ATTACH TO COURSES(S)</h5>
             <p class="card-text">
                 <div v-for="n in existingRoleCounter" class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
@@ -162,11 +161,12 @@
 
                 .then(response => {
                     console.log(response.data)
-                    alert("Course successfully assigned to Skill")
+                    
                 })
                 .catch(error => alert(error))
 
             }
+            alert("Course successfully assigned to Skill")
             }
             else {
                 alert("Assignment already exists")

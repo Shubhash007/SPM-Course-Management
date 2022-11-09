@@ -3,7 +3,7 @@
     <div class="card w-75" style="min-height: 80vh;" v-if="userRole == 1">
         <div class="card-body">
             <!-- Create a Skill -->
-            <h5 class="card-title">Assign Role(s)</h5>
+            <h5 class="card-title">Assign Role(s) to Skill</h5>
             
             <!-- List of Roles -->
             <p class="card-text">
@@ -22,7 +22,6 @@
                     
             <!-- Attach Courses to Skills -->
 
-            <h5 class="card-title">ATTACH TO ROLE(S)</h5>
             <p class="card-text">
                 <div v-for="n in existingRoleCounter" class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
@@ -150,11 +149,11 @@
                         await axios.post('http://localhost:5000/skill_to_job_role/' + this.selectedSkills + "/" + value + "/", {
                         })
                         .then(response => {
-                        console.log(response.data)
-                        alert("Job Role successfully assigned to Skill")
+                        console.log(response.data) 
                     })
-                        .catch(error => alert(error))
+                    .catch(error => alert(error))
                     }
+                    alert("Job Role successfully assigned to Skill")
                     }
                 else {
                     alert("Assignment already exists")
