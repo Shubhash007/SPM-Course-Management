@@ -6,11 +6,15 @@
             </button>
         </h2>
 
-        <div :id="'collapse' + num" class="accordion-collapse collapse" :aria-labelledby="'heading'+ num" data-bs-parent="#accordionExample">
+        <div :id="'collapse' + num" class="accordion-collapse collapse" :aria-labelledby="'heading'+ num" data-bs-parent="#accordionExample" >
             <div class="col-2">
                 <editCoursesModal :coursesSelected="courses" :jobrole="jobrole" :no="num" :skillSelected="index"/>            </div>
+                <div type ="hidden" style="display: none;visibility: hidden;" id="checks">{{courses}}</div>
+                <div type ="hidden" style="display: none;visibility: hidden;" id="skill">{{skills}}</div>
+                <AddCoursesModal  :CoursesSelected="skills" :jobrole="jobrole" :i="num" :SkillSelected="index" :jobroleid="jobroleid" :checkcourse="courses"/>
             <div class="accordion-body" v-for="skill, index in (skills)">
-                <AddCoursesModal  :CoursesSelected="skill.courses" :jobrole="jobrole" :i="num" :SkillSelected="index" :jobroleid="jobroleid"/>
+                
+               
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" >
                         <div>
@@ -45,6 +49,7 @@ import editCoursesModal from './editCoursesModal.vue';
 import AddCoursesModal from "../../components/addCourseModal.vue";
 
 
+
     const props = defineProps({
         num: Number,
         role: String,
@@ -53,12 +58,14 @@ import AddCoursesModal from "../../components/addCourseModal.vue";
         jobrole:Object,
         regcourses: String,
         jobroleid:Number,
+
     })
 
 
 
     
 </script>
+
  
 <style scoped>
     #search{
