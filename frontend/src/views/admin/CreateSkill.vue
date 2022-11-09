@@ -4,12 +4,13 @@
         <div class="card-body">
             <!-- Create a Skill -->
             <h5 class="card-title">CREATE A SKILL</h5>
+            <span>* indicates required field</span>
             <p class="card-text">
 
 
                 <div class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
-                        <label for="newSkill" class="col-form-label" id="spacing">Skill Name</label>
+                        <label for="newSkill" class="col-form-label" id="spacing">Skill Name*</label>
                     </div>
                     <div class="col-auto">
                         <input type="text" v-bind:id="newSkill" class="form-control" aria-describedby="roleNameLimit" minlength="3" maxlength="20">
@@ -23,7 +24,7 @@
 
                 <div class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
-                        <label for="skillDescription" class="col-form-label">Skill Description</label>
+                        <label for="skillDescription" class="col-form-label">Skill Description*</label>
                     </div>
                     <div class="col-auto">
                         <textarea v-bind:id="skillDescription" class="form-control" aria-describedby="skillDescLimit" minlength="8" maxlength="100"></textarea>
@@ -42,9 +43,10 @@
             <p class="card-text">
                 <div v-for="n in existingRoleCounter" class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
-                        <label for="Role{{n}}" class="col-form-label" id="spacing">Roles</label>
+                        <label for="Role{{n}}" class="col-form-label" id="spacing">Roles*</label>
                     </div>
                     <div class="col-auto">
+                        <span>*To add more than 1 role, press control button on keyboard and click on the role you want to add</span><br>
                         <select @change="appendJobID" multiple size="10" v-model="selectedRoles" class="form-select select-skill" style="background-color: #d8648b; color:white;" >
                             <option v-for="job in jobsList" :value="job.Job_Role_Name">{{job.Job_Role_Name}}</option>
                         </select>
@@ -60,9 +62,10 @@
             <p class="card-text">
                 <div v-for="n in existingRoleCounter" class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
-                        <label for="Course{{n}}" class="col-form-label" id="spacing">Courses</label>
+                        <label for="Course{{n}}" class="col-form-label" id="spacing">Courses*</label>
                     </div>
                     <div class="col-auto">
+                        <span>*To add more than 1 course, press control button on keyboard and click on the course you want to add</span><br>
                         <select @change="appendCourseID" multiple size="10" v-model="selectedCourses" class="form-select select-skill" style="background-color: #d8648b; color:white;" >
                             <option v-for="course in coursesList" :value="course.Course_Name">{{course.Course_Name}}</option>
                         </select>
@@ -179,22 +182,26 @@
         },
         postSkill: async function() {
             // console.log(document.getElementsByTagName("input")[0].value)
-
-
             var exist = false
+            var Skill_ID = this.skillNo
+            var Skill_Name = document.getElementsByTagName("input")[0].value
+            var Skill_Desc = document.getElementsByTagName("textarea")[0].value
+            var roles = this.jobIDList
+            var skills = this.courseIDList
+
+
+            if (Skill_Name.length < 3 ||  Skill_Name.length > 20 || roles.length == 0 || Skill_Desc.length < 8 || Skill_Desc.length > 100 || skills.length == 0){
+                alert("Please provide valid inputs!")
+                    window.location.reload()
+            }
+            else {
                 var skillName = document.getElementsByTagName("input")[0].value
                 for (let i = 0; i < this.skillList.length; i++) {
-
-
                     if (this.skillList[i].Skill_Name == skillName) {
                         var exist = true
                         }
-
-
                     }
-            
             if (exist == false) {
-
             await axios.post('http://localhost:5000/skill/', {
                 Skill_ID: this.skillNo,
                 Skill_Name: document.getElementsByTagName("input")[0].value,
@@ -207,8 +214,12 @@
                 alert("Skill successfully created")
                 window.location.reload();
             })
-            .catch(error => 
-            alert(error)
+            .catch(error => {
+                alert(error)
+                window.location.reload();
+
+            }
+            
             )
 
             var skillID = this.skillNo
@@ -222,7 +233,7 @@
                 .then(response => {
                 // console.log(document.getElementsByTagName("input")[0].value)
                     console.log(response.data)
-                    alert("Job Role successfully assigned to Skill")
+                    // alert("Job Role successfully assigned to Skill")
                 })
                 .catch(error => alert(error))
 
@@ -241,7 +252,7 @@
                 .then(response => {
                 // console.log(document.getElementsByTagName("input")[0].value)
                     console.log(response.data)
-                    alert("Course successfully assigned to Skill")
+                    // alert("Course successfully assigned to Skill")
                 })
                 .catch(error => alert(error))
 
@@ -249,12 +260,15 @@
             }
             else {
                 alert("Skill already exists")
+                window.location.reload()
             }
 
 
 
 
 
+
+            }
 
         }
 
