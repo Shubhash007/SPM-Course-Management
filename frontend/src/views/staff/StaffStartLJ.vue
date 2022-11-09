@@ -5,7 +5,7 @@
             <p>Available Learning Journeys</p>
             <div class="text-muted fs-4">Click on role to see the skills and courses required</div>
         </div>
-
+<!-- 
         <div class="row" style="margin: 20px 320px;">
             <div class="col-10">
                 <label for="search" class="visually-hidden">Search</label>
@@ -14,7 +14,7 @@
             <div class="col-2">
                 <button type="submit" class="btn search-button mb-3">Search</button>
             </div>
-        </div>
+        </div> -->
 
         <div class="row">
             <div class="col-6 mx-auto">
@@ -42,20 +42,6 @@ const data =reactive({
 })
 
 
-async function get_data() {
-    
-    try {
-        const response = await axios.get('http://127.0.0.1:5000/job_role/');
-        let res = response.data
-        data.skills_data = res
-
-        console.log(res)
-        return res
-
-    } catch (error) {
-        alert(`DB is inaccesible at the moment due to ${error.message}`);
-    }
-}
 
 async function getJobs() {
     try{
@@ -90,7 +76,7 @@ async function getJobs() {
                 console.log(dontExist[i],data.available[dontExist[i]-1].Job_Role_ID)
         }
             console.log(data.remaining)
-            data.filtered_data =data.remaining
+            // data.skills_data = data.remaining
         }
         
     
@@ -98,22 +84,21 @@ async function getJobs() {
     }
 }
 
-
-get_data()
 getJobs()
 
 
-const update_filter = function(){
-    let search = search_term.value.toLowerCase()
-    if( search && search.length > 0){
-        let res = data.skills_data.filter(info => info.Job_Role_Name.toLowerCase().startsWith(search) )
-        console.log(res)
-        data.remaining = res
-    }
-    else{
-        data.remaining = data.skills_data
-    }
-}
+// const update_filter = function(){
+//     let search = search_term.value.toLowerCase()
+//     if( search && search.length > 0){
+//         let res = data.remaining.filter(info => info.Job_Role_Name.toLowerCase().startsWith(search) )
+//         console.log(res)
+//         data.remaining = res
+//         console.log(data.remaining)
+//     }
+//     else{
+//         data.remaining = data.skills_data
+//     }
+// }
 
 
 </script>
