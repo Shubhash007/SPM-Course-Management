@@ -56,35 +56,7 @@
                         </select>
                         Selected Skills: {{selectedSkills}}
                     </div>
-
-                    <!-- <div class="col-auto">
-                        <button type="button" class="btn" style="color:white;" @click="AddExistingSkill()">+</button>
-                        <button type="button" class="btn" style="color:white;" @click="RemoveExistingSkill()">-</button>
-                    </div> -->
                 </div>
-
-                <!-- <div class="col-auto">
-                    <button v-if="!hasNewSkill" href="#" class="btn skill-button" @click="AddNewSkill()">Add New Skill</button>
-                    <h5 v-if="hasNewSkill" class="card-title" style="display: inline">ADD NEW SKILL(S)</h5>
-                    <button type="button" class="btn" style="color:white; margin-left:65%" @click="AddNewSkill()">+</button>
-                    <button type="button" class="btn" style="color:white;" @click="RemoveNewSkill()">-</button>
-                </div> -->
-
-                <!-- <div v-for="i in newSkillCounter">
-                    <div class="row g-3 py-3 align-items-center">
-                        <div class="col-auto">
-                            <label for="skillName" class="col-form-label" id="spacing">Skill #{{i}} Name</label>
-                        </div>
-                        <div class="col-auto">
-                            <input type="text" v-bind:id="skillName" class="form-control" aria-describedby="skillNameLimit" maxlength="20">
-                        </div>
-                        <div class="col-auto">
-                            <span id="skillNameLimit" class="form-text" style="color:white;">
-                            Must be 3-20 characters long.
-                            </span>
-                        </div>
-                    </div>
-                </div> -->
             </p>
             <!-- <button @click="postJobRole">Create</button> -->
             <button @click="postJobRole" type="button" class="btn next-button">Create</button>
