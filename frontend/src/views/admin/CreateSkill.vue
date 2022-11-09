@@ -5,14 +5,26 @@
             <!-- Create a Skill -->
             <h5 class="card-title">CREATE A SKILL</h5>
             <p class="card-text">
-
+                <!-- <div class="row g-3 py-3 align-items-center">
+                    <div class="col-auto">
+                        <label for="newSkillID" class="col-form-label" id="spacing">Skill ID</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" v-bind:id="newSkill" class="form-control" aria-describedby="roleNameLimit" maxlength="20">
+                    </div>
+                    <div class="col-auto">
+                        <span id="skillIDLimit" class="form-text" style="color:white;">
+                        Must be 3-20 characters long.
+                        </span>
+                    </div>
+                </div> -->
 
                 <div class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
                         <label for="newSkill" class="col-form-label" id="spacing">Skill Name</label>
                     </div>
                     <div class="col-auto">
-                        <input type="text" v-bind:id="newSkill" class="form-control" aria-describedby="roleNameLimit" minlength="3" maxlength="20">
+                        <input type="text" v-bind:id="newSkill" class="form-control" aria-describedby="roleNameLimit" maxlength="20">
                     </div>
                     <div class="col-auto">
                         <span id="skillNameLimit" class="form-text" style="color:white;">
@@ -26,7 +38,7 @@
                         <label for="skillDescription" class="col-form-label">Skill Description</label>
                     </div>
                     <div class="col-auto">
-                        <textarea v-bind:id="skillDescription" class="form-control" aria-describedby="skillDescLimit" minlength="8" maxlength="100"></textarea>
+                        <textarea v-bind:id="skillDescription" class="form-control" aria-describedby="skillDescLimit"></textarea>
                     </div>
                     <div class="col-auto">
                         <span id="skillDescLimit" class="form-text" style="color:white;">
@@ -205,11 +217,8 @@
                 // console.log(document.getElementsByTagName("input")[0].value)
                 console.log(response.data)
                 alert("Skill successfully created")
-                window.location.reload();
             })
-            .catch(error => 
-            alert(error)
-            )
+            .catch(error => alert(error))
 
             var skillID = this.skillNo
             for (let j = 0; j < this.jobIDList.length; j++) {

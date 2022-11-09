@@ -4,12 +4,10 @@
         <div class="card-body">
             <!-- Create a Job Role -->
             <h5 class="card-title">CREATE A JOB ROLE</h5>
-            <span>* indicates required field</span>
-            <br><br>
             <p class="card-text">
                 <div class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
-                        <label for="jobRole" class="col-form-label" id="spacing">Job Role Name*</label>
+                        <label for="jobRole" class="col-form-label" id="spacing">Job Role Name</label>
                     </div>
                     <div class="col-auto">
                         <input  type="text" v-model="jobRole" class="form-control" aria-describedby="roleNameLimit" minlength="3" maxlength="20">
@@ -22,10 +20,10 @@
                 </div>
                 <div class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
-                        <label for="jobDescription" class="col-form-label">Job Role Description*</label>
+                        <label for="jobDescription" class="col-form-label">Job Role Description</label>
                     </div>
                     <div class="col-auto">
-                        <textarea v-bind:id="jobDescription" class="form-control" aria-describedby="roleDescLimit" minlength="8" maxlength="100"></textarea>
+                        <textarea v-bind:id="jobDescription" class="form-control" aria-describedby="roleDescLimit" minlength="3" maxlength="100"></textarea>
                     </div>
                     <div class="col-auto">
                         <span id="roleDescLimit" class="form-text" style="color:white;">
@@ -35,7 +33,7 @@
                 </div>
                 <div class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
-                        <label for="dept" class="col-form-label" id="spacing2">Department*</label>
+                        <label for="dept" class="col-form-label" id="spacing2">Department</label>
                     </div>
                     <div class="col-auto">
                         <input type="text" v-model="dept" class="form-control">
@@ -50,10 +48,9 @@
             <p class="card-text">
                 <div v-for="n in existingSkillCounter" class="row g-3 py-3 align-items-center">
                     <div class="col-auto">
-                        <label for="Skill{{n}}" class="col-form-label" id="spacing">Skills*</label>
+                        <label for="Skill{{n}}" class="col-form-label" id="spacing">Skills</label>
                     </div>
                     <div class="col-auto">
-                        <span>*To add more than 1 skill, press control button on keyboard and click on the skill you want to add</span><br>
                         <select @change="appendSkillID" multiple size="10" v-model="selectedSkills" class="form-select select-skill" style="background-color: #d8648b; color:white;" >
                             <option v-for="skill in skillsList" :value="skill.Skill_ID">{{skill.Skill_Name}}</option>
                         </select>
@@ -146,26 +143,13 @@
             },
             postJobRole: async function() {
                 var exist = false
-                var Job_Role_ID = this.roleNo
-                var Job_Role_Desc = document.getElementsByTagName("textarea")[0].value
-                var Job_Role_Name = document.getElementsByTagName("input")[0].value
-                var Dept = document.getElementsByTagName("input")[1].value
-                var Skills = this.selectedSkills
-
-                if (Job_Role_Name.length < 3 ||  Job_Role_Name.length > 20 || Dept.length == 0 || Job_Role_Desc.length < 8 || Job_Role_Desc.length > 100) {
-                    alert("Please provide valid inputs!")
-                    window.location.reload()
-                }
-                else {
-
-
-                    var jobRoleName = document.getElementsByTagName("input")[0].value
+                var jobRoleName = document.getElementsByTagName("input")[0].value
                 for (let i = 0; i < this.roleList.length; i++) {
                     if (this.roleList[i].Job_Role_Name == jobRoleName) {
                         var exist = true
                         }
                     }
-            if (exist == false) {
+                if (exist == false) {
             await axios.post('http://localhost:5000/job_role/', {
                 Job_Role_ID: this.roleNo,
                 Job_Role_Desc: document.getElementsByTagName("textarea")[0].value,
@@ -181,13 +165,9 @@
                 console.log(response.data)
                 console.log(this.selectedSkills)
                 alert("Job Role successfully created")
-                window.location.reload();
                 
             })
-            .catch(error => {
-                alert(error)
-                window.location.reload();
-            }) 
+            .catch(error => alert(error)) 
 
 
             var jobID = this.roleNo
@@ -200,7 +180,7 @@
                 
                 .then(response => {
                             console.log(response.data)
-                            // alert("Skill successfully assigned to Job Role")
+                            alert("Skill successfully assigned to Job Role")
                 // console.log(document.getElementsByTagName("input")[0].value)
 
                 })
@@ -210,18 +190,7 @@
                 }
                 else {
                     alert("Role already exists")
-                    window.location.reload();
                 }
-
-
-
-
-
-
-
-                }
-
-
         }
 
             
