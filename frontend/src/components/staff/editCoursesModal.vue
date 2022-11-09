@@ -8,7 +8,8 @@
                 </div>
                 <div class="modal-body">
                     <div v-for="eachcourse in coursesSelected">
-                        <input type="checkbox" name="courses[]" @change="checkeditem(eachcourse)"  :id='eachcourse' :value="eachcourse"> {{eachcourse}}
+                        <div type ="hidden" style="display: none;visibility: hidden;">{{roleid}}</div>
+                        <input type="checkbox" name="courses[]" @change="checkeditem(eachcourse+roleid)"  :id='eachcourse+roleid' :value="eachcourse"> {{eachcourse}}
                     </div>
                 </div>
                 <div class="modal-footer" id="test">
@@ -45,6 +46,7 @@
         skillSelected: String,
         deleting: String,
         jobrole: Object,
+        roleid: String,
     })
 
     let item = []
@@ -140,6 +142,7 @@
                 let id = localStorage.getItem("staff_id");
                 console.log(regcourse.length)
                 const response = await axios.put('http://127.0.0.1:5000/req/'+id+'/'+props.jobrole['Job_Role_ID'] + '/', Course_Registered);
+                console.log('http://127.0.0.1:5000/req/'+id+'/'+props.jobrole['Job_Role_ID'] + '/', Course_Registered);
                         
                 }
                 dropcourse()
@@ -162,6 +165,11 @@
 </script>
 <script>
     export default{
+        data(){
+            return{
+                
+            }
+        },
         methods:{
             filterCompletedCourses: function(){
                 axios.get("/registration/")
