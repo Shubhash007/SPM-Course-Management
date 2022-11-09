@@ -14,7 +14,7 @@
                 <div>
                     <ul v-for="c in skill.courses">
                         <li>
-                            <input type="checkbox" :disabled="c.split(',')[4] == ' - Completed'" class="hi" :id='role+c' :value="c">
+                            <input type="checkbox" :disabled="c.split(',')[4] == ' - Completed'" class="hi" :id='role+c' :value="c" @change="checkeditem(role+c)">
                             {{c.split(',')[0]}} : {{c.split(',')[1] }}{{c.split(',')[4]}}
                         </li>
                     </ul>
