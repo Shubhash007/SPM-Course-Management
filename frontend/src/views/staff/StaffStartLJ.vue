@@ -6,7 +6,7 @@
             <div class="text-muted fs-4">Click on role to see information</div>
         </div>
 
-        <div class="row" style="margin: 20px 320px;">
+        <!-- <div class="row" style="margin: 20px 320px;">
             <div class="col-10">
                 <label for="search" class="visually-hidden">Search</label>
                 <input @change="update_filter" @keyup="update_filter"  v-model="search_term"  type="text" class="form-control search-textbox" id="search" placeholder="Search for Job Role...">
@@ -14,7 +14,7 @@
             <div class="col-2">
                 <button type="submit" class="btn search-button mb-3">Search</button>
             </div>
-        </div>
+        </div> -->
 
         <div class="row">
             <div class="col-6 mx-auto">
@@ -109,16 +109,10 @@ const update_filter = function(){
         let res = data.skills_data.filter(info => info.Job_Role_Name.toLowerCase().startsWith(search) )
         console.log(res)
         data.remaining = res
-<<<<<<< HEAD
         console.log(data.filtered_data)
     }
     else{
         data.filtered_data = data.skills_data
-=======
-    }
-    else{
-        data.remaining = data.skills_data
->>>>>>> parent of ede3490 (update StartLJ)
     }
 }
 
