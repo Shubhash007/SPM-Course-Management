@@ -70,12 +70,11 @@ export default {
 
 
         onload: async function(){
-            this.userRole = localStorage.getItem("userRole")
-            var staffID = sessionStorage.getItem('staffID')
+            this.userRole = localStorage.getItem("staff_id")
             // console.log(staffID)
-            // console.log(this.userRole)
+            console.log(this.userRole)
 
-            await axios.get('/staff/' + staffID + "/")
+            await axios.get('/staff/' + this.userRole + "/")
             .then(response => {
                 this.staffProfile = response.data
                 console.log(this.staffProfile)
@@ -83,7 +82,7 @@ export default {
             .catch(error => alert(error)) 
 
 
-            await axios.get('/skill_attained/' + staffID + "/")
+            await axios.get('/skill_attained/' + this.userRole + "/")
             .then(response => {
                 // console.log(response.data)
                 for (let i = 0; i < response.data.length; i++){
@@ -93,7 +92,7 @@ export default {
             })
             .catch(error => alert(error)) 
 
-            await axios.get(' http://localhost:5000/req/' + staffID + "/")
+            await axios.get(' http://localhost:5000/req/' + this.userRole + "/")
             .then(response => {
                 console.log(response.data)
                 this.currentRoles = response.data
