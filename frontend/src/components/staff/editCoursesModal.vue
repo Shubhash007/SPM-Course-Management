@@ -140,7 +140,7 @@
                 let id = localStorage.getItem("staff_id");
                 console.log(regcourse.length)
                 const response = await axios.put('http://127.0.0.1:5000/req/'+id+'/'+props.jobrole['Job_Role_ID'] + '/', Course_Registered);
-                        
+
                 }
                 dropcourse()
             }
