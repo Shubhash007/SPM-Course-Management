@@ -2,7 +2,7 @@
   <NavBar v-if="userRole % 2 == 0"></NavBar>
   <div class="container" style="min-height: 82vh" v-if="userRole % 2 == 0">
       <div class="row text-dark fs-1 fw-bold p-2 text-center">
-          <p>Learning Journeys</p>
+          <p>My Learning Journeys</p>
       </div>
 
       <div class="row" style="margin: 20px 50px;">

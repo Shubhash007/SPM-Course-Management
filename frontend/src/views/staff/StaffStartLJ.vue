@@ -2,8 +2,8 @@
     <NavBar></NavBar>
     <div class="container" style="min-height: 82vh">
         <div class="row text-dark fs-1 fw-bold p-2 text-center">
-            <p>Start Learning Journey</p>
-            <div class="text-muted fs-4">Click on role to see information</div>
+            <p>Available Learning Journeys</p>
+            <div class="text-muted fs-4">Click on role to see the skills and courses required</div>
         </div>
 
         <div class="row" style="margin: 20px 320px;">

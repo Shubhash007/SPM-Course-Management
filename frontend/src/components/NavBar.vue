@@ -11,7 +11,7 @@
             <router-link to="/admin" class="nav-link" aria-current="page">HOME</router-link>
           </li>
           <li class="nav-item ms-5" v-if="userRole == 2 || userRole == 4">
-            <router-link to="/StaffHome" class="nav-link" aria-current="page">HOME</router-link>
+            <router-link to="/EditLearningJourneys" class="nav-link" aria-current="page">HOME</router-link>
           </li>
           <li class="nav-item ms-5" v-if="userRole == 3">
             <router-link to="/Manager" class="nav-link" aria-current="page">HOME</router-link>
