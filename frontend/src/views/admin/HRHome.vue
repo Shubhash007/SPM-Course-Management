@@ -61,6 +61,42 @@
           </div>
         </div>
       </div>
+
+
+      <!-- Assign existing course to existing skill -->
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Assign course</h5>
+            <p class="card-text">
+              Assign existing course to existing skill 
+            </p>
+            <router-link class="btn" id="card-button" to="/AssignCourse"
+              >Assign Course</router-link
+            >
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- Assign existing role to existing skill -->
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Assign role</h5>
+            <p class="card-text">
+              Assign existing role to existing skill 
+            </p>
+            <router-link class="btn" id="card-button" to="/AssignRole"
+              >Assign Role</router-link
+            >
+          </div>
+        </div>
+      </div>
+
+
+
     </div>
   </div>
   <Error v-else></Error>
