@@ -21,33 +21,24 @@
     >
       <thead>
         <tr>
-          <th scope="col"></th>
-          <th scope="col">Staff ID</th>
+          <th scope="col">S/N</th>
           <th scope="col">Staff Name(s)</th>
-          <!-- <th scope="col">Job Roles</th> -->
+          <th scope="col">Job Roles</th>
           <th scope="col"></th>
           <!-- <th></th> -->
         </tr>
       </thead>
-
-
-      
       <tbody id="tbody">
-        <tr v-for="employee in employees">
-          <td scope="row" style="color: #2f2ffa"></td>
-          <td>{{employee.Staff_ID}}</td>
-          <td>{{employee.Staff_FName}} {{employee.Staff_LName}}</td>
-          <!-- <td>{{ employee.Job_Role }}</td> -->
+        <tr v-for="staff in staffList">
+          <td scope="row" style="color: #2f2ffa">1</td>
+          <td>{{ staff.name }}</td>
+          <td>{{ staff.roles.toString() }}</td>
           <td>
-            <a href="/StaffProfile" @click="staffProfile(employee.Staff_ID)" class="btn filter-button">View Profile</a>
-            <!-- <a @click="staffProfile(employee.Staff_ID)" class="btn filter-button">View Profile</a> -->
+            <a href="/StaffProfile" class="btn filter-button">View Profile</a>
           </td>
           <!-- <td width="150px"><button href="#" class="btn filter-button" style="transform: scale(0.7); margin: -10px;">Assign Role</button></td> -->
         </tr>
       </tbody>
-
-
-
     </table>
   </div>
   <Error v-else></Error>
@@ -55,11 +46,9 @@
 <script>
 import NavBar from '../../components/NavBar.vue';
 import Error from '../../components/Error.vue';
-import axios from "axios";
 export default {
     data() {
         return {
-            employees:[],
             staffList: [
                 {
                     name: "Mary Lamb",
@@ -74,11 +63,6 @@ export default {
         };
     },
     methods: {
-        staffProfile:function(x){
-          // console.log(x)
-          sessionStorage.setItem("staffID", x);
-        },
-
         searchFunction: function () {
             var input, filter, table, tbody, tr, td, i, txtValue;
             input = document.getElementById("search");
@@ -99,38 +83,13 @@ export default {
                 }
             }
         },
-
-
-        onload: async function(){
-            this.userRole = localStorage.getItem("userRole")
-            await axios.get('/staff/')
-            .then(response => {
-                // this.course = response.data.data;
-                this.employees = response.data
-                console.log(response.data)
-                // console.log(this.employees[10].courses);
-            })
-            .catch(error => alert(error)) 
-
-          
-            },
-
-
         userAuthentication: function(){
           this.userRole = localStorage.getItem("userRole");
         }
     },
-
-
-    mounted(){
-      this.onload()
+    created(){
+      this.userAuthentication()
     },
-    created() {
-      this.onload()
-    },
-    // created(){
-    //   this.userAuthentication()
-    // },
     components: { NavBar }
 };
 </script>

@@ -1,8 +1,7 @@
 <template>
     <div class="accordion-item">
         <h2 class="accordion-header" :id="'heading'+ num">
-            <div type ="hidden" style="display: none;visibility: hidden;">{{roleid}}</div>
-            <button class="accordion-button" :id="num" type="button" @click="getID(roleid)" data-bs-toggle="collapse" :data-bs-target="'#collapse' + num" aria-expanded="true" :aria-controls="'collapseOne' + num">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + num" aria-expanded="true" :aria-controls="'collapseOne' + num">
                 {{role}}
             </button>
         </h2>
@@ -33,7 +32,7 @@
                 </ul>
             </div>
 
-            <button type="button" class="btn btn-outline-danger btn-md" @click="deleteLJ()">Delete Learning Journey</button>
+            <button type="button" class="btn btn-outline-danger btn-md">Delete Learning Journey</button>
         </div>
         
     </div>     
@@ -44,7 +43,7 @@
 import { list } from 'postcss';
 import editCoursesModal from './editCoursesModal.vue';
 import AddCoursesModal from "../../components/addCourseModal.vue";
-import axios from "axios"
+
 
     const props = defineProps({
         num: Number,
@@ -54,32 +53,7 @@ import axios from "axios"
         jobrole:Object,
         regcourses: String,
         jobroleid:Number,
-        roleid:String,
     })
-    let roleID 
-    const getID = function(tryyy) {
-            roleID = tryyy
-            console.log(roleID)
-    }
-
-    const deleteLJ = function() { 
-        let id = localStorage.getItem("staff_id");
-        console.log(id)
-        console.log(roleID)
-        axios.delete('http://127.0.0.1:5000/req/'+id+'/'+roleID+'/')
-    
-        alert(props.role + `Role Successfully Removed from Learning Journey`);
-        window.location = "\EditLearningJourneys"
-    
-        console.log(response)
-    }
-    
-    
-    
-
-
-
-
 
 
 
