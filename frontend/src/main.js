@@ -12,7 +12,6 @@ import router from "./router";
 
 import "./assets/main.css";
 import "./assets/navbar.css";
-import "./assets/hrhome.css";
 
 const app = createApp(App);
 app.component("font-awesome-icon", FontAwesomeIcon);
