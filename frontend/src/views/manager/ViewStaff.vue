@@ -10,13 +10,14 @@
           class="form-control filter-textbox"
           id="search"
           placeholder="Search for Staff"
+          style="border-color: #d8648b"
         />
       </div>
     </div>
     <table
       id="staff"
       class="table table-responsive"
-      style="width: 75%; border-color: #2f2ffa; margin: 20px 60px"
+      style="width: 75%; border-color: #d8648b; margin: 20px 60px"
       border="#2F2FFA"
     >
       <thead>
@@ -28,8 +29,6 @@
         </tr>
       </thead>
 
-
-      
       <tbody id="tbody">
         <tr v-for="employee in employees">
           <td scope="row" style="color: #2f2ffa"></td>
@@ -123,9 +122,6 @@ export default {
     created() {
       this.onload()
     },
-    // created(){
-    //   this.userAuthentication()
-    // },
     components: { NavBar }
 };
 </script>

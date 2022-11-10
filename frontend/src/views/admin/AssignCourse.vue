@@ -161,12 +161,11 @@
 
                 .then(response => {
                     console.log(response.data)
-                    
+                    alert("Course successfully assigned to Skill")
                 })
                 .catch(error => alert(error))
 
             }
-            alert("Course successfully assigned to Skill")
             }
             else {
                 alert("Assignment already exists")
