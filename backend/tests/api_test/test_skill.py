@@ -97,11 +97,3 @@ def test_delete_non_existant_skill(create_skill):
                             } 
 
 
-# @pytest.mark.django_db
-# def test_all(lj_factory,create_skill,course_factory):
-#     skill = create_skill
-#     course = course_factory.create(Skills=(skill,))
-#     #client.post('/skill_to_job_role/1000/20/')
-#     lj_factory.create(Course_Registered = (course,))
-#     print(list(Requirements.objects.all().values('Course_Registered')))
-#     assert True
