@@ -92,7 +92,7 @@ async function addcourse() {
         console.log(id)
         console.log(props.num)
         Course_Registered = {"Course_Registered": courseSelected}
-        console.log(courseSelected.length)
+        console.log(courseSelected)
         
         if (courseSelected.length != 0) {
             const response = await axios.post('http://127.0.0.1:5000/req/'+id+'/'+props.num+'/',Course_Registered);

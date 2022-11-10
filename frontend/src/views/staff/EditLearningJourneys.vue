@@ -42,19 +42,66 @@ const data =reactive({
     filtered_data:[],
 })
 
+
+// async function addRole(){
+//     const response = await axios.get('http://127.0.0.1:5000/req/')
+//     .then(response => {
+//         console.log(response)
+//         for (let each of response.data){
+//             console.log(each.Staff)
+//             stafflist.push(each.Staff)
+//         }
+//     })
+//     .catch(error => {
+//         flag = true;
+//         if (error.response) {
+//             console.log(error.response.data);
+//             console.log(error.response.status);
+//         }
+//   });
+// }
+
+// addRole()
+// console.log(stafflist)
+let stafflist = []
 async function get_data() {
+
     try {
+        const staffid = await axios.get('http://127.0.0.1:5000/req/');
+        console.log(staffid)
+        for (let each in staffid.data){
+            console.log(staffid.data[each].Staff)
+            stafflist.push(staffid.data[each].Staff)
+        }
+        console.log(stafflist)
         let id = localStorage.getItem("staff_id");
-        console.log(id)
-        const response = await axios.get('http://127.0.0.1:5000/req/'+id+'/');
-        let res = response.data
-        data.skills_data = res
-        data.filtered_data = res
-        console.log(res)
+        for (let sid of stafflist) {
+            if (sid == id) {
+                const response = await axios.get('http://127.0.0.1:5000/req/'+id+'/');
+                let res = response.data
+                data.skills_data = res
+                data.filtered_data = res
+                console.log(res)
+            }
+        }
+        // if (stafflist.includes(id) == true) {
+        //     console.log(id)
+        //     const response = await axios.get('http://127.0.0.1:5000/req/'+id+'/');
+        //     let res = response.data
+        //     data.skills_data = res
+        //     data.filtered_data = res
+        //     console.log(res)
+        // }
+        // else {
+        //     alert(`You do not have any existing learning journey. Please add a learning journey first.`);
+            
+        // }
+
         
-        return res
+        
     } catch (error) {
-        alert(`DB is inaccesible at the moment due to ${error.message}`);
+        alert(`You do not have any existing learning journey. Please add a learning journey first.`);
+        
     }
     
 }
