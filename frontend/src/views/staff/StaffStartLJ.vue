@@ -87,10 +87,10 @@ async function get_data() {
 //     catch{
 //     }
 // }
-
+let id = localStorage.getItem("staff_id")
 let flag = false;
 const addRole = function(){
-    axios.get('http://127.0.0.1:5000/req/'+id+'/')
+    axios.get('http://127.0.0.1:5000/req/'+ id+'/')
     .then(response => {
         console.log(response)
     })
