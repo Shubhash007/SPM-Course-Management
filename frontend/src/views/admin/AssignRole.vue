@@ -151,6 +151,7 @@
                         .then(response => {
                         console.log(response.data) 
                         alert("Job Role successfully assigned to Skill")
+                        location.reload();
                     })
                     .catch(error => alert(error))
                     }
