@@ -69,6 +69,7 @@
                     .then(response => {
                         console.log(response.data);
                         console.log(this.skillname);
+                        location.reload();
                     })
                     .catch(error =>{
                         console.log(error.message);
@@ -80,7 +81,6 @@
                     this.hasErrors = true;
                     this.errorMessage = "Edited skill name has to be more than 3 and less than 20 characters";
                 }
-                location.reload();
             },
             populate:function(){
                 axios.get("/skill/" + this.props.skillID +'/')
