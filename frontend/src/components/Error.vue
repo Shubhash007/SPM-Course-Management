@@ -19,7 +19,7 @@
 
     .whistle{
     width: 20%;
-    fill: #F64C72;
+    fill: #f5b9c6c7;
     margin: 100px 40%;
     text-align: left;
     transform: translate(-50%, -50%);
@@ -42,14 +42,14 @@
     h1{
     margin-top: -100px;
     margin-bottom: 20px;
-    color: #2F2FFA;
+    color: #d8648b;
     text-align: center;
     font-family: 'Raleway';
     font-size: 90px;
     font-weight: 800;
     }
     h2{
-    color: #2F2FFA;
+    color: #d8648b;
     text-align: center;
     font-family: 'Raleway';
     font-size: 30px;
