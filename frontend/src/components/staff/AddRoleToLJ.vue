@@ -25,7 +25,7 @@
 
             </ul>
             <br>
-            <button class="btn btn-outline-danger btn-md" @click="addcourse">Add Role to Learning Journey</button>
+            <button class="btn btn-md darkpink-button" @click="addcourse">Add Role to Learning Journey</button>
         </div>
     </div>
 </div> 
@@ -111,27 +111,6 @@ async function addcourse() {
         // alert(`DB is inaccesible at the moment due to ${error.message}`);
     }
 }
-
-// async function checkLJ(){
-//     try {
-//         let id = localStorage.getItem("staff_id");
-//         console.log(id)
-//         const response = await axios.get('http://127.0.0.1:5000/req/'+id+'/');
-//         console.log(response.data)
-//         for (let role in response.data) {
-//             console.log(response.data[role]['Job_Role']['Job_Role_ID'])
-
-//             data.roleTaken.push(response.data[role]['Job_Role']['Job_Role_ID'])
-//         }
-
-
-//     } catch (error) {
-//         alert(`DB is inaccesible at the moment due to ${error.message}`);
-//     }
-// }
-
-// checkLJ()
-// console.log(data.roleTaken)
 </script>
 <script>
     export default{
@@ -168,3 +147,16 @@ async function addcourse() {
         }
     }
 </script>
+<style scoped>
+    .darkpink-button{
+        border-color: #d8648b;
+        background-color: #d8648b;
+        color: white;
+    }
+
+    .darkpink-button:hover{
+        border-color: #d8648b;
+        background-color: #d8648b;
+        color: black;
+    }
+</style>

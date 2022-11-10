@@ -17,7 +17,7 @@
             </div>
         </div>
     </div>
-    <a class="btn btn-sm pink-button" data-bs-toggle="modal" :href="'#add-button'+i+SkillSelected" role="button" style="margin-top: 10px; margin-left: 77%;">Add Course</a>
+    <a class="btn btn-sm pink-button" data-bs-toggle="modal" :href="'#add-button'+i+SkillSelected" role="button" style="margin-top: 10px; margin-left: 70%;">Add Course</a>
 </template>
 
 <script setup>
