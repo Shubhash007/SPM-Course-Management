@@ -3,7 +3,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="second-modal" style="margin-top: auto; color: #F64C72; font-family: Arial, Helvetica, sans-serif;">Add Courses</h1>
+                    <h1 class="modal-title fs-5" id="second-modal" style="margin-top: auto; color: #d8648b;">Add Courses</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body"> 
@@ -110,16 +110,16 @@
     }
 
     .search-textbox:focus{
-        box-shadow: #F64C72;
+        box-shadow: #d8648b;
     }
     
     .pink-button{
-    background-color: #F64C72;
+    background-color: #d8648b;
     color: white;
     }
 
     .pink-button:hover{
-        background-color: #F64C72;
+        background-color: #d8648b;
         color: black;
     }
 </style>

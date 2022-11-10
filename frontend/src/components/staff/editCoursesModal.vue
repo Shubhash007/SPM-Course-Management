@@ -3,7 +3,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" style="margin-top: 5px;" id="first-modal">Drop Courses</h1>
+                    <h1 class="modal-title fs-5" style="margin-top: 5px; color: #d8648b" id="first-modal">Drop Courses</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="modal-footer" id="test">
-                    <button class="btn pink-button" :data-bs-target="'#back-button'+no+skillSelected" data-bs-toggle="modal" @click="get_data()">Confirm</button>
+                    <button class="btn darkpink-button" :data-bs-target="'#back-button'+no+skillSelected" data-bs-toggle="modal" @click="get_data()">Confirm</button>
                 </div>
             </div>
         </div>
@@ -191,7 +191,7 @@
     }
 
     .search-textbox:focus{
-        box-shadow: #f5b9c6c7;
+        box-shadow: #d8648b;
     }
     
     .pink-button{
@@ -201,6 +201,16 @@
 
     .pink-button:hover{
         background-color: #f5b9c6c7;
+        color: black;
+    }
+
+    .darkpink-button{
+    background-color: #d8648b;
+    color: white;
+    }
+
+    .darkpink-button:hover{
+        background-color: #d8648b;
         color: black;
     }
 </style>
