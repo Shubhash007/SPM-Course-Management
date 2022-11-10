@@ -18,8 +18,8 @@
           <li class="nav-item ms-5" v-if="userRole == 3">
             <router-link to="/Manager" class="nav-link" aria-current="page">HOME</router-link>
           </li>
-          <li class="nav-item ms-5" v-if="userRole > 0">
-            <router-link to="StartLJ" class="nav-link" aria-current="page">VIEW LEARNING JOURNEYS</router-link>
+          <li class="nav-item ms-5" v-if="userRole == 2 || userRole == 4">
+            <router-link to="StartLJ" class="nav-link" aria-current="page">START LEARNING JOURNEYS</router-link>
           </li>
           <li class="nav-item ms-5" v-if="userRole > 0">
             <router-link to="/Account" class="nav-link" aria-current="page">ACCOUNT</router-link>

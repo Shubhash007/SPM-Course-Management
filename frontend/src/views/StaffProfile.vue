@@ -3,8 +3,6 @@
     <div style="min-height: 80vh">
         <div class="card w-75">
             <div class="card-body">
-    
-                <!-- <h1 class="card-title">{{staffProfile.Staff_ID}}</h1> -->
                 <h6 style="font-size: 20px">{{staffProfile.Staff_FName}} {{staffProfile.Staff_LName}}</h6>
                 <br>
     
@@ -72,8 +70,6 @@ export default {
         onload: async function(){
             this.userRole = localStorage.getItem("userRole")
             var staffID = sessionStorage.getItem('staffID')
-            // console.log(staffID)
-            // console.log(this.userRole)
 
             await axios.get('/staff/' + staffID + "/")
             .then(response => {
@@ -85,7 +81,6 @@ export default {
 
             await axios.get('/skill_attained/' + staffID + "/")
             .then(response => {
-                // console.log(response.data)
                 for (let i = 0; i < response.data.length; i++){
                     this.skillsList = response.data[i]['Skills']
                 }
@@ -99,15 +94,6 @@ export default {
                 this.currentRoles = response.data
             })
             .catch(error => error)  
-
-
-
-
-
-
-
-
-          
             },
     },
 
@@ -118,9 +104,6 @@ export default {
     created() {
       this.onload()
     },
-    // created(){
-    //   this.userAuthentication()
-    // },
     components: { NavBar }
 };
 

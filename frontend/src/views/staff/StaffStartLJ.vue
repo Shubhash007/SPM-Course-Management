@@ -1,20 +1,10 @@
 <template>
-    <NavBar></NavBar>
-    <div class="container" style="min-height: 82vh">
+    <NavBar v-if="userRole == 2 || userRole == 4"></NavBar>
+    <div class="container" style="min-height: 82vh" v-if="userRole == 2 || userRole == 4">
         <div class="row text-dark fs-1 fw-bold p-2 text-center">
             <p>Start Learning Journey</p>
             <div class="text-muted fs-4">Click on role to see information</div>
         </div>
-
-        <!-- <div class="row" style="margin: 20px 320px;">
-            <div class="col-10">
-                <label for="search" class="visually-hidden">Search</label>
-                <input @change="update_filter" @keyup="update_filter"  v-model="search_term"  type="text" class="form-control search-textbox" id="search" placeholder="Search for Job Role...">
-            </div>
-            <div class="col-2">
-                <button type="submit" class="btn search-button mb-3">Search</button>
-            </div>
-        </div> -->
 
         <div class="row">
             <div class="col-6 mx-auto">
@@ -24,10 +14,12 @@
             </div>
         </div>           
     </div>
+    <Error></Error>
 </template>
 
 <script setup>
-import AddRoleToLJ from '@/components/staff/AddRoleToLJ.vue'
+import AddRoleToLJ from '@/components/staff/AddRoleToLJ.vue';
+import Error from '@/components/Error.vue';
 import { ref,reactive } from 'vue';
 import axios from "axios"
 import NavBar from '../../components/NavBar.vue';
@@ -112,8 +104,17 @@ const update_filter = function(){
         data.remaining = data.skills_data
     }
 }
-
-
+</script>
+<script>
+    export default{
+        data(){
+            return{
+                userRole: 0
+            }
+        }, created(){
+            this.userRole = localStorage.getItem("userRole");
+        }
+    }
 </script>
 
 <style scoped>
