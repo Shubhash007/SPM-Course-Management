@@ -2,19 +2,6 @@
     <NavBar v-if="userRole == 3"></NavBar>
     <div style="min-height: 82vh" v-if="userRole == 3">
         <div class="row p-5" id="row">
-            <!-- Edit Learning Journeys -->
-            <!-- <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Edit Learning Journey(s)</h5>
-                        <p class="card-text">Edit your existing Learning Journey(s).</p>
-                        <router-link class="btn" id="card-button" to="/EditLearningJourneys"
-                        >Edit</router-link
-                        >
-                    </div>
-                </div>
-            </div> -->
-            
             <!--Create Role-->
             <div class="col-sm-6">
                 <div class="card" id="card">
@@ -36,7 +23,7 @@
                 <div class="card" id="card">
                     <div class="card-body">
                         <h5 class="card-title">View Staff</h5>
-                        <p class="card-text">View staffs' skills and completed courses</p>
+                        <p class="card-text">View staffs' profile</p>
                         <router-link class="btn" id="card-button" to="/ViewStaff">View Staff</router-link>
                     </div>
                 </div>
@@ -48,7 +35,7 @@
                     <div class="card-body">
                         <h5 class="card-title">View Roles</h5>
                         <p class="card-text">
-                            View all roles to keep track of unfilled roles in the company
+                            View all roles to keep track of roles in the company
                         </p>
                         <router-link class="btn" id="card-button" to="/ViewRoles"
                             >View Roles</router-link
