@@ -88,20 +88,24 @@ async function get_data() {
 //     }
 // }
 let id = localStorage.getItem("staff_id")
-let flag = false;
+let stafflist = []
 const addRole = function(){
-    axios.get('http://127.0.0.1:5000/req/'+ id+'/')
+    axios.get('http://127.0.0.1:5000/req/'+id+'/')
+    axios.get('http://127.0.0.1:5000/req/')
     .then(response => {
         console.log(response)
+        for (let each of response.data){
+            console.log(each.Staff)
+            stafflist.push(each.Staff)
+        }
     })
     .catch(error => {
         flag = true;
         if (error.response) {
             console.log(error.response.data);
             console.log(error.response.status);
-            console.log(error.response.headers);
         }
-    });
+  });
 }
 
 addRole();
@@ -109,41 +113,48 @@ async function getJobs() {
     try{
         let id = localStorage.getItem("staff_id");
         console.log(id);
-        console.log(flag);
-        const responseReq = await axios.get('http://127.0.0.1:5000/req/'+id+'/');
-        console.log(responseReq.status == 400);
-        data.taken = responseReq.data
-        const response = await axios.get('http://127.0.0.1:5000/job_role/');
-        data.available = response.data
-        console.log(data.available)
-        console.log(data.taken)
-        var existing = []
-        for (let a = 0; a < data.available.length; a++){
-            for (let t in data.taken){
-                if (data.taken[t].Job_Role.Job_Role_ID == data.available[a].Job_Role_ID) {
-                    console.log(data.taken[t].Job_Role.Job_Role_ID)
-                    existing.push(data.available[a].Job_Role_ID)
-                }   
-            }
-        }
-        var dontExist = []
-        for (let a = 0; a < data.available.length; a++){
-            if (existing.includes(data.available[a].Job_Role_ID) == false){
-                dontExist.push(data.available[a].Job_Role_ID)
-            }
-        }
-        console.log(dontExist)
-        for (let i in dontExist){
-                if (dontExist[i] == data.available[dontExist[i]-1].Job_Role_ID){
-                    data.remaining.push(data.available[dontExist[i]-1])
+        if (stafflist.includes(id) == true) {
+            const responseReq = await axios.get('http://127.0.0.1:5000/req/'+id+'/');
+            data.taken = responseReq.data
+            const response = await axios.get('http://127.0.0.1:5000/job_role/');
+            data.available = response.data
+            console.log(data.available)
+            console.log(data.taken)
+            var existing = []
+            for (let a = 0; a < data.available.length; a++){
+                for (let t in data.taken){
+                    if (data.taken[t].Job_Role.Job_Role_ID == data.available[a].Job_Role_ID) {
+                        console.log(data.taken[t].Job_Role.Job_Role_ID)
+                        existing.push(data.available[a].Job_Role_ID)
+                    }   
                 }
-                console.log(dontExist[i],data.available[dontExist[i]-1].Job_Role_ID)
+            }
+            var dontExist = []
+            for (let a = 0; a < data.available.length; a++){
+                if (existing.includes(data.available[a].Job_Role_ID) == false){
+                    dontExist.push(data.available[a].Job_Role_ID)
+                }
+            }
+            console.log(dontExist)
+            for (let i in dontExist){
+                    if (dontExist[i] == data.available[dontExist[i]-1].Job_Role_ID){
+                        data.remaining.push(data.available[dontExist[i]-1])
+                    }
+                    console.log(dontExist[i],data.available[dontExist[i]-1].Job_Role_ID)
+                }
+                console.log(data.remaining)
+            }
+
+            else {
+                data.remaining = await axios.get('http://127.0.0.1:5000/job_role/');
+                data.remaining = data.remaining.data
         }
-            console.log(data.remaining)
-        }
+        
+    }
         
     
     catch{
+
     }
 }
 
