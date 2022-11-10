@@ -34,7 +34,7 @@
                 </ul>
             </div>
 
-            <button type="button" class="btn btn-outline-danger btn-md" @click="deleteLJ()">Delete Learning Journey</button>
+            <button type="button" class="btn btn-md darkpink-button" @click="deleteLJ()">Delete Learning Journey</button>
         </div>
         
     </div>     
@@ -75,16 +75,6 @@ import axios from "axios"
         console.log(response)
     }
     
-    
-    
-
-
-
-
-
-
-
-    
 </script>
  
 <style scoped>
@@ -107,6 +97,17 @@ import axios from "axios"
 
     .pink-button:hover{
         background-color: #f5b9c6c7;
+        color: black;
+    }
+
+    .darkpink-button{
+        background-color: #d8648b;
+        color: white;
+        margin: 0 0 20px 20px;
+    }
+
+    .darkpink-button:hover{
+        background-color: #d8648b;
         color: black;
     }
 </style>

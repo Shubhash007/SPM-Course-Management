@@ -1,6 +1,6 @@
 <template>
-    <NavBar v-if="userRole == 1"></NavBar>
-    <div class="card w-75" style="min-height: 80vh;" v-if="userRole == 1">
+    <NavBar v-if="userRole == 1 || userRole == 3"></NavBar>
+    <div class="card w-75" style="min-height: 80vh;" v-if="userRole == 1 || userRole == 3">
         <div class="card-body">
             <!-- Create a Skill -->
             <h5 class="card-title">Assign Role(s) to Skill</h5>

@@ -20,8 +20,6 @@
                 <tr v-for="(jobRoles, index) in jobRoles">
                     <th scope="row" style="color: #d8648b">{{index+1}}</th>
                     <td>{{ jobRoles.Job_Role_Name}}</td>
-                    <!-- <td><router-link :to="{name: 'StaffProfile', params: {slug: employee.StaffID}}">{{ employee.Staff }}</router-link></td> -->
-                    <!-- <td>{{ jobRoles.Skills.toString()}}</td>  -->
                     <td>
                         <EditRoleDetails :roleId="jobRoles.Job_Role_ID" :currentRoleName="jobRoles.Job_Role_Name"></EditRoleDetails>
                     </td>

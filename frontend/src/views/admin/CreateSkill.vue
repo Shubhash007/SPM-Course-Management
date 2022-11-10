@@ -58,7 +58,7 @@
                     
             <!-- Attach Courses to Skills -->
 
-            <h5 class="card-title">ATTACH TO COURSES(S)</h5>
+            <h5 class="card-title">ATTACH TO COURSE(S)</h5>
             <p class="card-text">
                 <div v-for="n in existingRoleCounter" class="row g-3 py-3 align-items-center">
                     <div class="col-auto">

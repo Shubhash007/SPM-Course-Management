@@ -1,6 +1,6 @@
 <template>
-  <NavBar v-if="userRole == 3"></NavBar>
-  <div style="min-height: 80vh" v-if="userRole == 3">
+  <NavBar v-if="userRole == 3 || userRole == 1"></NavBar>
+  <div style="min-height: 80vh" v-if="userRole == 3 || userRole == 1">
     <div class="row g-3" style="margin: 20px 50px">
       <div class="col-auto">
         <label for="search" class="visually-hidden">Search</label>
@@ -24,9 +24,7 @@
           <th scope="col"></th>
           <th scope="col">Staff ID</th>
           <th scope="col">Staff Name(s)</th>
-          <!-- <th scope="col">Job Roles</th> -->
           <th scope="col"></th>
-          <!-- <th></th> -->
         </tr>
       </thead>
 
@@ -37,12 +35,9 @@
           <td scope="row" style="color: #2f2ffa"></td>
           <td>{{employee.Staff_ID}}</td>
           <td>{{employee.Staff_FName}} {{employee.Staff_LName}}</td>
-          <!-- <td>{{ employee.Job_Role }}</td> -->
           <td>
             <a href="/StaffProfile" @click="staffProfile(employee.Staff_ID)" class="btn filter-button">View Profile</a>
-            <!-- <a @click="staffProfile(employee.Staff_ID)" class="btn filter-button">View Profile</a> -->
           </td>
-          <!-- <td width="150px"><button href="#" class="btn filter-button" style="transform: scale(0.7); margin: -10px;">Assign Role</button></td> -->
         </tr>
       </tbody>
 

@@ -1,7 +1,8 @@
 <template>
-    <NavBar v-if="userRole == 1"></NavBar>
-    <div class="card w-75" v-if="userRole == 1">
+    <NavBar v-if="userRole == 1 || userRole == 3"></NavBar>
+    <div class="card w-75" v-if="userRole == 1 || userRole == 3">
         <div class="card-body">
+            
             <!-- Create a Job Role -->
             <h5 class="card-title">CREATE A JOB ROLE</h5>
             <span>* indicates required field</span>

@@ -14,19 +14,20 @@
                     </div>
                 </div>
             </div> -->
-    
-            <!-- Add Courses to LJ -->
+            
+            <!--Create Role-->
             <div class="col-sm-6">
                 <div class="card" id="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Add courses</h5>
-                        <p class="card-text">
-                        Add courses to existing Learning Journey(s)
-                        </p>
-                        <router-link class="btn" id="card-button" to="/AddCourses"
-                        >Add  Courses</router-link
-                        >
-                    </div>
+                <div class="card-body">
+                    <h5 class="card-title">Create a New Role</h5>
+                    <p class="card-text">
+                    Input a new role into the system. You will not be able to create an
+                    existing role.
+                    </p>
+                    <router-link class="btn" id="card-button" to="/CreateRole"
+                    >Create Role</router-link
+                    >
+                </div>
                 </div>
             </div>
         
@@ -68,6 +69,21 @@
                         >View Skills</router-link
                     >
                     </div>
+                </div>
+            </div>
+
+            <!-- Assign existing role to existing skill -->
+            <div class="col-sm-6">
+                <div class="card" id="card">
+                <div class="card-body">
+                    <h5 class="card-title">Assign role</h5>
+                    <p class="card-text">
+                    Assign existing role to existing skill 
+                    </p>
+                    <router-link class="btn" id="card-button" to="/AssignRole"
+                    >Assign Role</router-link
+                    >
+                </div>
                 </div>
             </div>
         </div>
