@@ -38,7 +38,7 @@
           <div class="card-body">
             <h5 class="card-title">View Roles</h5>
             <p class="card-text">
-              View all roles to keep track of unfilled roles in the company
+              View all roles to keep track of roles in the company
             </p>
             <router-link class="btn" id="card-button" to="/ViewRoles"
               >View Roles</router-link
@@ -100,7 +100,7 @@
           <div class="card" id="card">
               <div class="card-body">
                   <h5 class="card-title">View Staff</h5>
-                  <p class="card-text">View staffs' skills and completed courses</p>
+                  <p class="card-text">View staffs' profiles</p>
                   <router-link class="btn" id="card-button" to="/ViewStaff">View Staff</router-link>
               </div>
           </div>

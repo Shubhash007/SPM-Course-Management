@@ -14,7 +14,7 @@
             </div>
         </div>           
     </div>
-    <Error></Error>
+    <Error v-else></Error>
 </template>
 
 <script setup>
