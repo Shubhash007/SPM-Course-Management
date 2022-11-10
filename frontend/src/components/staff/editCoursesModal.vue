@@ -18,24 +18,7 @@
             </div>
         </div>
     </div>
-
-    <!-- <div class="modal fade" :id="'back-button'+no+skillSelected" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Confirmation</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    You have successfully edited your courses. 
-                </div>
-                <div class="modal-footer">
-                    <button class="btn pink-button" :data-bs-target="'#edit-button'+no+skillSelected" data-bs-toggle="modal">Back</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <a class="btn btn-sm pink-button" data-bs-toggle="modal" :href="'#edit-button'+no+skillSelected" role="button">Edit</a>
+    <a class="btn btn-sm pink-button" data-bs-toggle="modal" :href="'#edit-button'+no+skillSelected" role="button" style="margin-top: 10px; margin-left: 10px;">Edit</a>
 </template>
 
 <script setup>
