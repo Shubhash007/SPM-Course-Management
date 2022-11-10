@@ -396,8 +396,8 @@ class job_assign_skill_detail(APIView):
 class requirements(mixins.ListModelMixin,
                 generics.GenericAPIView):
                 
-    queryset = Registration.objects.all()
-    serializer_class = Registration_Serializer
+    queryset = Requirements.objects.all()
+    serializer_class = Requirements_Serializer
 
     def get(self,request,*args,**kwargs):
         return self.list(request, *args, **kwargs)    
