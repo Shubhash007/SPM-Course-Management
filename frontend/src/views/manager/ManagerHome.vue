@@ -17,7 +17,7 @@
     
             <!-- Add Courses to LJ -->
             <div class="col-sm-6">
-                <div class="card">
+                <div class="card" id="card">
                     <div class="card-body">
                         <h5 class="card-title">Add courses</h5>
                         <p class="card-text">
@@ -32,7 +32,7 @@
         
             <!-- View Staff -->
             <div class="col-sm-6">
-                <div class="card">
+                <div class="card" id="card">
                     <div class="card-body">
                         <h5 class="card-title">View Staff</h5>
                         <p class="card-text">View staffs' skills and completed courses</p>
@@ -43,7 +43,7 @@
 
             <!-- View Roles -->
             <div class="col-sm-6">
-                <div class="card">
+                <div class="card" id="card">
                     <div class="card-body">
                         <h5 class="card-title">View Roles</h5>
                         <p class="card-text">
@@ -58,7 +58,7 @@
     
             <!-- View Skills -->
             <div class="col-sm-6">
-                <div class="card">
+                <div class="card" id="card">
                     <div class="card-body">
                     <h5 class="card-title">View Skills</h5>
                     <p class="card-text">
@@ -100,13 +100,13 @@
         min-height: 80vh;
     }
 
-    .card{
+    #card{
         border-color: #d8648b;
         color:black;
         margin-bottom: 20px;
     }
 
-    .card:hover{
+    #card:hover{
         background-color: #d8648b;
         color:white;
     }

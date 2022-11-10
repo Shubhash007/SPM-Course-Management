@@ -8,9 +8,9 @@
         </h2>
 
         <div :id="'collapse' + num" class="accordion-collapse collapse" :aria-labelledby="'heading'+ num" data-bs-parent="#accordionExample">
-            <div class="col-2">
-                <editCoursesModal :coursesSelected="courses" :jobrole="jobrole" :no="num" :skillSelected="index" :roleid="roleid"/>            
-                <AddCoursesModal  :CoursesSelected="courses" :Jobrole="jobrole" :i="num" :SkillSelected="index"/>
+            <div class="col">
+                    <AddCoursesModal  :CoursesSelected="courses" :Jobrole="jobrole" :i="num" :SkillSelected="index"/>
+                    <editCoursesModal :coursesSelected="courses" :jobrole="jobrole" :no="num" :skillSelected="index" :roleid="roleid"/>                      
             </div>
             <div class="accordion-body" v-for="skill, index in (skills)">
                 <ul class="list-group list-group-flush">
