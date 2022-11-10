@@ -120,11 +120,12 @@
 }
 
     async function get_data() { 
-
+    console.log(props.coursesSelected.length)
     try {
     
-        
-            if (props.coursesSelected.length > 1){
+            console.log(item.length)
+            if (props.coursesSelected.length > 1 && item.length < props.coursesSelected.length){
+                console.log(props.coursesSelected.length)
                 for (let i in item){
                     console.log(item[i])
                     for (let obj in props.coursesSelected){
@@ -137,31 +138,40 @@
                             }
                         }
 
+
+                        
+                }
                 let Course_Registered = {'Course_Registered': regcourse}
                 console.log(Course_Registered)
                 let id = localStorage.getItem("staff_id");
                 console.log(regcourse.length)
                 const response = await axios.put('http://127.0.0.1:5000/req/'+id+'/'+props.jobrole['Job_Role_ID'] + '/', Course_Registered);
                 console.log('http://127.0.0.1:5000/req/'+id+'/'+props.jobrole['Job_Role_ID'] + '/', Course_Registered);
-                        
-                }
-                dropcourse()
+                alert(`Successfully dropped courses!`);
+                window.location = "\EditLearningJourneys"
+                
             }
             
-            else if (props.coursesSelected.length == 1){
+            else if (props.coursesSelected.length == 1 || item.length == props.coursesSelected.length){
                 alert(`Unable to delete course. Learning Journey needs to have at least one course.`);
+                window.location = "\EditLearningJourneys"
+            }
+            if (item.length == 0){
+                
+                alert(`Please select a course to drop`);
                 window.location = "\EditLearningJourneys"
             }
 
 
-        } catch (error) {
-            alert(`DB is inaccesible at the moment due to ${error.message}`);
+        } 
+        catch (error) {
 
+            alert(`Please select a course to drop`);
+            window.location = "\EditLearningJourneys"
             
         }
         
     }
-
 </script>
 <script>
     export default{
