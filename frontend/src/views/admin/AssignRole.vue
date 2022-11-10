@@ -150,10 +150,10 @@
                         })
                         .then(response => {
                         console.log(response.data) 
+                        alert("Job Role successfully assigned to Skill")
                     })
                     .catch(error => alert(error))
                     }
-                    alert("Job Role successfully assigned to Skill")
                     }
                 else {
                     alert("Assignment already exists")
