@@ -21,7 +21,11 @@
                 <tr v-for="(skill, index) in skills">
                     <th scope="row" style="color: #d8648b">{{index+1}}</th>
                     <td>{{ skill.Skill_Name}}</td> 
-                    <td>{{ skill.courses.toString() }}</td>
+                    <td>
+                    <ul v-for="course in skill.courses">
+                        <li>{{course.split(",")[0]}}: {{course.split(",")[1] }}</li>
+                    </ul>
+                    </td>
                     <td><EditSkill :skillID="skill.Skill_ID" :skillName="skill.Skill_Name" :allSkills="skills"></EditSkill></td>
                     <td><button type="button" id="edit" class="btn" @click="deleteSkill(skill.Skill_ID)">
                         Delete Skill
@@ -131,5 +135,12 @@
 
     td{
         color: #d8648b;
+    }
+
+    ul {
+    padding: 0;
+    list-style-type: none;
+    margin: 0;
+    display: inline;
     }
 </style>
