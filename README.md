@@ -34,7 +34,8 @@ Login
   - 140002: Staff
 
 
-API Documentation: https://documenter.getpostman.com/view/19176618/2s84LPxCMA
+API Documentation: https://documenter.getpostman.com/view/19176618/2s84LPxCMAc4
+C4 Diagram Models: [a relative link](Deliverable 2_ C4 Models.jpg)
 
 
 
