@@ -35,7 +35,5 @@ Login
 
 
 API Documentation: https://documenter.getpostman.com/view/19176618/2s84LPxCMAc4
-C4 Diagram Models: [a relative link](Deliverable 2_ C4 Models.jpg)
-
-
+C4 Diagram Models: [https://github.com/Shubhash007/SPM-Course-Management/blob/a34a133d4321df2939b611ec72d00d2912025327/Deliverable%202_%20C4%20Models.jpg](url)
 
