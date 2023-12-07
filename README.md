@@ -34,7 +34,7 @@ Login
   - 140002: Staff
 
 
-API Documentation: [https://documenter.getpostman.com/view/19176618/2s84LPxCMA](url)
+API Documentation: https://documenter.getpostman.com/view/19176618/2s84LPxCMA
 
 
 
